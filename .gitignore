@@ -1,0 +1,10 @@
+# SHP stuff
+*.cpg
+*.dbf
+*.prj
+*.shp
+*.shx
+*.xml
+
+# VIM stuff
+*.swp
