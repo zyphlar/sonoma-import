@@ -6,5 +6,8 @@
 *.shx
 *.xml
 
+# backups
+original_data-backup.sql
+
 # VIM stuff
 *.swp

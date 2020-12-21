@@ -12,6 +12,7 @@ CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
 
 -- added fields for the parcels table
 ALTER TABLE parcels__public_
+    ADD COLUMN "addr:housenumber" text,
 	ADD COLUMN "addr:street" text,
 	ADD COLUMN loc_geom geometry(multipolygon,32616),
 	ADD COLUMN building_count integer,
@@ -22,34 +23,38 @@ UPDATE parcels__public_ SET loc_geom = ST_MakeValid(ST_Transform(geom,32616));
 CREATE INDEX ON parcels__public_ USING GIST (loc_geom);
 
 -- parse and expand parcel street addresses
-UPDATE parcels__public_ SET "addr:street" = initcap(addrst)||' '||
-	CASE 
-		WHEN upper(addrsf) = 'AV' THEN 'Avenue'
-		WHEN upper(addrsf) = 'DR' THEN 'Drive'
-		WHEN upper(addrsf) = 'RD' THEN 'Road'
-		WHEN upper(addrsf) = 'ST' THEN 'Street'
-		WHEN upper(addrsf) = 'LN' THEN 'Lane'
-		WHEN upper(addrsf) = 'CT' THEN 'Court'
-		WHEN upper(addrsf) = 'PL' THEN 'Place'
-		WHEN upper(addrsf) = 'CR' THEN 'Circle'
-		WHEN upper(addrsf) = 'TE' THEN 'Terrace'
-		WHEN upper(addrsf) = 'PK' THEN 'Park'
-		WHEN upper(addrsf) = 'WY' THEN 'Way'
-		WHEN upper(addrsf) = 'BV' THEN 'Boulevard'
-		WHEN upper(addrsf) = 'PW' THEN 'Parkway'
-		WHEN upper(addrsf) = 'TL' THEN 'Trail'
-		WHEN upper(addrsf) = 'HW' THEN 'Highway'
-		WHEN upper(addrsf) = 'WA' THEN 'Way'
-		WHEN upper(addrsf) = 'TR' THEN 'Terrace'
-		WHEN upper(addrsf) = 'SQ' THEN 'Square'
-		WHEN upper(addrsf) = 'AL' THEN 'Alley'
-		WHEN upper(addrsf) = 'BL' THEN 'Boulevard'
-		WHEN upper(addrsf) = 'CI' THEN 'Circle'
-		WHEN upper(addrsf) = 'PT' THEN 'Point'
-		WHEN upper(addrsf) = 'PI' THEN 'Pike'
-		WHEN upper(addrsf) = 'LA' THEN 'Lane'
-		ELSE '' -- NULL cases mostly have the suffix in the name field
-	END;
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+)$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+)$', '\2')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+)'
+    AND situsfmt1 NOT LIKE '%NONE' AND situsfmt1 NOT SIMILAR TO '([0-9]+) ([A-Z ]+) (AVE|DR|RD|ST|LN|CT|PL|CIR|TER|BLVD|PKWY|HWY)' AND situsfmt1 NOT SIMILAR TO '% ([^A-Z]+)';
+-- select situsfmt1, "addr:housenumber", "addr:street" from parcels__public_ limit 100;
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]+) AVE$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) AVE$', '\2 Avenue')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) AVE';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) DR$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) DR$', '\2 Drive')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) DR';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) RD$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) RD$', '\2 Road')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) RD';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) ST$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) ST$', '\2 Street')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) ST';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) LN$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) LN$', '\2 Lane')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) LN';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) CT$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) CT$', '\2 Court')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) CT';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) PL$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) PL$', '\2 Place')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) PL';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) CIR$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) CIR$', '\2 Circle')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) CIR';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) TER$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) TER$', '\2 Terrace')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) TER';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) BLVD$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) BLVD$', '\2 Boulevard')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) BLVD';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) PKWY$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) PKWY$', '\2 Parkway')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) PKWY';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) HWY$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z ]+) HWY$', '\2 Highway')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z ]+) HWY';
+-- select situsfmt1, "addr:housenumber", "addr:street" from parcels__public_ limit 100;
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)';
+-- select situsfmt1, "addr:housenumber", "addr:street" from parcels__public_ where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)';
 
 
 -- identify repeating parcels (indicates multiple addresses associated with buildings)
@@ -64,6 +69,7 @@ UPDATE parcels__public_ SET repeating = TRUE
 FROM geom_counts2 
 WHERE ids @> ARRAY[gid];
 
+-------------------------------------------------------TODO
 
 -- identify parcels with multiple buildings
 UPDATE parcels__public_ SET building_count = NULL WHERE building_count IS NOT NULL;
