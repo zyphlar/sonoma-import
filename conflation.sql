@@ -69,8 +69,6 @@ UPDATE parcels__public_ SET repeating = TRUE
 FROM geom_counts2 
 WHERE ids @> ARRAY[gid];
 
--------------------------------------------------------TODO
-
 -- identify parcels with multiple buildings
 UPDATE parcels__public_ SET building_count = NULL WHERE building_count IS NOT NULL;
 WITH bcounts AS (
@@ -84,19 +82,18 @@ WITH bcounts AS (
 UPDATE parcels__public_ SET building_count = count
 FROM bcounts WHERE bcounts.gid = parcels__public_.gid;
 
-
 -- add addresses to buildings with simple 1:1 matches to parcels
 UPDATE sonoma_county_building_outlines SET "addr:housenumber" = NULL, "addr:street" = NULL;
 WITH a AS (
 	SELECT 
-		b.gid, p.addrno, p."addr:street"
+		b.gid, p."addr:housenumber", p."addr:street"
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE p.building_count = 1 AND NOT p.repeating
 )
 UPDATE sonoma_county_building_outlines SET 
-	"addr:housenumber" = a.addrno,
+	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street"
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
@@ -127,7 +124,7 @@ FROM sizes WHERE sizes.bid = sonoma_county_building_outlines.gid;
 -- now assign addresses to main buildings on parcels with outbuildings
 WITH a AS (
 	SELECT 
-		b.gid, p.addrno, p."addr:street"
+		b.gid, p."addr:housenumber", p."addr:street"
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -137,7 +134,7 @@ WITH a AS (
 		AND b.main -- is main building
 )
 UPDATE sonoma_county_building_outlines SET 
-	"addr:housenumber" = a.addrno,
+	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street"
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
@@ -152,12 +149,14 @@ WHERE
 	AND NOT p.repeating 
 	AND NOT b.main; -- is NOT main building
 
+-- result: 44090
+
 -- try to assign multiple addresses from multiple parcels to single buildings
 WITH addresses AS (
 	SELECT 
 		b.gid,
-		array_to_string( ARRAY_AGG(DISTINCT addrno), ';') AS housenumber,
-		array_to_string( ARRAY_AGG(DISTINCT "addr:street"), ';') AS street
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON 
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -173,11 +172,13 @@ UPDATE sonoma_county_building_outlines AS b SET
 FROM addresses AS a
 WHERE a.gid = b.gid;
 
+-------------------------------------------------------TODO
+
 -- try to identify addresses for buildings across multiple parcels
 WITH addresses AS (
 	SELECT 
 		b.gid,
-		array_to_string( ARRAY_AGG(DISTINCT addrno), ';') AS addrno,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		COUNT(*)
 	FROM sonoma_county_building_outlines AS b
@@ -187,8 +188,8 @@ WITH addresses AS (
 	WHERE 
 		b."addr:housenumber" IS NULL AND
 		NOT p.repeating AND
-		p.addrno IS NOT NULL AND
-		b.sqft > 1000
+		p."addr:housenumber" IS NOT NULL AND
+		b.shape__are > 1000 -- assuming sqft
 	GROUP BY b.gid
 )
 UPDATE sonoma_county_building_outlines AS b SET 
