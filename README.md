@@ -2,7 +2,19 @@
 
 Based on https://github.com/Nate-Wessel/hamilton-import
 
-For project status see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import
+## Project Status
+
+For current project status see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import
+
+### Screenshots
+
+![Legend](/img/legend.png "Legend")
+![Sonoma County Overview](/img/sonoma_county.png "Sonoma County Overview")
+![Santa Rosa](/img/santa_rosa.png "Santa Rosa")
+![Sonoma City](/img/sonoma.png "Sonoma City")
+![Petaluma](/img/petaluma.png "Petaluma")
+
+## Obtaining Data
 
 `original_data` from:
 - https://gis-sonomacounty.hub.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659
