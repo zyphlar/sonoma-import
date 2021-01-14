@@ -8,6 +8,13 @@ For current project status see https://wiki.openstreetmap.org/wiki/Sonoma_County
 
 ### Screenshots
 
+Here is the project status as of Jan 13 2021.
+
+- 106,930 new buildings would be inserted with addresses (green) (non-conflated, with addresses)
+- 139,987 new buildings would be inserted without addresses (non-conflated, no address)
+- 18,867 buildings already exist with addresses and would not be inserted
+- 13,226 buildings already exist without addresses and would not be inserted
+
 ![Legend](/img/legend.png "Legend")
 ![Sonoma County Overview](/img/sonoma_county.png "Sonoma County Overview")
 ![Santa Rosa](/img/santa_rosa.png "Santa Rosa")
