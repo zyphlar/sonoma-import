@@ -2,6 +2,8 @@
 
 Based on https://github.com/Nate-Wessel/hamilton-import
 
+For project status see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import
+
 `original_data` from:
 - https://gis-sonomacounty.hub.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659
 - https://gis-sonomacounty.hub.arcgis.com/datasets/0f5982c3582d4de0b811e68d7f0bff8f
