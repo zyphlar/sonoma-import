@@ -7,7 +7,10 @@
 *.xml
 
 # backups
-original_data-backup.sql
+original_data*
+
+# output
+data/
 
 # VIM stuff
 *.swp
