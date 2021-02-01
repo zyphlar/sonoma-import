@@ -536,7 +536,7 @@ ALTER TABLE simplified_conflated_buildings ADD CONSTRAINT temp1_pkey PRIMARY KEY
 -- 269953
 
 
--- next do non-conflated buldings separately
+-- next do non-conflated buildings separately
 with poly as (
 	SELECT
         gid,
