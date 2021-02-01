@@ -15,11 +15,15 @@ Here is the project status as of Jan 13 2021.
 - 18,867 buildings already exist with addresses and would not be inserted
 - 13,226 buildings already exist without addresses and would not be inserted
 
-![Legend](/img/legend.png "Legend")
-![Sonoma County Overview](/img/sonoma_county.png "Sonoma County Overview")
-![Santa Rosa](/img/santa_rosa.png "Santa Rosa")
-![Sonoma City](/img/sonoma.png "Sonoma City")
-![Petaluma](/img/petaluma.png "Petaluma")
+Here are sample screenshots of Sonoma County, Santa Rosa, the City of Sonoma, and Petaluma:
+
+<img src="/img/legend.png" alt="Legend"/>
+<img src="/img/sonoma_county.png" alt="Sonoma County" width="20%" align="left" />
+<img src="/img/santa_rosa.png" alt="Santa Rosa" width="20%" align="left" />
+<img src="/img/sonoma.png" alt="City of Sonoma" width="20%" align="left" />
+<img src="/img/petaluma.png" alt="Petaluma" width="20%" align="left" />
+
+<br clear="left"/>
 
 ## Obtaining Data
 
