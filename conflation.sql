@@ -1,28 +1,41 @@
+-- TODO: 
+-- - parse `usecode` or `usecdesc` for parcel type (residential / school / biz / etc)
+-- - parse city and state as well for mailing
+
 -- add fields for OSM tags and data processing 
 ALTER TABLE sonoma_county_building_outlines
 	ADD COLUMN "addr:housenumber" text,
 	ADD COLUMN "addr:street" text,
 	ADD COLUMN "addr:unit" text,
+	ADD COLUMN "addr:city" text,
+	ADD COLUMN "addr:state" text,
+	ADD COLUMN usecode integer,
 	ADD COLUMN loc_geom geometry(multipolygon,4326),
 	ADD COLUMN conflated boolean DEFAULT FALSE,
 	ADD COLUMN main boolean; -- is it the main building on the parcel?
 
+update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
+
 -- create local geometry fields and validate geometries
-UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
-CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
+--UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
+--CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
 
 -- added fields for the parcels table
 ALTER TABLE parcels__public_
     ADD COLUMN "addr:housenumber" text,
 	ADD COLUMN "addr:street" text,
 	ADD COLUMN "addr:unit" text,
+	ADD COLUMN "addr:city" text,
+	ADD COLUMN "addr:state" text,
 	ADD COLUMN loc_geom geometry(multipolygon,4326),
 	ADD COLUMN building_count integer,
 	ADD COLUMN repeating BOOLEAN DEFAULT FALSE;
 
+update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
+
 -- create local geometry fields and validate geometries
-UPDATE parcels__public_ SET loc_geom = ST_MakeValid(geom);
-CREATE INDEX ON parcels__public_ USING GIST (loc_geom);
+--UPDATE parcels__public_ SET loc_geom = ST_MakeValid(geom);
+--CREATE INDEX ON parcels__public_ USING GIST (loc_geom);
 
 -- parse and expand parcel street addresses
 -- TODO: find/handle oddballs like 123A Main St and 123 Main St #4
@@ -60,6 +73,7 @@ BEGIN
 		WHEN	'CDS' THEN 'Cul-de-sac'
 		WHEN    'CIR' THEN 'Circle'
 		WHEN	'CMNS' THEN 'Commons'
+        WHEN    'CNTR' THEN 'Center'
 		WHEN	'CONC' THEN 'Concession'
 		WHEN    'CRES' THEN 'Crescent'
 		WHEN	'CRST' THEN 'Crest'
@@ -85,7 +99,8 @@ BEGIN
 		WHEN    'LOOP' THEN 'Loop'
 		WHEN    'MALL' THEN 'Mall'
 		WHEN    'MAL' THEN 'Mall'
-		WHEN    'MTWY' THEN 'Motorway'
+        WHEN    'MTN' THEN 'Mountain'
+        WHEN    'MTWY' THEN 'Motorway'
 		WHEN    'OVAL' THEN 'Oval'
 		WHEN    'OPAS' THEN 'Overpass'
 		WHEN    'OVPS' THEN 'Overpass'
@@ -109,7 +124,9 @@ BEGIN
 		WHEN    'RUE' THEN 'Rue'
 		WHEN    'RUN' THEN 'Run'
 		WHEN    'SKWY' THEN 'Skyway'
-		WHEN    'SPUR' THEN 'Spur'
+        WHEN    'SPGS' THEN 'Springs'
+        WHEN    'SPRGS' THEN 'Springs'
+        WHEN    'SPUR' THEN 'Spur'
 		WHEN    'SQ' THEN 'Square'
 		WHEN	'SR' THEN 'State Route'
 		WHEN	'STCT' THEN 'Street Court'
@@ -172,6 +189,11 @@ update parcels__public_ SET "addr:housenumber" = NULL,
     "addr:unit" = NULL
     where "addr:housenumber" IS NOT NULL;
 
+-- parse city sratr
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\*? ([A-Za-z]+)$', '\1')),
+    "addr:state" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\*? ([A-Za-z]+)$', '\2'))
+    where situsfmt2 SIMILAR TO '([A-Za-z]+)\*? ([A-Za-z]+)' IS NOT NULL;
+
 -- basic 123 Main with no common suffixes or numbers
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]+)$', '\2')) where situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]+)'
@@ -201,12 +223,14 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
     "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{1,99}) ([A-Z]{2,99})$', '\2 ')) -- Main / 4th / A / Saint
              || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{1,99}) ([A-Z]{2,99})$', '\3'))) -- Street / Johns
     where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{1,99}) ([A-Z]{2,99})';
--- now 123 Twin Oaks Ln or 123 St Oaks Pl
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\1')), -- 123
-    "addr:street" =  initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\2'))) -- St / Los
-             || initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', ' \3 ')) -- Pl / Main
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\4'))) -- Dr / Oak
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})';
+-- now 123 Twin Oaks Ln or 123 St Oaks Pl or 12690 Redwood Hwy So or 1300 19th Hole Dr
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\1')), -- 123
+    "addr:street" =  initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\2'))) -- St / Los / 19th
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\3'))) -- Pl / Main
+             || ' ' -- space
+             || initcap(expand_road(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\4')))) -- Dr / Oak / So
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})';
 -- now 123 E Cherry Creek Rd
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{2,99}) ([0-9A-Z]{2,99}) ([A-Z]{2,99})$', '\1')), -- 123
     "addr:street" =  initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{2,99}) ([0-9A-Z]{2,99}) ([A-Z]{2,99})$', '\2'))) -- South
@@ -227,8 +251,28 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
     "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})$', '\2 ')) -- Main / 4th
              || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})$', '\3'))) -- Street
              || ' ' -- space
-	     || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})$', '\4'))) -- S (South)
-    where situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})';
+	         || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})$', '\4'))) -- S (South)
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})';
+
+-- and 14521 CANYON 2 RD
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\1')), -- 123
+    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\2')) -- Canyon
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\3'))) -- 2
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\4'))) -- Rd
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})';
+
+-- and 15560 UPPER CANYON 3 RD
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\1')), -- 123
+    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\2')) -- Upper
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\3'))) -- Canyon
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\4'))) -- 2
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})$', '\5'))) -- Rd
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([0-9]{1}) ([A-Z]{2})';
 
 -- and the even more lovable 123 Main Hill St S
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([0-9A-Z]{2,99}) ([A-Z]{1})$', '\1')), -- 123
@@ -239,40 +283,124 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
              || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([0-9A-Z]{2,99}) ([A-Z]{1})$', '\5'))) -- S (South)
     where situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([0-9A-Z]{2,99}) ([A-Z]{1})';
 
+-- now 10000 FRANZ VALLEY SCHOOL RD / 6401 MTN VIEW RANCH RD / 3762 MANOR LN WEST BRANCH / 222 RAGLE RD SOUTH RD/ 300 ROHNERT PARK EXPWY WEST
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\1')), -- 10000
+    "addr:street" =  initcap(expand_road(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\2')))) -- Franz
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\3'))) -- Valley
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\4'))) -- School
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\5'))) -- Road
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})';
+
+-- now 27801 STEWARTS PT SKAGGS SPRGS RD
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\1')), -- 27801
+    "addr:street" =  initcap(expand_road(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\2')))) -- Stewarts
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\3'))) -- Point
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\4'))) -- Skaggs
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\5'))) -- Springs
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})$', '\6'))) -- Road
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})';
+
+-- 131 LYNCH CREEK A WAY
+
+-- 935 W SPAIN UNIT B ST
+
+-- now 1706 B W COLLEGE AVE
+
+-- now 2347 MARIA LUZ E CT
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\1')), -- 123
+    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\2')) -- Town & Country
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\3'))) -- Drive
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})';
+
+
+-- 622 ELY S BLVD
+
+-- 292 ELY BLVD S BLVD
+
+-- now 1460 TOWN & COUNTRY DR
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\1')), -- 123
+    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\2')) -- Town & Country
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\3'))) -- Drive
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})';
 
 -- for these apartment numbers we're gonna need to start using some functions
 -- no direction but three words in street name
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\1')), -- 123
-    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\2 \3 ')) -- La Main
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\4'))), -- Street
-    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\5'))    -- Unit 4
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)';
--- suffix direction
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)$', '\1')), -- 123
-    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)$', '\3'))) -- Street
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\2 \3 ')) -- La Main
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))), -- Street
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\5'))    -- Unit 4
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{4,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)';
+-- suffix direction and two words
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)$', '\3'))) -- Street
              || ' ' -- space
-	     || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)$', '\4'))), -- S (South)
-    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)$', '\5'))    -- Unit 4 / A
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([0-9A-Z\-]+)';
--- prefix direction
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\1')), -- 123
-    "addr:street" =  initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\2'))) -- S (South)
-             || initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', ' \3 ')) -- Main / 4th
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\4'))), -- Street
-    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)$', '\5'))    -- Unit 4 / A
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([0-9A-Z\-]+)';
--- no direction but two words in street name
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\1')), -- 123
-    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\3'))), -- Street
-    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\4'))    -- Unit 4 / A / 1-A-B2
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([0-9A-Z\-]+)';
--- no direction but one word in street name
-update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\1')), -- 123
-    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\2')), -- Main / 4th
-    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([0-9A-Z\-]+)$', '\3'))    -- Unit 4 / A / 1-A-B2
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+)[ ]+[#]+([0-9A-Z\-]+)';
+	     || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))), -- S (South)
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)$', '\5'))    -- Unit 4 / A
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]{3,99}) ([A-Z]{2,99}) ([A-Z]{1})[ ]+[#]+([ 0-9A-Z\-]+)';
+-- prefix direction and two words
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" =  initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\2'))) -- S (South)
+             || initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', ' \3 ')) -- Main / 4th
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))), -- Street
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\5'))    -- Unit 4 / A
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)';
+-- prefix direction and three words like 1323 W DRY CREEK RD #2
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" =  initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\2'))) -- S (South)
+    || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\3'))) -- Dry
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))) -- Creek/Ext
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\5'))), -- Road
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\6'))    -- Unit 4 / A
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{1}) ([0-9A-Z]{3,99}) ([0-9A-Z]{3,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)';
+-- no direction and two words in street name
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\3'))), -- Street
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))    -- Unit 4 / A / 1-A-B2
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)';
+-- no direction and one word in street name
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\2')), -- Main / 4th
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)$', '\3'))    -- Unit 4 / A / 1-A-B2
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+)[ ]+[#]+([ 0-9A-Z\-]+)';
+-- no direction and five words in street name like 31510 STEWARTS PT SKAGGS SPRGS RD #B
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\1')), -- 31510
+    "addr:street" = initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\2'))) -- Stewarts
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\3'))) -- Point
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\4'))) -- Skaggs
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\5'))) -- Springs
+             || ' ' -- space
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\6'))), -- Road
+    "addr:unit" = initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)$', '\7')))    -- Unit B
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)';
+
+-- no direction, two words in street name, and "STE XXX" or "Ste XXX" in the unit
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\3'))), -- Street
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\4'))    -- STE 4 / A / 1-A-B2
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+Ste ([0-9A-Z\-]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+Ste ([0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
+             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+Ste ([0-9A-Z\-]+)$', '\3'))), -- Street
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+Ste ([0-9A-Z\-]+)$', '\4'))    -- Ste 4 / A / 1-A-B2
+    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+Ste ([0-9A-Z\-]+)';
 
 -- 123 D EXT ST is a unique case that actually needs to be 123 D Street Extension
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) EXT ST$', '\1')),
@@ -287,28 +415,48 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)[ ]+#([0-9A-Z]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)[ ]+#([0-9A-Z]+)$', 'Highway \2')),
     "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)[ ]+#([0-9A-Z]+)$', '\3'))
-	where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)[ ]+#([0-9A-Z]+)';
+    where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)[ ]+#([0-9A-Z]+)';
 
--- TODO: replace Mc([a-z]) with Mc(upper(\1)) when preceded by nothingness or a space
--- capitalize Macarthur, Macfarlane, Mackinnon but not Macaw Mackey Mackl[iy]n or Macmahan
--- investigate Blank Road
--- consider "0" housenumbers
--- remove leading zeroes in housenumbers
--- remove "Ste" from unit
--- 5330 OLD REDWOOD HWY #A B & C
--- 27801 STEWARTS PT SKAGGS SPRGS RD
--- 10000 FRANZ VALLEY SCHOOL RD
--- 1003 HWY 116 N
--- 1382 HWY 116 S  #1
--- 100 SPRING MTN SUMMIT TRL
--- 1055 BROADWAY  #C, D
--- 1055 BROADWAY  #E - H
--- 10826 SUMMER HOME PARK RD
--- 1323 W DRY CREEK RD #2
--- 1340 19TH HOLE DR
--- 14521 CANYON 2 RD
--- 14578 CANYON 1 RD
--- 1460 TOWN & COUNTRY DR
+-- 123 HWY 116 N #C1 is a unique case that needs to be 123 Highway 116 North, Unit C1
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)$', '\1')), -- 123
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)$', 'Highway \2')) -- Highway 116
+        || ' ' -- space
+        || initcap(expand_direction(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)$', '\3'))), -- North
+    "addr:unit" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)$', '\4')) -- Unit C1
+    where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)';
+
+-- 3333 STEWART PT SKAGGS SPRING RD is a unique case that needs to be Stewarts Point-Skaggs Springs Road
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) STEWART PT SKAGGS SPRING RD$', '\1')),
+    "addr:street" = 'Stewarts Point-Skaggs Springs Road'
+    where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) STEWART PT SKAGGS SPRING RD';
+
+-- remove "Ste", "Kandace", "Starr" from unit
+update parcels__public_ SET "addr:unit" = REGEXP_REPLACE("addr:unit", 'Ste', '') where "addr:unit" LIKE '%Ste%';
+update parcels__public_ SET "addr:unit" = REGEXP_REPLACE("addr:unit", 'Kandace', '') where "addr:unit" LIKE '%Kandace%';
+update parcels__public_ SET "addr:unit" = REGEXP_REPLACE("addr:unit", 'Starr', '') where "addr:unit" LIKE '%Starr%';
+-- remove "Ln" from unit and move it to the street
+update parcels__public_ SET "addr:unit" = REGEXP_REPLACE("addr:unit", 'Ln', ''),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+)[ ]+#LN$', '\2 Lane'))
+    where situsfmt1 LIKE '%#LN%';
+
+-- properly categorize certain Scottish last names (we're drawing the line at Mackey and non-Scottish Mc* / Mac*)
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Mcarthur', 'McArthur') where "addr:street" LIKE '%Mcarthur%';
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Mcdowell', 'McDowell') where "addr:street" LIKE '%Mcdowell%';
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Macarthur', 'MacArthur') where "addr:street" LIKE '%Macarthur%';
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Macfarlane', 'MacFarlane') where "addr:street" LIKE '%Macfarlane%';
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Mackinnon', 'MacKinnon') where "addr:street" LIKE '%Mackinnon%';
+update parcels__public_ SET "addr:street" = REGEXP_REPLACE("addr:street", 'Macmahan', 'MacMahan') where "addr:street" LIKE '%Macmahan%';
+
+-- Stewarts Point-Skaggs Springs Road is the OpenStreetMap name for this street, override
+update parcels__public_ SET "addr:street" = 'Stewarts Point-Skaggs Springs Road' where situsfmt1 LIKE '%STEWART%SKAGG%';
+
+-- FYI this dataset has "Blank Road" but that is an actual real road
+-- TODO: consider "0" housenumbers
+
+-- 900 TRANSPORT WAY #A&B
+-- 21075 RIVER BLVD #1 & 2
+-- 34 A&B RANDALL LN
+-- 34 A & B RANDALL LN
 -- 99 e SHILOH RD
 
 --
@@ -345,7 +493,13 @@ FROM bcounts WHERE bcounts.gid = parcels__public_.gid;
 UPDATE sonoma_county_building_outlines SET "addr:housenumber" = NULL, "addr:street" = NULL;
 WITH a AS (
 	SELECT 
-		b.gid, p."addr:housenumber", p."addr:street"
+		b.gid,
+		p."addr:housenumber",
+		p."addr:street",
+		p."addr:unit",
+		p."addr:city",
+		p."addr:state",
+		p.usecode
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -353,7 +507,11 @@ WITH a AS (
 )
 UPDATE sonoma_county_building_outlines SET 
 	"addr:housenumber" = a."addr:housenumber",
-	"addr:street" = a."addr:street"
+	"addr:street" = a."addr:street",
+	"addr:unit" = a."addr:unit",
+	"addr:city" = a."addr:city",
+	"addr:state" = a."addr:state",
+	"x_son_imp:usecode" = a.usecode
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 --SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
@@ -383,7 +541,7 @@ FROM sizes WHERE sizes.bid = sonoma_county_building_outlines.gid;
 -- now assign addresses to main buildings on parcels with outbuildings
 WITH a AS (
 	SELECT 
-		b.gid, p."addr:housenumber", p."addr:street"
+		b.gid, p."addr:housenumber", p."addr:street", p.usecode
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -394,7 +552,8 @@ WITH a AS (
 )
 UPDATE sonoma_county_building_outlines SET 
 	"addr:housenumber" = a."addr:housenumber",
-	"addr:street" = a."addr:street"
+	"addr:street" = a."addr:street",
+	"usecode" = a.usecode
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 -- get a count of outbuildings so we know how many addresses are intentionally unassigned
@@ -420,7 +579,8 @@ WITH addresses AS (
 	SELECT 
 		b.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
-		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
+		p.usecode
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON 
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -432,7 +592,8 @@ WITH addresses AS (
 )
 UPDATE sonoma_county_building_outlines AS b SET 
 	"addr:housenumber" = housenumber,
-	"addr:street" = street
+	"addr:street" = street,
+	"usecode" = a.usecode
 FROM addresses AS a
 WHERE a.gid = b.gid;
 
@@ -568,3 +729,36 @@ FROM (
 WHERE 
 	ST_Intersects(poly.geom, baz.geom)
 	AND ST_Area(st_intersection(poly.geom, baz.geom))/ST_Area(baz.geom) > 0.9;
+
+
+
+------- TODO
+
+alter table sonoma_building_outlines add column cid integer;
+
+-- Drop TAZs that aren't near SJ
+with hull as (
+	select ST_ConvexHull(ST_Collect(geom)) as geom from (
+		union select geom
+		from "sonoma_building_outlines"
+	) as geom)
+	delete from VTATaz
+	using hull
+	where not ST_Intersects(VTATaz.geom, hull.geom);
+
+-- Assign cluster to each data point
+update sonoma_building_outlines as t
+	set cid = taggedThing.key
+	from (
+		select (row_number() over (partition by sonoma_building_outlines.gid order by ST_Distance(sonoma_building_outlines.geom, VTATaz.geom))) as rn,
+		VTATaz.key, sonoma_building_outlines.gid
+		from sonoma_building_outlines
+		join VTATaz
+		on ST_Intersects(sonoma_building_outlines.geom, VTATaz.geom)
+	) as taggedThing
+	where t.gid = taggedThing.gid and rn = 1;
+-- More specifically drop TAZs that don't have any SJ data in them
+delete from VTATaz
+	where key not in (
+		select distinct cid from sonoma_building_outlines
+	);

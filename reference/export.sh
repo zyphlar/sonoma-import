@@ -78,7 +78,10 @@ for intersects in false true; do
         outdir="clean"
         intersectsQuery="not intersectsExisting"
     fi
-    
+   
+    # The purpose of the out/*/buildings*.osm files is to publicly host, split, ready for tasking
+    # https://codeforsanjose.github.io/OSM-SouthBay/SJ_Buildings/out/clean/buildings_1323.osm
+
     ogr2ogr -sql "select 'https://codeforsanjose.github.io/OSM-SouthBay/SJ_Buildings/out/${outdir}/buildings_' || key || '.osm' as import_url, ST_SimplifyPreserveTopology(geom, 4) from VTATaz" \
         -t_srs EPSG:4326 \
         "out/grouped_${outdir}_buildings_zones.geojson" \

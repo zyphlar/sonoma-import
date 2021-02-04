@@ -59,7 +59,10 @@ Debian (shp2pgsql is included in postgis)
 
 - The postgresql server started/running/configured and database `openstreetmap` created, generally at localhost port 5432.
 
-- Osmosis, for export
+- For export: sudo apt-get install -y gdal-bin python-lxml
+  - ogr2osm https://github.com/pnorman/ogr2osm
+  - Maybe also/instead: python3-gdal
+  - Do NOT install the osgeo package from pip, it's empty and will cause ogr import errors.
 
 ## Running
 
