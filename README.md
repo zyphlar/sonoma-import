@@ -30,21 +30,10 @@ Here are sample screenshots of Sonoma County, Santa Rosa, the City of Sonoma, an
 `original_data` from:
 - https://gis-sonomacounty.hub.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659
 - https://gis-sonomacounty.hub.arcgis.com/datasets/0f5982c3582d4de0b811e68d7f0bff8f
-- https://overpass-turbo.eu/
+- http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
-Overpass query (you may save as OSM file, shapefile, or postgres sql dump depending on your overpass client)
+osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432
 
-```
-area[name="Sonoma County"];
-(
-  way[building](area);
-  relation[building](area);
-);
-(._;>;);
-out;
-```
-
-If using an Overpass -> QGIS -> Postgres dump, save it as `osmquery_buildings_pgdump.sql` for later.
 Otherwise osm2pgsql should create tables like `son_polygon` for later.
 
 ## Prerequisites
@@ -127,6 +116,22 @@ psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -f osmquery-pgdum
 osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong sonoma-orig-buildings-20201219.osm -U postgres -W`
 osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest-20200103.osm.pbf -U openstreetmap -W -H localhost -P 5432
 ```
+
+- https://overpass-turbo.eu/
+
+Overpass query (you may save as OSM file, shapefile, or postgres sql dump depending on your overpass client)
+
+```
+area[name="Sonoma County"];
+(
+  way[building](area);
+  relation[building](area);
+);
+(._;>;);
+out;
+```
+
+If using an Overpass -> QGIS -> Postgres dump, save it as `osmquery_buildings_pgdump.sql` for later.
 
 ```
 sonoma_county_building_outlines
