@@ -31,6 +31,7 @@ Here are sample screenshots of Sonoma County, Santa Rosa, the City of Sonoma, an
 - https://gis-sonomacounty.hub.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659
 - https://gis-sonomacounty.hub.arcgis.com/datasets/0f5982c3582d4de0b811e68d7f0bff8f
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
+- VTATaz: https://drive.google.com/file/d/0B098fXDVjQOhVHBFS0kwcDNGRlU/view
 
 Script:
 ```
@@ -60,26 +61,26 @@ Debian (shp2pgsql is included in postgis)
 
 - For export: sudo apt-get install -y gdal-bin python-lxml
   - ogr2osm https://github.com/pnorman/ogr2osm
+    - `cd ~`
+    - `git clone --recursive https://github.com/pnorman/ogr2osm`
   - Maybe also/instead: python3-gdal
   - Do NOT install the osgeo package from pip, it's empty and will cause ogr import errors.
 
 ## Running
 
-- First, prepare Postgres for an OSM schema that'll be used for the output data, by running this SQL in your desired database: https://github.com/openstreetmap/osmosis/blob/master/package/script/pgsnapshot_schema_0.6.sql
-- Run the following SQL as a superuser (postgres) inside the `openstreetmap` database to enable the PostGIS and hstore extensions: `CREATE EXTENSION postgis; CREATE EXTENSION hstore;`
-- Unzip the `original_data` and open a shell in that folder.
-- Here we are assuming that the county data uses a WGS84 aka EPSG:4326 geographical projection, which was true as of last check and is also what OSM uses.
+- We are assuming that the county data uses a WGS84 aka EPSG:4326 geographical projection, which was true as of last check and is also what OSM uses.
 - Run from your shell: `shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W`
 - `shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W`
 - `shp2pgsql -s 4326 -I osm-buildings-01-03.shp | psql -d openstreetmap -U openstreetmap -W`
 - `osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432`
 
-Now all the data is in Postgres. For processing and conflation, read through and execute `conflation.sql` as per your comfort level.
 osm2pgsql should create tables like `son_polygon` for later.
+
+Now all the data is in Postgres. For processing and conflation, read through and execute `conflation.sql` as per your comfort level.
 
 ## Exporting and uploading
 
-TODO, Osmium
+TODO, `trial.sh`
 
 ## Import and validation
 
