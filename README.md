@@ -31,7 +31,7 @@ Here are sample screenshots of Sonoma County, Santa Rosa, the City of Sonoma, an
 - https://gis-sonomacounty.hub.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659
 - https://gis-sonomacounty.hub.arcgis.com/datasets/0f5982c3582d4de0b811e68d7f0bff8f
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
-- VTATaz: https://drive.google.com/file/d/0B098fXDVjQOhVHBFS0kwcDNGRlU/view
+- VTATaz (included in git, original_data): https://drive.google.com/file/d/0B098fXDVjQOhVHBFS0kwcDNGRlU/view
 
 Script:
 ```

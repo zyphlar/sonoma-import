@@ -4,15 +4,15 @@
 
 -- add fields for OSM tags and data processing 
 ALTER TABLE sonoma_county_building_outlines
-	ADD COLUMN "addr:housenumber" text,
-	ADD COLUMN "addr:street" text,
-	ADD COLUMN "addr:unit" text,
-	ADD COLUMN "addr:city" text,
-	ADD COLUMN "addr:state" text,
-	ADD COLUMN usecode integer,
-	ADD COLUMN loc_geom geometry(multipolygon,4326),
-	ADD COLUMN conflated boolean DEFAULT FALSE,
-	ADD COLUMN main boolean; -- is it the main building on the parcel?
+	ADD COLUMN IF NOT EXISTS "addr:housenumber" text,
+	ADD COLUMN IF NOT EXISTS "addr:street" text,
+	ADD COLUMN IF NOT EXISTS "addr:unit" text,
+	ADD COLUMN IF NOT EXISTS "addr:city" text,
+	ADD COLUMN IF NOT EXISTS "addr:state" text,
+	ADD COLUMN IF NOT EXISTS usecode integer,
+	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326),
+	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
+	ADD COLUMN IF NOT EXISTS main boolean; -- is it the main building on the parcel?
 
 update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
 
@@ -22,14 +22,14 @@ update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:stre
 
 -- added fields for the parcels table
 ALTER TABLE parcels__public_
-    ADD COLUMN "addr:housenumber" text,
-	ADD COLUMN "addr:street" text,
-	ADD COLUMN "addr:unit" text,
-	ADD COLUMN "addr:city" text,
-	ADD COLUMN "addr:state" text,
-	ADD COLUMN loc_geom geometry(multipolygon,4326),
-	ADD COLUMN building_count integer,
-	ADD COLUMN repeating BOOLEAN DEFAULT FALSE;
+    ADD COLUMN IF NOT EXISTS "addr:housenumber" text,
+	ADD COLUMN IF NOT EXISTS "addr:street" text,
+	ADD COLUMN IF NOT EXISTS "addr:unit" text,
+	ADD COLUMN IF NOT EXISTS "addr:city" text,
+	ADD COLUMN IF NOT EXISTS "addr:state" text,
+	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326),
+	ADD COLUMN IF NOT EXISTS building_count integer,
+	ADD COLUMN IF NOT EXISTS repeating BOOLEAN DEFAULT FALSE;
 
 update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
 

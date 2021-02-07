@@ -19,7 +19,7 @@ psql --echo-all --command="create extension if not exists postgis;" "${DBNAME}" 
 psql --echo-all --file="103240.sql" "${DBNAME}" -h $PGHOST -U $PGUSER
 
 echo "Importing TAZ"
-shp2pgsql -d -D -s 103240 -I "data/VTATaz" | psql -d "${DBNAME}" -h $PGHOST -U $PGUSER >/dev/null
+shp2pgsql -d -D -s 103240 -I "original_data/VTATaz/VTATaz" | psql -d "${DBNAME}" -h $PGHOST -U $PGUSER >/dev/null
 
 # Conflate addresses to buildings
 psql -v "ON_ERROR_STOP=true" --echo-queries --file="conflation.sql" "${DBNAME}" -h $PGHOST -U $PGUSER
