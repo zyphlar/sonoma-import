@@ -39,14 +39,14 @@ update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "ad
 
 -- parse and expand parcel street addresses
 -- TODO: find/handle oddballs like 123A Main St and 123 Main St #4
-SELECT situsfmt1, "addr:housenumber", "addr:street"
-FROM public.parcels__public_
-where "addr:housenumber" is null
-and situsfmt1 NOT SIMILAR TO '([0-9]+)[A-Z]* [A-Z ]*([0-9]*[A-Z\- ]+)'
-and situsfmt1 NOT SIMILAR TO '%NONE'
-and situsfmt1 NOT SIMILAR TO '%#%'
-and situsfmt1 SIMILAR TO '([0-9]+)% %'
-ORDER BY gid ASC;
+-- SELECT situsfmt1, "addr:housenumber", "addr:street"
+-- FROM public.parcels__public_
+-- where "addr:housenumber" is null
+-- and situsfmt1 NOT SIMILAR TO '([0-9]+)[A-Z]* [A-Z ]*([0-9]*[A-Z\- ]+)'
+-- and situsfmt1 NOT SIMILAR TO '%NONE'
+-- and situsfmt1 NOT SIMILAR TO '%#%'
+-- and situsfmt1 SIMILAR TO '([0-9]+)% %'
+-- ORDER BY gid ASC;
 
 --
 -- functions for address parsing
@@ -201,10 +201,10 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
 
 
 -- convenient query to check status as you go
-select count(*), min(situsfmt1), min("addr:housenumber"), max("addr:housenumber"), "addr:street", min("addr:unit") from parcels__public_
-    where "addr:housenumber" is not null
-	group by "addr:street"
-    order by count desc;
+-- select count(*), min(situsfmt1), min("addr:housenumber"), max("addr:housenumber"), "addr:street", min("addr:unit") from parcels__public_
+--     where "addr:housenumber" is not null
+-- 	group by "addr:street"
+--     order by count desc;
 
 
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', '\1')),
@@ -511,7 +511,7 @@ UPDATE sonoma_county_building_outlines SET
 	"addr:unit" = a."addr:unit",
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
-	"x_son_imp:usecode" = a.usecode
+	"usecode" = a.usecode
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 --SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
