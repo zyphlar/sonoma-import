@@ -59,11 +59,10 @@ Debian (shp2pgsql is included in postgis)
 
 - The postgresql server started/running/configured and database `openstreetmap` created, generally at localhost port 5432.
 
-- For export: sudo apt-get install -y gdal-bin python-lxml
+- For export: sudo apt-get install -y gdal-bin python-lxml python3-gdal
   - ogr2osm https://github.com/pnorman/ogr2osm
     - `cd ~`
     - `git clone --recursive https://github.com/pnorman/ogr2osm`
-  - Maybe also/instead: python3-gdal
   - Do NOT install the osgeo package from pip, it's empty and will cause ogr import errors.
 
 ## Running
@@ -118,6 +117,12 @@ Please ensure you are logged in under a dedicated import account with a user nam
 
 
 ### Internal Notes
+
+- TODO:
+ - TAZ CIDs aren't working, each CID is a full 200mb export
+ - Address conflation isn't working, no buildings have numbers
+ - Consider simplifying geometry, ~50 buildings are drawn twice
+
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
 ```
