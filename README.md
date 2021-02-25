@@ -121,6 +121,7 @@ Please ensure you are logged in under a dedicated import account with a user nam
 - TODO:
   - Spot check buildings without addresses
   - Double check if geometry is adequately simplified or not
+  - Figure out how to handle the newly-imported Santa Rosa address POIs
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 

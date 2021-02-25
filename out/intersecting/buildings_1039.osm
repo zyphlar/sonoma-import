@@ -1,129 +1,129 @@
 <?xml version="1.0"?>
 <osm version="0.6" generator="uvmogr2osm" upload="false">
-<node id="-2" lat="38.491262774" lon="-122.929342105" visible="true" />
-<node id="-3" lat="38.49140596" lon="-122.929355876" visible="true" />
-<node id="-4" lat="38.491407231000004" lon="-122.929334405" visible="true" />
-<node id="-5" lat="38.491426051000005" lon="-122.92933619300001" visible="true" />
-<node id="-6" lat="38.491427556000005" lon="-122.929311114" visible="true" />
-<node id="-7" lat="38.491408417" lon="-122.929309293" visible="true" />
-<node id="-8" lat="38.491413257000005" lon="-122.929228237" visible="true" />
-<node id="-9" lat="38.491363524" lon="-122.92922342700001" visible="true" />
-<node id="-10" lat="38.491360426" lon="-122.929275622" visible="true" />
-<node id="-11" lat="38.49126727" lon="-122.929266634" visible="true" />
-<node id="-13" lat="38.489988671" lon="-122.92755070400001" visible="true" />
-<node id="-14" lat="38.489990749" lon="-122.927585437" visible="true" />
-<node id="-15" lat="38.490012162" lon="-122.927583357" visible="true" />
-<node id="-16" lat="38.490014968000004" lon="-122.92763003700001" visible="true" />
-<node id="-17" lat="38.490131148" lon="-122.92761873500001" visible="true" />
-<node id="-18" lat="38.490127695000005" lon="-122.927561447" visible="true" />
-<node id="-19" lat="38.490111479" lon="-122.927563042" visible="true" />
-<node id="-20" lat="38.490108291000006" lon="-122.92750983600001" visible="true" />
-<node id="-21" lat="38.490176561000006" lon="-122.92750320900001" visible="true" />
-<node id="-22" lat="38.490172137" lon="-122.92742983800001" visible="true" />
-<node id="-23" lat="38.490099952" lon="-122.92743682000001" visible="true" />
-<node id="-24" lat="38.490103202" lon="-122.92749104800001" visible="true" />
-<node id="-25" lat="38.490008458000005" lon="-122.92750024000001" visible="true" />
-<node id="-26" lat="38.490011366000005" lon="-122.927548494" visible="true" />
-<node id="-28" lat="38.491504203000005" lon="-122.93092301600001" visible="true" />
-<node id="-29" lat="38.491508134" lon="-122.93106282800001" visible="true" />
-<node id="-30" lat="38.491544509" lon="-122.931061205" visible="true" />
-<node id="-31" lat="38.491540577" lon="-122.93092139500001" visible="true" />
-<node id="-33" lat="38.491474943" lon="-122.93369750500001" visible="true" />
-<node id="-34" lat="38.491507534" lon="-122.933716798" visible="true" />
-<node id="-35" lat="38.491504258" lon="-122.933725753" visible="true" />
-<node id="-36" lat="38.491567641" lon="-122.933763239" visible="true" />
-<node id="-37" lat="38.491568857000004" lon="-122.933759936" visible="true" />
-<node id="-38" lat="38.491624132000005" lon="-122.933792628" visible="true" />
-<node id="-39" lat="38.491656637000006" lon="-122.93370363500001" visible="true" />
-<node id="-40" lat="38.491604436" lon="-122.933672817" visible="true" />
-<node id="-41" lat="38.491607220000006" lon="-122.933665226" visible="true" />
-<node id="-42" lat="38.491543769" lon="-122.93362771000001" visible="true" />
-<node id="-43" lat="38.491542014000004" lon="-122.933632607" visible="true" />
-<node id="-44" lat="38.491506348" lon="-122.933611526" visible="true" />
-<node id="-46" lat="38.490766637" lon="-122.930491129" visible="true" />
-<node id="-47" lat="38.490851891000005" lon="-122.930637501" visible="true" />
-<node id="-48" lat="38.490901351000005" lon="-122.93059086100001" visible="true" />
-<node id="-49" lat="38.490857065" lon="-122.930514814" visible="true" />
-<node id="-50" lat="38.490862416000006" lon="-122.930509731" visible="true" />
-<node id="-51" lat="38.490850882000004" lon="-122.93048992700001" visible="true" />
-<node id="-52" lat="38.490844148" lon="-122.93049630300001" visible="true" />
-<node id="-53" lat="38.490814737" lon="-122.930445782" visible="true" />
-<node id="-55" lat="38.491577005" lon="-122.93322406300001" visible="true" />
-<node id="-56" lat="38.491709807" lon="-122.933257099" visible="true" />
-<node id="-57" lat="38.491721666000004" lon="-122.933179948" visible="true" />
-<node id="-58" lat="38.49167631" lon="-122.93316864200001" visible="true" />
-<node id="-59" lat="38.491675781000005" lon="-122.933171954" visible="true" />
-<node id="-60" lat="38.491645634" lon="-122.933164485" visible="true" />
-<node id="-61" lat="38.491654014000005" lon="-122.933110001" visible="true" />
-<node id="-62" lat="38.491596737" lon="-122.933095742" visible="true" />
-<node id="-64" lat="38.488591741" lon="-122.92755020700001" visible="true" />
-<node id="-65" lat="38.488658845" lon="-122.927663143" visible="true" />
-<node id="-66" lat="38.488711934" lon="-122.92761203600001" visible="true" />
-<node id="-67" lat="38.488644806" lon="-122.92749912900001" visible="true" />
-<node id="-69" lat="38.473418409000004" lon="-122.892087509" visible="true" />
-<node id="-70" lat="38.473544937" lon="-122.89208981600001" visible="true" />
-<node id="-71" lat="38.473545478000005" lon="-122.89204051300001" visible="true" />
-<node id="-72" lat="38.473500129" lon="-122.89203965600001" visible="true" />
-<node id="-73" lat="38.473500561" lon="-122.89200146900001" visible="true" />
-<node id="-74" lat="38.473481913" lon="-122.89200114900001" visible="true" />
-<node id="-75" lat="38.473483292000004" lon="-122.89187879100001" visible="true" />
-<node id="-76" lat="38.473529899" lon="-122.891879664" visible="true" />
-<node id="-77" lat="38.473530697" lon="-122.89180588200001" visible="true" />
-<node id="-78" lat="38.473437414" lon="-122.891804194" visible="true" />
-<node id="-79" lat="38.473435857000005" lon="-122.891940754" visible="true" />
-<node id="-80" lat="38.473420047000005" lon="-122.8919405" visible="true" />
-<node id="-82" lat="38.490732945000005" lon="-122.929368111" visible="true" />
-<node id="-83" lat="38.490770171" lon="-122.92953112400001" visible="true" />
-<node id="-84" lat="38.490827229000004" lon="-122.92951002800001" visible="true" />
-<node id="-85" lat="38.490809699" lon="-122.929433254" visible="true" />
-<node id="-86" lat="38.490812615" lon="-122.929432156" visible="true" />
-<node id="-87" lat="38.490793957" lon="-122.929350446" visible="true" />
-<node id="-88" lat="38.490754663000004" lon="-122.92936501700001" visible="true" />
-<node id="-89" lat="38.490753624" lon="-122.929360461" visible="true" />
-<node id="-91" lat="38.489366349" lon="-122.92750797500001" visible="true" />
-<node id="-92" lat="38.489468360000004" lon="-122.92756560900001" visible="true" />
-<node id="-93" lat="38.489515273" lon="-122.927431295" visible="true" />
-<node id="-94" lat="38.489413263" lon="-122.92737363200001" visible="true" />
-<node id="-96" lat="38.491245738" lon="-122.930160114" visible="true" />
-<node id="-97" lat="38.491330555000005" lon="-122.930261293" visible="true" />
-<node id="-98" lat="38.491390386" lon="-122.930180108" visible="true" />
-<node id="-99" lat="38.491355343" lon="-122.930138365" visible="true" />
-<node id="-100" lat="38.491336579000006" lon="-122.93016386000001" visible="true" />
-<node id="-101" lat="38.491286782" lon="-122.930104455" visible="true" />
-<node id="-103" lat="38.486774853" lon="-122.92033613800001" visible="true" />
-<node id="-104" lat="38.486803202000004" lon="-122.92049750700001" visible="true" />
-<node id="-105" lat="38.486930884" lon="-122.920461216" visible="true" />
-<node id="-106" lat="38.486894369000005" lon="-122.92025336100001" visible="true" />
-<node id="-107" lat="38.486844049000005" lon="-122.92026764900001" visible="true" />
-<node id="-108" lat="38.486848865" lon="-122.92029499200001" visible="true" />
-<node id="-109" lat="38.486825448000005" lon="-122.92030167700001" visible="true" />
-<node id="-110" lat="38.486828797" lon="-122.92032082" visible="true" />
-<node id="-112" lat="38.491358638" lon="-122.929466922" visible="true" />
-<node id="-113" lat="38.491414166000006" lon="-122.92946811200001" visible="true" />
-<node id="-114" lat="38.491415455" lon="-122.92937035400001" visible="true" />
-<node id="-115" lat="38.491359903" lon="-122.929369166" visible="true" />
-<node id="-117" lat="38.487569642000004" lon="-122.92226668600001" visible="true" />
-<node id="-118" lat="38.487596797" lon="-122.92237656600001" visible="true" />
-<node id="-119" lat="38.487586169000004" lon="-122.922380797" visible="true" />
-<node id="-120" lat="38.487606386" lon="-122.92246260900001" visible="true" />
-<node id="-121" lat="38.487594012" lon="-122.92246754400001" visible="true" />
-<node id="-122" lat="38.487620881000005" lon="-122.922576257" visible="true" />
-<node id="-123" lat="38.487785917000004" lon="-122.922510259" visible="true" />
-<node id="-124" lat="38.487760714000004" lon="-122.922408148" visible="true" />
-<node id="-125" lat="38.487702265" lon="-122.922431501" visible="true" />
-<node id="-126" lat="38.487653274" lon="-122.922233206" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-11" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="38715" /></way>
-<way id="-12" visible="true"><nd ref="-13" /><nd ref="-14" /><nd ref="-15" /><nd ref="-16" /><nd ref="-17" /><nd ref="-18" /><nd ref="-19" /><nd ref="-20" /><nd ref="-21" /><nd ref="-22" /><nd ref="-23" /><nd ref="-24" /><nd ref="-25" /><nd ref="-26" /><nd ref="-13" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54736" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11250" /></way>
-<way id="-27" visible="true"><nd ref="-28" /><nd ref="-29" /><nd ref="-30" /><nd ref="-31" /><nd ref="-28" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="39253" /></way>
-<way id="-32" visible="true"><nd ref="-33" /><nd ref="-34" /><nd ref="-35" /><nd ref="-36" /><nd ref="-37" /><nd ref="-38" /><nd ref="-39" /><nd ref="-40" /><nd ref="-41" /><nd ref="-42" /><nd ref="-43" /><nd ref="-44" /><nd ref="-33" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="38946" /><tag k="addr:state" v="Ca" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Yellowbrick Road" /><tag k="addr:housenumber" v="9014" /></way>
-<way id="-45" visible="true"><nd ref="-46" /><nd ref="-47" /><nd ref="-48" /><nd ref="-49" /><nd ref="-50" /><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-46" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54734" /><tag k="addr:state" v="Unincorp County Ca" /><tag k="addr:city" v="Unincorp County Ca" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11305" /></way>
-<way id="-54" visible="true"><nd ref="-55" /><nd ref="-56" /><nd ref="-57" /><nd ref="-58" /><nd ref="-59" /><nd ref="-60" /><nd ref="-61" /><nd ref="-62" /><nd ref="-55" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="30580" /><tag k="addr:state" v="Ca" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="9012" /></way>
-<way id="-63" visible="true"><nd ref="-64" /><nd ref="-65" /><nd ref="-66" /><nd ref="-67" /><nd ref="-64" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="64207" /><tag k="addr:state" v="Unincorp County Ca" /><tag k="addr:city" v="Unincorp County Ca" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11207" /></way>
-<way id="-68" visible="true"><nd ref="-69" /><nd ref="-70" /><nd ref="-71" /><nd ref="-72" /><nd ref="-73" /><nd ref="-74" /><nd ref="-75" /><nd ref="-76" /><nd ref="-77" /><nd ref="-78" /><nd ref="-79" /><nd ref="-80" /><nd ref="-69" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="64971" /><tag k="addr:state" v="Ca" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Front Street" /><tag k="addr:housenumber" v="6566" /></way>
-<way id="-81" visible="true"><nd ref="-82" /><nd ref="-83" /><nd ref="-84" /><nd ref="-85" /><nd ref="-86" /><nd ref="-87" /><nd ref="-88" /><nd ref="-89" /><nd ref="-82" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54892" /><tag k="addr:state" v="Unincorp County Ca" /><tag k="addr:city" v="Unincorp County Ca" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11270" /></way>
-<way id="-90" visible="true"><nd ref="-91" /><nd ref="-92" /><nd ref="-93" /><nd ref="-94" /><nd ref="-91" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54377" /><tag k="addr:state" v="Unincorp County Ca" /><tag k="addr:city" v="Unincorp County Ca" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11230" /></way>
-<way id="-95" visible="true"><nd ref="-96" /><nd ref="-97" /><nd ref="-98" /><nd ref="-99" /><nd ref="-100" /><nd ref="-101" /><nd ref="-96" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="39141" /><tag k="addr:state" v="Unincorp County Ca" /><tag k="addr:city" v="Unincorp County Ca" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11310" /></way>
-<way id="-102" visible="true"><nd ref="-103" /><nd ref="-104" /><nd ref="-105" /><nd ref="-106" /><nd ref="-107" /><nd ref="-108" /><nd ref="-109" /><nd ref="-110" /><nd ref="-103" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54637" /></way>
-<way id="-111" visible="true"><nd ref="-112" /><nd ref="-113" /><nd ref="-114" /><nd ref="-115" /><nd ref="-112" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="30502" /></way>
-<way id="-116" visible="true"><nd ref="-117" /><nd ref="-118" /><nd ref="-119" /><nd ref="-120" /><nd ref="-121" /><nd ref="-122" /><nd ref="-123" /><nd ref="-124" /><nd ref="-125" /><nd ref="-126" /><nd ref="-117" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="75443" /></way>
+<node id="-2" lat="38.473418409000004" lon="-122.892087509" visible="true" />
+<node id="-3" lat="38.473544937" lon="-122.89208981600001" visible="true" />
+<node id="-4" lat="38.473545478000005" lon="-122.89204051300001" visible="true" />
+<node id="-5" lat="38.473500129" lon="-122.89203965600001" visible="true" />
+<node id="-6" lat="38.473500561" lon="-122.89200146900001" visible="true" />
+<node id="-7" lat="38.473481913" lon="-122.89200114900001" visible="true" />
+<node id="-8" lat="38.473483292000004" lon="-122.89187879100001" visible="true" />
+<node id="-9" lat="38.473529899" lon="-122.891879664" visible="true" />
+<node id="-10" lat="38.473530697" lon="-122.89180588200001" visible="true" />
+<node id="-11" lat="38.473437414" lon="-122.891804194" visible="true" />
+<node id="-12" lat="38.473435857000005" lon="-122.891940754" visible="true" />
+<node id="-13" lat="38.473420047000005" lon="-122.8919405" visible="true" />
+<node id="-15" lat="38.486774853" lon="-122.92033613800001" visible="true" />
+<node id="-16" lat="38.486803202000004" lon="-122.92049750700001" visible="true" />
+<node id="-17" lat="38.486930884" lon="-122.920461216" visible="true" />
+<node id="-18" lat="38.486894369000005" lon="-122.92025336100001" visible="true" />
+<node id="-19" lat="38.486844049000005" lon="-122.92026764900001" visible="true" />
+<node id="-20" lat="38.486848865" lon="-122.92029499200001" visible="true" />
+<node id="-21" lat="38.486825448000005" lon="-122.92030167700001" visible="true" />
+<node id="-22" lat="38.486828797" lon="-122.92032082" visible="true" />
+<node id="-24" lat="38.487569642000004" lon="-122.92226668600001" visible="true" />
+<node id="-25" lat="38.487596797" lon="-122.92237656600001" visible="true" />
+<node id="-26" lat="38.487586169000004" lon="-122.922380797" visible="true" />
+<node id="-27" lat="38.487606386" lon="-122.92246260900001" visible="true" />
+<node id="-28" lat="38.487594012" lon="-122.92246754400001" visible="true" />
+<node id="-29" lat="38.487620881000005" lon="-122.922576257" visible="true" />
+<node id="-30" lat="38.487785917000004" lon="-122.922510259" visible="true" />
+<node id="-31" lat="38.487760714000004" lon="-122.922408148" visible="true" />
+<node id="-32" lat="38.487702265" lon="-122.922431501" visible="true" />
+<node id="-33" lat="38.487653274" lon="-122.922233206" visible="true" />
+<node id="-35" lat="38.491262774" lon="-122.929342105" visible="true" />
+<node id="-36" lat="38.49140596" lon="-122.929355876" visible="true" />
+<node id="-37" lat="38.491407231000004" lon="-122.929334405" visible="true" />
+<node id="-38" lat="38.491426051000005" lon="-122.92933619300001" visible="true" />
+<node id="-39" lat="38.491427556000005" lon="-122.929311114" visible="true" />
+<node id="-40" lat="38.491408417" lon="-122.929309293" visible="true" />
+<node id="-41" lat="38.491413257000005" lon="-122.929228237" visible="true" />
+<node id="-42" lat="38.491363524" lon="-122.92922342700001" visible="true" />
+<node id="-43" lat="38.491360426" lon="-122.929275622" visible="true" />
+<node id="-44" lat="38.49126727" lon="-122.929266634" visible="true" />
+<node id="-46" lat="38.491358638" lon="-122.929466922" visible="true" />
+<node id="-47" lat="38.491414166000006" lon="-122.92946811200001" visible="true" />
+<node id="-48" lat="38.491415455" lon="-122.92937035400001" visible="true" />
+<node id="-49" lat="38.491359903" lon="-122.929369166" visible="true" />
+<node id="-51" lat="38.490732945000005" lon="-122.929368111" visible="true" />
+<node id="-52" lat="38.490770171" lon="-122.92953112400001" visible="true" />
+<node id="-53" lat="38.490827229000004" lon="-122.92951002800001" visible="true" />
+<node id="-54" lat="38.490809699" lon="-122.929433254" visible="true" />
+<node id="-55" lat="38.490812615" lon="-122.929432156" visible="true" />
+<node id="-56" lat="38.490793957" lon="-122.929350446" visible="true" />
+<node id="-57" lat="38.490754663000004" lon="-122.92936501700001" visible="true" />
+<node id="-58" lat="38.490753624" lon="-122.929360461" visible="true" />
+<node id="-60" lat="38.491245738" lon="-122.930160114" visible="true" />
+<node id="-61" lat="38.491330555000005" lon="-122.930261293" visible="true" />
+<node id="-62" lat="38.491390386" lon="-122.930180108" visible="true" />
+<node id="-63" lat="38.491355343" lon="-122.930138365" visible="true" />
+<node id="-64" lat="38.491336579000006" lon="-122.93016386000001" visible="true" />
+<node id="-65" lat="38.491286782" lon="-122.930104455" visible="true" />
+<node id="-67" lat="38.491504203000005" lon="-122.93092301600001" visible="true" />
+<node id="-68" lat="38.491508134" lon="-122.93106282800001" visible="true" />
+<node id="-69" lat="38.491544509" lon="-122.931061205" visible="true" />
+<node id="-70" lat="38.491540577" lon="-122.93092139500001" visible="true" />
+<node id="-72" lat="38.490766637" lon="-122.930491129" visible="true" />
+<node id="-73" lat="38.490851891000005" lon="-122.930637501" visible="true" />
+<node id="-74" lat="38.490901351000005" lon="-122.93059086100001" visible="true" />
+<node id="-75" lat="38.490857065" lon="-122.930514814" visible="true" />
+<node id="-76" lat="38.490862416000006" lon="-122.930509731" visible="true" />
+<node id="-77" lat="38.490850882000004" lon="-122.93048992700001" visible="true" />
+<node id="-78" lat="38.490844148" lon="-122.93049630300001" visible="true" />
+<node id="-79" lat="38.490814737" lon="-122.930445782" visible="true" />
+<node id="-81" lat="38.491577005" lon="-122.93322406300001" visible="true" />
+<node id="-82" lat="38.491709807" lon="-122.933257099" visible="true" />
+<node id="-83" lat="38.491721666000004" lon="-122.933179948" visible="true" />
+<node id="-84" lat="38.49167631" lon="-122.93316864200001" visible="true" />
+<node id="-85" lat="38.491675781000005" lon="-122.933171954" visible="true" />
+<node id="-86" lat="38.491645634" lon="-122.933164485" visible="true" />
+<node id="-87" lat="38.491654014000005" lon="-122.933110001" visible="true" />
+<node id="-88" lat="38.491596737" lon="-122.933095742" visible="true" />
+<node id="-90" lat="38.491474943" lon="-122.93369750500001" visible="true" />
+<node id="-91" lat="38.491507534" lon="-122.933716798" visible="true" />
+<node id="-92" lat="38.491504258" lon="-122.933725753" visible="true" />
+<node id="-93" lat="38.491567641" lon="-122.933763239" visible="true" />
+<node id="-94" lat="38.491568857000004" lon="-122.933759936" visible="true" />
+<node id="-95" lat="38.491624132000005" lon="-122.933792628" visible="true" />
+<node id="-96" lat="38.491656637000006" lon="-122.93370363500001" visible="true" />
+<node id="-97" lat="38.491604436" lon="-122.933672817" visible="true" />
+<node id="-98" lat="38.491607220000006" lon="-122.933665226" visible="true" />
+<node id="-99" lat="38.491543769" lon="-122.93362771000001" visible="true" />
+<node id="-100" lat="38.491542014000004" lon="-122.933632607" visible="true" />
+<node id="-101" lat="38.491506348" lon="-122.933611526" visible="true" />
+<node id="-103" lat="38.489988671" lon="-122.92755070400001" visible="true" />
+<node id="-104" lat="38.489990749" lon="-122.927585437" visible="true" />
+<node id="-105" lat="38.490012162" lon="-122.927583357" visible="true" />
+<node id="-106" lat="38.490014968000004" lon="-122.92763003700001" visible="true" />
+<node id="-107" lat="38.490131148" lon="-122.92761873500001" visible="true" />
+<node id="-108" lat="38.490127695000005" lon="-122.927561447" visible="true" />
+<node id="-109" lat="38.490111479" lon="-122.927563042" visible="true" />
+<node id="-110" lat="38.490108291000006" lon="-122.92750983600001" visible="true" />
+<node id="-111" lat="38.490176561000006" lon="-122.92750320900001" visible="true" />
+<node id="-112" lat="38.490172137" lon="-122.92742983800001" visible="true" />
+<node id="-113" lat="38.490099952" lon="-122.92743682000001" visible="true" />
+<node id="-114" lat="38.490103202" lon="-122.92749104800001" visible="true" />
+<node id="-115" lat="38.490008458000005" lon="-122.92750024000001" visible="true" />
+<node id="-116" lat="38.490011366000005" lon="-122.927548494" visible="true" />
+<node id="-118" lat="38.489366349" lon="-122.92750797500001" visible="true" />
+<node id="-119" lat="38.489468360000004" lon="-122.92756560900001" visible="true" />
+<node id="-120" lat="38.489515273" lon="-122.927431295" visible="true" />
+<node id="-121" lat="38.489413263" lon="-122.92737363200001" visible="true" />
+<node id="-123" lat="38.488591741" lon="-122.92755020700001" visible="true" />
+<node id="-124" lat="38.488658845" lon="-122.927663143" visible="true" />
+<node id="-125" lat="38.488711934" lon="-122.92761203600001" visible="true" />
+<node id="-126" lat="38.488644806" lon="-122.92749912900001" visible="true" />
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="64971" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Front Street" /><tag k="addr:housenumber" v="6566" /></way>
+<way id="-14" visible="true"><nd ref="-15" /><nd ref="-16" /><nd ref="-17" /><nd ref="-18" /><nd ref="-19" /><nd ref="-20" /><nd ref="-21" /><nd ref="-22" /><nd ref="-15" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54637" /></way>
+<way id="-23" visible="true"><nd ref="-24" /><nd ref="-25" /><nd ref="-26" /><nd ref="-27" /><nd ref="-28" /><nd ref="-29" /><nd ref="-30" /><nd ref="-31" /><nd ref="-32" /><nd ref="-33" /><nd ref="-24" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="75443" /></way>
+<way id="-34" visible="true"><nd ref="-35" /><nd ref="-36" /><nd ref="-37" /><nd ref="-38" /><nd ref="-39" /><nd ref="-40" /><nd ref="-41" /><nd ref="-42" /><nd ref="-43" /><nd ref="-44" /><nd ref="-35" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="38715" /></way>
+<way id="-45" visible="true"><nd ref="-46" /><nd ref="-47" /><nd ref="-48" /><nd ref="-49" /><nd ref="-46" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="30502" /></way>
+<way id="-50" visible="true"><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-54" /><nd ref="-55" /><nd ref="-56" /><nd ref="-57" /><nd ref="-58" /><nd ref="-51" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54892" /><tag k="addr:state" v="California" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11270" /></way>
+<way id="-59" visible="true"><nd ref="-60" /><nd ref="-61" /><nd ref="-62" /><nd ref="-63" /><nd ref="-64" /><nd ref="-65" /><nd ref="-60" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="39141" /><tag k="addr:state" v="California" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11310" /></way>
+<way id="-66" visible="true"><nd ref="-67" /><nd ref="-68" /><nd ref="-69" /><nd ref="-70" /><nd ref="-67" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="39253" /></way>
+<way id="-71" visible="true"><nd ref="-72" /><nd ref="-73" /><nd ref="-74" /><nd ref="-75" /><nd ref="-76" /><nd ref="-77" /><nd ref="-78" /><nd ref="-79" /><nd ref="-72" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54734" /><tag k="addr:state" v="California" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11305" /></way>
+<way id="-80" visible="true"><nd ref="-81" /><nd ref="-82" /><nd ref="-83" /><nd ref="-84" /><nd ref="-85" /><nd ref="-86" /><nd ref="-87" /><nd ref="-88" /><nd ref="-81" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="30580" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="9012" /></way>
+<way id="-89" visible="true"><nd ref="-90" /><nd ref="-91" /><nd ref="-92" /><nd ref="-93" /><nd ref="-94" /><nd ref="-95" /><nd ref="-96" /><nd ref="-97" /><nd ref="-98" /><nd ref="-99" /><nd ref="-100" /><nd ref="-101" /><nd ref="-90" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="38946" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Forestville" /><tag k="addr:street" v="Yellowbrick Road" /><tag k="addr:housenumber" v="9014" /></way>
+<way id="-102" visible="true"><nd ref="-103" /><nd ref="-104" /><nd ref="-105" /><nd ref="-106" /><nd ref="-107" /><nd ref="-108" /><nd ref="-109" /><nd ref="-110" /><nd ref="-111" /><nd ref="-112" /><nd ref="-113" /><nd ref="-114" /><nd ref="-115" /><nd ref="-116" /><nd ref="-103" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54736" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11250" /></way>
+<way id="-117" visible="true"><nd ref="-118" /><nd ref="-119" /><nd ref="-120" /><nd ref="-121" /><nd ref="-118" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="54377" /><tag k="addr:state" v="California" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11230" /></way>
+<way id="-122" visible="true"><nd ref="-123" /><nd ref="-124" /><nd ref="-125" /><nd ref="-126" /><nd ref="-123" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="64207" /><tag k="addr:state" v="California" /><tag k="addr:street" v="Vellutini Road" /><tag k="addr:housenumber" v="11207" /></way>
 </osm>
