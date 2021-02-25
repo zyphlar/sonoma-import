@@ -119,9 +119,8 @@ Please ensure you are logged in under a dedicated import account with a user nam
 ### Internal Notes
 
 - TODO:
- - TAZ CIDs aren't working, each CID is a full 200mb export
- - Address conflation isn't working, no buildings have numbers
- - Consider simplifying geometry, ~50 buildings are drawn twice
+  - Spot check buildings without addresses
+  - Double check if geometry is adequately simplified or not
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 

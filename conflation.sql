@@ -15,7 +15,7 @@ ALTER TABLE sonoma_county_building_outlines
 	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
 	ADD COLUMN IF NOT EXISTS main boolean; -- is it the main building on the parcel?
 
-update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, usecode = NULL, cid = NULL;
+update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, usecode = NULL, cid = NULL, conflated = FALSE, main = FALSE;
 
 -- create local geometry fields and validate geometries
 UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
@@ -28,12 +28,11 @@ ALTER TABLE parcels__public_
 	ADD COLUMN IF NOT EXISTS "addr:unit" text,
 	ADD COLUMN IF NOT EXISTS "addr:city" text,
 	ADD COLUMN IF NOT EXISTS "addr:state" text,
-	ADD COLUMN IF NOT EXISTS usecode integer,
 	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326), -- local is the same in this case, except made valid
 	ADD COLUMN IF NOT EXISTS building_count integer,
 	ADD COLUMN IF NOT EXISTS repeating BOOLEAN DEFAULT FALSE;
 
-update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
+update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, building_count = NULL, repeating = FALSE;
 
 -- create local geometry fields and validate geometries
 UPDATE parcels__public_ SET loc_geom = ST_MakeValid(geom);
@@ -188,13 +187,39 @@ $$ LANGUAGE plpgsql;
 -- reset our fields
 update parcels__public_ SET "addr:housenumber" = NULL,
     "addr:street" = NULL,
-    "addr:unit" = NULL
-    where "addr:housenumber" IS NOT NULL;
+    "addr:unit" = NULL,
+    "addr:city" = NULL,
+    "addr:state" = NULL;
 
--- parse city sratr
-update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\*? ([A-Za-z]+)$', '\1')),
-    "addr:state" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\*? ([A-Za-z]+)$', '\2'))
-    where situsfmt2 SIMILAR TO '([A-Za-z]+)\*? ([A-Za-z]+)' IS NOT NULL;
+-- parse city and state
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- with spaces
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- with spaces and zip
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+' AND "addr:city" IS NULL;
+-- with no asterisk, and "Ca" suffix
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) CA$', '\1')),
+    "addr:state" = 'CA'
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) CA' AND "addr:city" IS NULL;
+-- with no asterisk, "CA" state, and zip
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) CA [0-9]+$', '\1')),
+    "addr:state" = 'CA'
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) CA [0-9]+' AND "addr:city" IS NULL;
+
+
+-- some "cities" we don't want, and state needs to be expanded
+update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unincorp County';
+update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unknown';
+update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Bodega Bay';
+update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Duncans Mills';
+update parcels__public_ SET "addr:state" = 'California' where "addr:state" = 'CA';
+
 
 -- basic 123 Main with no common suffixes or numbers
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([A-Z]+)$', '\1')),
