@@ -1,3 +1,4 @@
+delete from spatial_ref_sys where srid = 103240;
 INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext)
 values (103240, 'ESRI', 103240,
 '+proj=lcc +ellps=GRS80 +units=us-ft +x_0=2000000.0 +y_0=500000.0 +lon_0=120d30''W +lat_0=36d30''N +lat_1=37d4''N +lat_2=38d26''N +towgs84=-0.9956000824677655,1.901299877314078,0.5215002840524426,0.02591500053005733,0.009425998542707753,0.01159900118427752,-0.00062000005129903 +no_defs ',

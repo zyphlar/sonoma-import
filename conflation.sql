@@ -10,15 +10,16 @@ ALTER TABLE sonoma_county_building_outlines
 	ADD COLUMN IF NOT EXISTS "addr:city" text,
 	ADD COLUMN IF NOT EXISTS "addr:state" text,
 	ADD COLUMN IF NOT EXISTS usecode integer,
-	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326),
+	ADD COLUMN IF NOT EXISTS cid integer,
+	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326), -- local is the same in this case, except made valid
 	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
 	ADD COLUMN IF NOT EXISTS main boolean; -- is it the main building on the parcel?
 
-update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
+update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, usecode = NULL, cid = NULL;
 
 -- create local geometry fields and validate geometries
---UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
---CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
+UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
+CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
 
 -- added fields for the parcels table
 ALTER TABLE parcels__public_
@@ -27,15 +28,16 @@ ALTER TABLE parcels__public_
 	ADD COLUMN IF NOT EXISTS "addr:unit" text,
 	ADD COLUMN IF NOT EXISTS "addr:city" text,
 	ADD COLUMN IF NOT EXISTS "addr:state" text,
-	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326),
+	ADD COLUMN IF NOT EXISTS usecode integer,
+	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326), -- local is the same in this case, except made valid
 	ADD COLUMN IF NOT EXISTS building_count integer,
 	ADD COLUMN IF NOT EXISTS repeating BOOLEAN DEFAULT FALSE;
 
 update parcels__public_ set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
 
 -- create local geometry fields and validate geometries
---UPDATE parcels__public_ SET loc_geom = ST_MakeValid(geom);
---CREATE INDEX ON parcels__public_ USING GIST (loc_geom);
+UPDATE parcels__public_ SET loc_geom = ST_MakeValid(geom);
+CREATE INDEX ON parcels__public_ USING GIST (loc_geom);
 
 -- parse and expand parcel street addresses
 -- TODO: find/handle oddballs like 123A Main St and 123 Main St #4
@@ -326,6 +328,7 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
 -- 292 ELY BLVD S BLVD
 
 -- now 1460 TOWN & COUNTRY DR
+--TODO: this does not seem to have any effect, needs rework
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\1')), -- 123
     "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\2')) -- Town & Country
              || ' ' -- space
@@ -391,6 +394,7 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
     where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99}) ([A-Z]{2,99})[ ]+[#]+([ 0-9A-Z\-]+)';
 
 -- no direction, two words in street name, and "STE XXX" or "Ste XXX" in the unit
+-- TODO: this first one seems to have no effect
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\1')), -- 123
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\2 ')) -- Main / 4th
              || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z]+) ([A-Z]+)[ ]+[#]+STE ([0-9A-Z\-]+)$', '\3'))), -- Street
@@ -426,6 +430,7 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
     where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+) ([A-Z]+)[ ]+#([0-9A-Z]+)';
 
 -- 3333 STEWART PT SKAGGS SPRING RD is a unique case that needs to be Stewarts Point-Skaggs Springs Road
+-- TODO: this seems to have no effect
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) STEWART PT SKAGGS SPRING RD$', '\1')),
     "addr:street" = 'Stewarts Point-Skaggs Springs Road'
     where "addr:housenumber" is null and situsfmt1 SIMILAR TO '([0-9]+) STEWART PT SKAGGS SPRING RD';
@@ -511,7 +516,7 @@ UPDATE sonoma_county_building_outlines SET
 	"addr:unit" = a."addr:unit",
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
-	"usecode" = a.usecode
+	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 --SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
@@ -553,7 +558,7 @@ WITH a AS (
 UPDATE sonoma_county_building_outlines SET 
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
-	"usecode" = a.usecode
+	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 -- get a count of outbuildings so we know how many addresses are intentionally unassigned
@@ -580,7 +585,7 @@ WITH addresses AS (
 		b.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
-		p.usecode
+		array_to_string( ARRAY_AGG(DISTINCT p.usecode), ';') AS usecode
 	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON 
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -593,7 +598,7 @@ WITH addresses AS (
 UPDATE sonoma_county_building_outlines AS b SET 
 	"addr:housenumber" = housenumber,
 	"addr:street" = street,
-	"usecode" = a.usecode
+	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM addresses AS a
 WHERE a.gid = b.gid;
 
@@ -638,127 +643,120 @@ WHERE
 --
 
 -- IF USING Overpass -> QGIS -> Postgres Dump:
-UPDATE sonoma_county_building_outlines AS b SET conflated = FALSE;
-UPDATE sonoma_county_building_outlines AS b SET conflated = TRUE
-FROM osmquery_buildings_pgdump AS osm
-    WHERE ST_Intersects(b.geom,osm.wkb_geometry)
-    AND osm.building IS NOT NULL and osm.building != 'no';
+-- UPDATE sonoma_county_building_outlines AS b SET conflated = FALSE;
+-- UPDATE sonoma_county_building_outlines AS b SET conflated = TRUE
+-- FROM osmquery_buildings_pgdump AS osm
+--     WHERE ST_Intersects(b.geom,osm.wkb_geometry)
+--     AND osm.building IS NOT NULL and osm.building != 'no';
 
--- IF USING a direct OSM2PGSQL import:
+-- IF USING a direct OSM2PGSQL import i.e. norcal-latest.osm.pbf:
 UPDATE sonoma_county_building_outlines AS b SET conflated = TRUE
 FROM son_polygon AS osm
-	WHERE ST_Intersects(b.geom,osm.way)
+	WHERE ST_Intersects(b.geom,osm.way) --TODO: loc_geom
 	AND osm.building IS NOT NULL and osm.building != 'no';
 
 -- dump simplified polygon geometries and OSM relavant fields into another table for exporting
 -- this code is based on https://trac.osgeo.org/postgis/wiki/UsersWikiSimplifyPreserveTopology
 -- it does take a very long time to run on this dataset...
 
+-- TODO: this simplified conflated stuff kinda sucks, the geometry is too simple and there's duplicated GIDs, what if we just don't use it
+
 -- first do conflated buildings
-with poly as (
-    SELECT
-        gid,
-        "addr:housenumber",
-        "addr:street",
-        "addr:unit",
-        (st_dump(loc_geom)).*
-        FROM sonoma_county_building_outlines
-        WHERE conflated
-) 
-SELECT 
-	poly.gid,
-	poly."addr:housenumber",
-    poly."addr:street",
-    poly."addr:unit",
-	ST_Transform(baz.geom,4326) AS geom
-INTO simplified_conflated_buildings
-FROM ( 
-        SELECT (ST_Dump(ST_Polygonize(distinct geom))).geom as geom
-        FROM (
-		-- simplify geometries to a 0.2m tolerance to avoid repeated points
-                SELECT (ST_Dump(st_simplifyPreserveTopology(ST_Linemerge(st_union(geom)), 0.2))).geom as geom
-                FROM (
-                        SELECT ST_ExteriorRing((ST_DumpRings(geom)).geom) as geom
-                        FROM poly
-                ) AS foo
-        ) AS bar
-) AS baz, poly
-WHERE 
-	ST_Intersects(poly.geom, baz.geom)
-	AND ST_Area(st_intersection(poly.geom, baz.geom))/ST_Area(baz.geom) > 0.9;
-ALTER TABLE simplified_conflated_buildings ADD CONSTRAINT temp1_pkey PRIMARY KEY (gid);
-
-
--- 233966 duplicated, deleted smaller
--- 248900 duplicated, deleted smaller
--- 246427 duplicated, deleted smaller
--- 240471 duplicated, deleted smaller
--- 277549 duplicated, deleted smaller
--- 269953
-
-
+-- drop table simplified_conflated_buildings;
+-- with poly as (
+--     SELECT
+--         gid,
+--         "addr:housenumber",
+--         "addr:street",
+--         "addr:unit",
+--         (st_dump(loc_geom)).*
+--         FROM sonoma_county_building_outlines
+--         WHERE conflated
+-- ) 
+-- SELECT 
+-- 	poly.gid,
+-- 	poly."addr:housenumber",
+--     poly."addr:street",
+--     poly."addr:unit",
+-- 	baz.geom AS geom -- ST_Transform(baz.geom,4326) AS geom
+-- INTO simplified_conflated_buildings
+-- FROM ( 
+--         SELECT (ST_Dump(ST_Polygonize(distinct geom))).geom as geom
+--         FROM (
+-- 		-- simplify geometries to a 0.2m tolerance to avoid repeated points
+--                 SELECT (ST_Dump(st_simplifyPreserveTopology(ST_Linemerge(st_union(geom)), 0.2))).geom as geom
+--                 FROM (
+--                         SELECT ST_ExteriorRing((ST_DumpRings(geom)).geom) as geom
+--                         FROM poly
+--                 ) AS foo
+--         ) AS bar
+-- ) AS baz, poly
+-- WHERE 
+-- 	ST_Intersects(poly.geom, baz.geom)
+-- 	AND ST_Area(st_intersection(poly.geom, baz.geom))/ST_Area(baz.geom) > 0.9;
+-- ALTER TABLE simplified_conflated_buildings ADD CONSTRAINT temp1_pkey PRIMARY KEY (gid);
 -- next do non-conflated buildings separately
-with poly as (
-	SELECT
-        gid,
-        "addr:housenumber",
-        "addr:street",
-        "addr:unit",
-        (st_dump(loc_geom)).*
-        FROM sonoma_county_building_outlines
-        WHERE NOT conflated --note: NOT
-) 
-SELECT 
-    poly.gid,
-    poly."addr:housenumber",
-    poly."addr:street",
-    poly."addr:unit",
-    ST_Transform(baz.geom,4326) AS geom
-INTO simplified_buildings
-FROM ( 
-        SELECT (ST_Dump(ST_Polygonize(distinct geom))).geom as geom
-        FROM (
-		-- simplify geometries to a 0.2m tolerance to avoid repeated points
-                SELECT (ST_Dump(st_simplifyPreserveTopology(ST_Linemerge(st_union(geom)), 0.2))).geom as geom
-                FROM (
-                        SELECT ST_ExteriorRing((ST_DumpRings(geom)).geom) as geom
-                        FROM poly
-                ) AS foo
-        ) AS bar
-) AS baz, poly
-WHERE 
-	ST_Intersects(poly.geom, baz.geom)
-	AND ST_Area(st_intersection(poly.geom, baz.geom))/ST_Area(baz.geom) > 0.9;
+-- with poly as (
+-- 	SELECT
+--         gid,
+--         "addr:housenumber",
+--         "addr:street",
+--         "addr:unit",
+--         (st_dump(loc_geom)).*
+--         FROM sonoma_county_building_outlines
+--         WHERE NOT conflated --note: NOT
+-- ) 
+-- SELECT 
+--     poly.gid,
+--     poly."addr:housenumber",
+--     poly."addr:street",
+--     poly."addr:unit",
+--     ST_Transform(baz.geom,4326) AS geom
+-- INTO simplified_buildings
+-- FROM ( 
+--         SELECT (ST_Dump(ST_Polygonize(distinct geom))).geom as geom
+--         FROM (
+-- 		-- simplify geometries to a 0.2m tolerance to avoid repeated points
+--                 SELECT (ST_Dump(st_simplifyPreserveTopology(ST_Linemerge(st_union(geom)), 0.2))).geom as geom
+--                 FROM (
+--                         SELECT ST_ExteriorRing((ST_DumpRings(geom)).geom) as geom
+--                         FROM poly
+--                 ) AS foo
+--         ) AS bar
+-- ) AS baz, poly
+-- WHERE 
+-- 	ST_Intersects(poly.geom, baz.geom)
+-- 	AND ST_Area(st_intersection(poly.geom, baz.geom))/ST_Area(baz.geom) > 0.9;
 
+-- project VTATaz coordinates into osm coordinates for matching
+alter table VTATaz add column if not exists geom_4326 geometry(multipolygon, 4326);
+update VTATaz set geom_4326 = ST_MakeValid(ST_Transform(ST_Multi(geom), 4326));
+create index if not exists "geom_4326_idx" on VTATaz using GIST(geom_4326);
 
-
-------- TODO
-
-alter table sonoma_building_outlines add column cid integer;
-
--- Drop TAZs that aren't near SJ
+-- Drop TAZs that aren't near our dataset
 with hull as (
 	select ST_ConvexHull(ST_Collect(geom)) as geom from (
-		union select geom
-		from "sonoma_building_outlines"
+		select geom
+		from "sonoma_county_building_outlines"
 	) as geom)
 	delete from VTATaz
 	using hull
-	where not ST_Intersects(VTATaz.geom, hull.geom);
+	where not ST_Intersects(geom_4326, hull.geom);
 
 -- Assign cluster to each data point
-update sonoma_building_outlines as t
+update sonoma_county_building_outlines as t
 	set cid = taggedThing.key
 	from (
-		select (row_number() over (partition by sonoma_building_outlines.gid order by ST_Distance(sonoma_building_outlines.geom, VTATaz.geom))) as rn,
-		VTATaz.key, sonoma_building_outlines.gid
-		from sonoma_building_outlines
+		select (row_number() over (partition by sonoma_county_building_outlines.gid order by ST_Distance(sonoma_county_building_outlines.loc_geom, geom_4326))) as rn,
+		VTATaz.key, sonoma_county_building_outlines.gid
+		from sonoma_county_building_outlines
 		join VTATaz
-		on ST_Intersects(sonoma_building_outlines.geom, VTATaz.geom)
+		on ST_Intersects(sonoma_county_building_outlines.loc_geom, geom_4326)
 	) as taggedThing
 	where t.gid = taggedThing.gid and rn = 1;
+
 -- More specifically drop TAZs that don't have any SJ data in them
-delete from VTATaz
-	where key not in (
-		select distinct cid from sonoma_building_outlines
-	);
+-- delete from VTATaz
+-- 	where key not in (
+-- 		select distinct cid from sonoma_county_building_outlines
+-- 	);

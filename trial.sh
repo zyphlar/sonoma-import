@@ -61,7 +61,7 @@ for intersects in false true; do
 
         # Filter export data to each CID
         for layer in "sonoma_county_building_outlines"; do
-            psql -h $PGHOST -U $PGUSER -v "ON_ERROR_STOP=true" --echo-queries --command="create or replace view \"${layer}_filtered\" as select * from \"${layer}\" where ${intersectsQuery};" "${DBNAME}"
+            psql -h $PGHOST -U $PGUSER -v "ON_ERROR_STOP=true" --echo-queries --command="create or replace view \"${layer}_filtered\" as select * from \"${layer}\" where cid=${cid} and ${intersectsQuery};" "${DBNAME}"
         done
 
         # Export to OSM
