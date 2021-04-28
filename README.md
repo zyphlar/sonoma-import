@@ -84,7 +84,7 @@ Run `./trial.sh` which should handle conflation and tasking, with output in the 
 
 ## Import and validation
 
-Using HOT Tasking Manager:
+TODO: OSM Tasking Manager - https://tasks.openstreetmap.us/
 
 Please ensure you are logged in under a dedicated import account with a user name ending in `_sonomaimport`. If you haven’t contributed to a building import project before, please choose a task in one of the more sparsely populated parts of the county.
 
