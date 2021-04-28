@@ -8,7 +8,7 @@ For current project status see https://wiki.openstreetmap.org/wiki/Sonoma_County
 
 ### Screenshots
 
-Here is the project status as of Jan 13 2021.
+Here is the project status as of April 27 2021.
 
 - 80,341 new buildings would be inserted with addresses (green) (non-conflated, with addresses)
   - This generally excludes the city of Santa Rosa as those addresses were previously imported as POIs with better accuracy and can be conflated at a later date
