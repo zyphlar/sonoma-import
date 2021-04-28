@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <osm version="0.6" generator="uvmogr2osm" upload="false">
-<node id="-2" lat="38.421230504" lon="-122.72705847300001" visible="true" />
-<node id="-3" lat="38.421292507000004" lon="-122.72707457800001" visible="true" />
-<node id="-4" lat="38.421316132" lon="-122.72692769400001" visible="true" />
-<node id="-5" lat="38.421254082000004" lon="-122.72691158800001" visible="true" />
-<node id="-7" lat="38.421745457" lon="-122.72703089900001" visible="true" />
-<node id="-8" lat="38.421870655" lon="-122.72707033500001" visible="true" />
-<node id="-9" lat="38.421879735000005" lon="-122.72702380000001" visible="true" />
-<node id="-10" lat="38.421812066" lon="-122.727002459" visible="true" />
-<node id="-11" lat="38.421858722" lon="-122.72676304800001" visible="true" />
-<node id="-12" lat="38.421784087" lon="-122.72673957200001" visible="true" />
-<node id="-13" lat="38.421755711" lon="-122.7268851" visible="true" />
-<node id="-14" lat="38.421772817000004" lon="-122.72689048100001" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="189452" /></way>
-<way id="-6" visible="true"><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-14" /><nd ref="-7" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="201719" /><tag k="addr:street" v="West Avenue" /><tag k="addr:housenumber" v="1550" /></way>
+<node id="-2" lat="38.421745457" lon="-122.72703089900001" visible="true" />
+<node id="-3" lat="38.421870655" lon="-122.72707033500001" visible="true" />
+<node id="-4" lat="38.421879735000005" lon="-122.72702380000001" visible="true" />
+<node id="-5" lat="38.421812066" lon="-122.727002459" visible="true" />
+<node id="-6" lat="38.421858722" lon="-122.72676304800001" visible="true" />
+<node id="-7" lat="38.421784087" lon="-122.72673957200001" visible="true" />
+<node id="-8" lat="38.421755711" lon="-122.7268851" visible="true" />
+<node id="-9" lat="38.421772817000004" lon="-122.72689048100001" visible="true" />
+<node id="-11" lat="38.421230504" lon="-122.72705847300001" visible="true" />
+<node id="-12" lat="38.421292507000004" lon="-122.72707457800001" visible="true" />
+<node id="-13" lat="38.421316132" lon="-122.72692769400001" visible="true" />
+<node id="-14" lat="38.421254082000004" lon="-122.72691158800001" visible="true" />
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="201719" /><tag k="addr:street" v="West Avenue" /><tag k="addr:housenumber" v="1550" /></way>
+<way id="-10" visible="true"><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-14" /><nd ref="-11" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="189452" /></way>
 </osm>
