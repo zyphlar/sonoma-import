@@ -4,5 +4,5 @@
 <node id="-3" lat="38.397034819000005" lon="-122.83444909800001" visible="true" />
 <node id="-4" lat="38.397128216000006" lon="-122.834454026" visible="true" />
 <node id="-5" lat="38.397128908" lon="-122.83435831000001" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="95039" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Sebastopol" /><tag k="addr:street" v="Bodega Avenue" /><tag k="addr:housenumber" v="7777" /></way>
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-2" /><tag k="building" v="government" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Sebastopol" /><tag k="addr:street" v="Bodega Avenue" /><tag k="addr:housenumber" v="7777" /></way>
 </osm>

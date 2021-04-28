@@ -8,6 +8,6 @@
 <node id="-8" lat="38.346150159000004" lon="-122.69752048800001" visible="true" />
 <node id="-9" lat="38.346179834000004" lon="-122.697441569" visible="true" />
 <node id="-10" lat="38.346097414" lon="-122.69739160200001" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="102457" /></way>
-<way id="-6" visible="true"><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-7" /><tag k="building" v="yes" /><tag k="x_son_p:gid" v="102461" /></way>
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-2" /><tag k="building" v="yes" /></way>
+<way id="-6" visible="true"><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-7" /><tag k="building" v="yes" /></way>
 </osm>
