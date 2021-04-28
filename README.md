@@ -19,11 +19,11 @@ Here is the project status as of Jan 13 2021.
 Here are sample screenshots of Santa Rosa, the City of Sonoma, Petaluma, Sebastopol, and Healdsburg. Note the relative lack of conflated addresses in Santa Rosa due to the aforementioned POI import.
 
 <img src="/img/legend.png" alt="Legend"/>
-<img src="/img/santa_rosa.png" alt="Santa Rosa" width="20%" align="left" />
-<img src="/img/sonoma.png" alt="City of Sonoma" width="20%" align="left" />
-<img src="/img/petaluma.png" alt="Petaluma" width="20%" align="left" />
-<img src="/img/sebastopol.png" alt="Sebastopol" width="20%" align="left" />
-<img src="/img/healdsburg.png" alt="Healdsburg" width="20%" align="left" />
+<img src="/img/santa_rosa.png" alt="Santa Rosa" width="15%" style="border:1px solid #ccc; margin: 1em;" align="left" />
+<img src="/img/sonoma.png" alt="City of Sonoma" width="15%" style="border:1px solid #ccc; margin: 1em;" align="left" />
+<img src="/img/petaluma.png" alt="Petaluma" width="15%" style="border:1px solid #ccc; margin: 1em;" align="left" />
+<img src="/img/sebastopol.png" alt="Sebastopol" width="15%" style="border:1px solid #ccc; margin: 1em;" align="left" />
+<img src="/img/healdsburg.png" alt="Healdsburg" width="15%" style="border:1px solid #ccc; margin: 1em;" align="left" />
 
 <br clear="left"/>
 
