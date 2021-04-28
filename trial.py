@@ -17,7 +17,7 @@ def filterTags(attrs):
     tags = { "building": "yes" }
 
     if "gid" in attrs and attrs["gid"] != "":
-        tags["x_son_p:gid"] = attrs["gid"]
+        tags["x_son_imp:gid"] = attrs["gid"]
     if "addr:state" in attrs and attrs["addr:state"] != "":
         tags["addr:state"] = attrs["addr:state"]
     if "addr:city" in attrs and attrs["addr:city"] != "":
@@ -28,7 +28,7 @@ def filterTags(attrs):
         tags["addr:housenumber"] = attrs["addr:housenumber"]
     if "addr:unit" in attrs and attrs["addr:unit"] != "":
         tags["addr:unit"] = attrs["addr:unit"]
-    if "x_son_imp:usecode" in attrs and attrs["x_son_imp:usecode"] != "":
-        tags["sonoma:x_son_imp:usecode"] = attrs["x_son_imp:usecode"] #TODO: proper x_son_imp:usecode
+    if "usecode" in attrs and attrs["x_son_imp:usecode"] != "":
+        tags["x_son_imp:usecode"] = attrs["x_son_imp:usecode"] #TODO: proper x_son_imp:usecode
 
     return tags

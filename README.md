@@ -120,9 +120,9 @@ Please ensure you are logged in under a dedicated import account with a user nam
 ### Internal Notes
 
 - TODO:
-  - Spot check buildings without addresses
-  - Double check if geometry is adequately simplified or not
-  - Figure out how to handle the newly-imported Santa Rosa address POIs
+  - Ensure `source=Sonoma County` is on each changeset
+  - Correlate county usecodes with buildings
+  - Remove `x_son_imp` tags from all elements
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
