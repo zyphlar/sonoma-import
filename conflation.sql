@@ -780,6 +780,13 @@ update sonoma_county_building_outlines as t
 	) as taggedThing
 	where t.gid = taggedThing.gid and rn = 1;
 
+
+
+-- Delete all address data in Santa Rosa, because the city's address data is better
+
+update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:unit" = NULL, "addr:street" = NULL, "addr:city" = NULL, "addr:state" = NULL where "addr:city" = 'Santa Rosa';
+
+
 -- More specifically drop TAZs that don't have any SJ data in them
 -- delete from VTATaz
 -- 	where key not in (

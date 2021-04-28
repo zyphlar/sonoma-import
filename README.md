@@ -72,7 +72,6 @@ Debian (shp2pgsql is included in postgis)
 - We are assuming that the county data uses a WGS84 aka EPSG:4326 geographical projection, which was true as of last check and is also what OSM uses.
 - Run from your shell: `shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W`
 - `shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W`
-- `shp2pgsql -s 4326 -I osm-buildings-01-03.shp | psql -d openstreetmap -U openstreetmap -W`
 - `osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432`
 
 osm2pgsql should create tables like `son_polygon` for later.
@@ -81,7 +80,7 @@ Now all the data is in Postgres. For processing and conflation, read through and
 
 ## Exporting and uploading
 
-TODO, `trial.sh`
+Run `./trial.sh` which should handle conflation and tasking, with output in the `raw/main/out` folder.
 
 ## Import and validation
 
@@ -133,8 +132,9 @@ shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap
 psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -f osmquery-pgdump.sql
 
 #unused
+shp2pgsql -s 4326 -I osm-buildings-01-03.shp | psql -d openstreetmap -U openstreetmap -W
 osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong sonoma-orig-buildings-20201219.osm -U postgres -W`
-osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest-20200103.osm.pbf -U openstreetmap -W -H localhost -P 5432
+osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432
 ```
 
 - https://overpass-turbo.eu/
