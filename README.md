@@ -10,18 +10,20 @@ For current project status see https://wiki.openstreetmap.org/wiki/Sonoma_County
 
 Here is the project status as of Jan 13 2021.
 
-- 106,930 new buildings would be inserted with addresses (green) (non-conflated, with addresses)
-- 139,987 new buildings would be inserted without addresses (non-conflated, no address)
-- 18,867 buildings already exist with addresses and would not be inserted
-- 13,226 buildings already exist without addresses and would not be inserted
+- 80,341 new buildings would be inserted with addresses (green) (non-conflated, with addresses)
+  - This generally excludes the city of Santa Rosa as those addresses were previously imported as POIs with better accuracy and can be conflated at a later date
+- 166,088 new buildings would be inserted without addresses (non-conflated, no address)
+  - Some of these we "have" addresses for, but have nulled so as not to conflict with Santa Rosa address POIs
+- 32,581 buildings already exist and would not be inserted
 
-Here are sample screenshots of Sonoma County, Santa Rosa, the City of Sonoma, and Petaluma:
+Here are sample screenshots of Santa Rosa, the City of Sonoma, Petaluma, Sebastopol, and Healdsburg. Note the relative lack of conflated addresses in Santa Rosa due to the aforementioned POI import.
 
 <img src="/img/legend.png" alt="Legend"/>
-<img src="/img/sonoma_county.png" alt="Sonoma County" width="20%" align="left" />
 <img src="/img/santa_rosa.png" alt="Santa Rosa" width="20%" align="left" />
 <img src="/img/sonoma.png" alt="City of Sonoma" width="20%" align="left" />
 <img src="/img/petaluma.png" alt="Petaluma" width="20%" align="left" />
+<img src="/img/sebastopol.png" alt="Sebastopol" width="20%" align="left" />
+<img src="/img/healdsburg.png" alt="Healdsburg" width="20%" align="left" />
 
 <br clear="left"/>
 
