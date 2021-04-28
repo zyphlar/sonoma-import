@@ -2,9 +2,11 @@
 
 Based on https://github.com/Nate-Wessel/hamilton-import
 
+Please see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import for the official project page.
+
 ## Project Status
 
-For current project status see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import
+Sample OSM files are now available for review at https://github.com/zyphlar/sonoma-import/tree/main/out/clean
 
 ### Screenshots
 
