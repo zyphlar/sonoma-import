@@ -123,8 +123,7 @@ Please ensure you are logged in under a dedicated import account with a user nam
 
 - TODO:
   - Ensure `source=Sonoma County` is on each changeset
-  - Correlate county usecodes with buildings
-  - Remove `x_son_imp` tags from all elements
+  - Open OSM files in JOSM and run the validator on them
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
