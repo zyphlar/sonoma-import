@@ -782,12 +782,26 @@ update sonoma_county_building_outlines as t
 
 
 
--- Delete all address data in Santa Rosa, because the city's address data is better
+-- Delete all address data inside the Santa Rosa city limits, because the city's address data is better and already inserted as POIs
 
-update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:unit" = NULL, "addr:street" = NULL, "addr:city" = NULL, "addr:state" = NULL where "addr:city" = 'Santa Rosa';
+update sonoma_county_building_outlines set
+	"addr:housenumber" = NULL,
+	"addr:unit" = NULL,
+	"addr:street" = NULL,
+	"addr:city" = NULL,
+	"addr:state" = NULL
+	from santa_rosa_boundary
+		where santa_rosa_boundary.admin_level = '8'
+		and ST_Intersects(wkb_geometry, sonoma_county_building_outlines.loc_geom);
 
 
--- More specifically drop TAZs that don't have any SJ data in them
+-- select * from sonoma_county_building_outlines join santa_rosa_boundary
+-- 		on santa_rosa_boundary.admin_level = '8'
+-- 		and ST_Intersects(wkb_geometry, sonoma_county_building_outlines.loc_geom)
+-- 		limit 1000;
+
+
+-- Drop TAZs that don't have any SC data in them
 -- delete from VTATaz
 -- 	where key not in (
 -- 		select distinct cid from sonoma_county_building_outlines

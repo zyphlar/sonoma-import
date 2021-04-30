@@ -72,11 +72,19 @@ Debian (shp2pgsql is included in postgis)
 ## Running
 
 - We are assuming that the county data uses a WGS84 aka EPSG:4326 geographical projection, which was true as of last check and is also what OSM uses.
-- Run from your shell: `shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W`
-- `shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W`
-- `osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432`
+- Run from your shell:
 
-osm2pgsql should create tables like `son_polygon` for later.
+```
+cd original_data
+shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W
+shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W
+osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432
+ogr2ogr -f "PostgreSQL" PG:"host=localhost dbname=openstreetmap user=openstreetmap port=5432 password=openstreetmap" "santa-rosa-boundary.geojson"
+```
+
+shp2pgsql should create tables like `parcels__public_` and `sonoma_county_building_outlines`.
+osm2pgsql should create tables like `son_polygon`.
+ogr2ogr should create a table `santa_rosa_boundary`.
 
 Now all the data is in Postgres. For processing and conflation, read through and execute `conflation.sql` as per your comfort level.
 
