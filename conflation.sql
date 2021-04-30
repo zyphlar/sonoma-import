@@ -191,18 +191,30 @@ update parcels__public_ SET "addr:housenumber" = NULL,
     "addr:city" = NULL,
     "addr:state" = NULL;
 
--- parse city and state
+-- parse city* and state
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
--- with spaces
+-- city* with spaces
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
--- with spaces and zip
+-- city and state (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+) ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+) ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z]+) ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- city with spaces (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- city* with spaces and zip
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+' AND "addr:city" IS NULL;
+-- city with spaces and zip (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+) [0-9]+$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+) [0-9]+$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) ([A-Za-z]+) [0-9]+' AND "addr:city" IS NULL;
 -- with no asterisk, and "Ca" suffix
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) CA$', '\1')),
     "addr:state" = 'CA'
@@ -218,7 +230,7 @@ update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unincorp Cou
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unknown';
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Bodega Bay';
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Duncans Mills';
-update parcels__public_ SET "addr:state" = 'California' where "addr:state" = 'CA';
+-- update parcels__public_ SET "addr:state" = 'California' where "addr:state" = 'CA';
 
 
 -- basic 123 Main with no common suffixes or numbers
@@ -236,8 +248,12 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
 
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', 'Highway \2 \3')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HIGHWAY ([0-9]+)';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) VER-NI RD$', '\1')),
+    "addr:street" = 'Ver-ni Road' where situsfmt1 SIMILAR TO '([0-9]+) VER-NI RD';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ARROWHEAD MTN TRL$', '\1')),
     "addr:street" = 'Arrowhead Mountain Trail' where situsfmt1 SIMILAR TO '([0-9]+) ARROWHEAD MTN TRL';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) S FITCH MTN RD$', '\1')),
@@ -806,3 +822,4 @@ update sonoma_county_building_outlines set
 -- 	where key not in (
 -- 		select distinct cid from sonoma_county_building_outlines
 -- 	);
+
