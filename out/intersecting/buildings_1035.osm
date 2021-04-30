@@ -1,275 +1,275 @@
 <?xml version="1.0"?>
 <osm version="0.6" generator="uvmogr2osm" upload="false">
-<node id="-2" lat="38.436505526000005" lon="-122.870107809" visible="true" />
-<node id="-3" lat="38.436750996" lon="-122.87013846600001" visible="true" />
-<node id="-4" lat="38.436751706" lon="-122.870129309" visible="true" />
-<node id="-5" lat="38.436781334" lon="-122.870133017" visible="true" />
-<node id="-6" lat="38.436792414" lon="-122.86998965900001" visible="true" />
-<node id="-7" lat="38.436761848" lon="-122.869985854" visible="true" />
-<node id="-8" lat="38.43676035" lon="-122.87000533000001" visible="true" />
-<node id="-9" lat="38.436515772" lon="-122.86997485900001" visible="true" />
-<node id="-11" lat="38.437323694" lon="-122.86843312" visible="true" />
-<node id="-12" lat="38.437364334" lon="-122.868439287" visible="true" />
-<node id="-13" lat="38.437362543" lon="-122.868458497" visible="true" />
-<node id="-14" lat="38.437443526" lon="-122.868470798" visible="true" />
-<node id="-15" lat="38.437455041" lon="-122.86834836400001" visible="true" />
-<node id="-16" lat="38.437421967000006" lon="-122.86834330600001" visible="true" />
-<node id="-17" lat="38.437423809" lon="-122.86832360400001" visible="true" />
-<node id="-18" lat="38.437463192" lon="-122.86832958000001" visible="true" />
-<node id="-19" lat="38.437471473" lon="-122.86824169900001" visible="true" />
-<node id="-20" lat="38.437399586000005" lon="-122.86823076" visible="true" />
-<node id="-21" lat="38.437389438000004" lon="-122.868338722" visible="true" />
-<node id="-22" lat="38.437333369" lon="-122.868330244" visible="true" />
-<node id="-24" lat="38.435469644" lon="-122.87111202000001" visible="true" />
-<node id="-25" lat="38.435887689000005" lon="-122.87116235600001" visible="true" />
-<node id="-26" lat="38.435947927" lon="-122.87035343900001" visible="true" />
-<node id="-27" lat="38.435529905" lon="-122.870303109" visible="true" />
-<node id="-29" lat="38.435637636" lon="-122.86825067100001" visible="true" />
-<node id="-30" lat="38.435731819000004" lon="-122.868254433" visible="true" />
-<node id="-31" lat="38.435734769" lon="-122.86813591200001" visible="true" />
-<node id="-32" lat="38.435640563" lon="-122.86813215000001" visible="true" />
-<node id="-34" lat="38.437358717" lon="-122.87096396800001" visible="true" />
-<node id="-35" lat="38.437485277" lon="-122.870971213" visible="true" />
-<node id="-36" lat="38.437488486" lon="-122.87087951800001" visible="true" />
-<node id="-37" lat="38.437361925000005" lon="-122.870872301" visible="true" />
-<node id="-39" lat="38.435340914" lon="-122.868164237" visible="true" />
-<node id="-40" lat="38.435370161" lon="-122.868167036" visible="true" />
-<node id="-41" lat="38.435365892" lon="-122.86823887400001" visible="true" />
-<node id="-42" lat="38.435442976000004" lon="-122.868246298" visible="true" />
-<node id="-43" lat="38.43545429" lon="-122.868056338" visible="true" />
-<node id="-44" lat="38.435358157" lon="-122.86804708300001" visible="true" />
-<node id="-45" lat="38.435355302000005" lon="-122.868095052" visible="true" />
-<node id="-46" lat="38.435345080000005" lon="-122.86809408500001" visible="true" />
-<node id="-48" lat="38.436104558000004" lon="-122.86812789300001" visible="true" />
-<node id="-49" lat="38.436170032" lon="-122.86813651400001" visible="true" />
-<node id="-50" lat="38.436163881000006" lon="-122.868212055" visible="true" />
-<node id="-51" lat="38.436152725" lon="-122.86821058100001" visible="true" />
-<node id="-52" lat="38.43614239" lon="-122.86833736300001" visible="true" />
-<node id="-53" lat="38.436223706" lon="-122.86834809700001" visible="true" />
-<node id="-54" lat="38.43626556" lon="-122.86831154000001" visible="true" />
-<node id="-55" lat="38.43628222" lon="-122.868107299" visible="true" />
-<node id="-56" lat="38.436330891000004" lon="-122.86811368100001" visible="true" />
-<node id="-57" lat="38.436336209000004" lon="-122.86804854500001" visible="true" />
-<node id="-58" lat="38.43611343" lon="-122.86801918900001" visible="true" />
-<node id="-60" lat="38.435771195" lon="-122.868221773" visible="true" />
-<node id="-61" lat="38.435788506" lon="-122.868223438" visible="true" />
-<node id="-62" lat="38.435785835000004" lon="-122.86826815200001" visible="true" />
-<node id="-63" lat="38.435849772000005" lon="-122.868274282" visible="true" />
-<node id="-64" lat="38.435861054" lon="-122.868085339" visible="true" />
-<node id="-65" lat="38.435779808" lon="-122.86807751500001" visible="true" />
-<node id="-67" lat="38.437974912" lon="-122.868509289" visible="true" />
-<node id="-68" lat="38.438037447" lon="-122.86851304500001" visible="true" />
-<node id="-69" lat="38.438040572000006" lon="-122.86842917400001" visible="true" />
-<node id="-70" lat="38.437978036000004" lon="-122.86842541700001" visible="true" />
-<node id="-72" lat="38.437236861" lon="-122.86970342800001" visible="true" />
-<node id="-73" lat="38.43732413" lon="-122.86971368300001" visible="true" />
-<node id="-74" lat="38.437337071" lon="-122.869535784" visible="true" />
-<node id="-75" lat="38.437249802000004" lon="-122.86952552800001" visible="true" />
-<node id="-77" lat="38.437504544" lon="-122.87022124900001" visible="true" />
-<node id="-78" lat="38.437755196000005" lon="-122.87025639100001" visible="true" />
-<node id="-79" lat="38.437767753" lon="-122.87011145000001" visible="true" />
-<node id="-80" lat="38.437682373" lon="-122.870099472" visible="true" />
-<node id="-81" lat="38.437687961" lon="-122.87003512400001" visible="true" />
-<node id="-82" lat="38.437522687000005" lon="-122.87001196000001" visible="true" />
-<node id="-84" lat="38.437561295" lon="-122.870570549" visible="true" />
-<node id="-85" lat="38.437623714000004" lon="-122.87058061900001" visible="true" />
-<node id="-86" lat="38.437625869" lon="-122.870558825" visible="true" />
-<node id="-87" lat="38.437636885" lon="-122.870560588" visible="true" />
-<node id="-88" lat="38.437647211000005" lon="-122.870456614" visible="true" />
-<node id="-89" lat="38.437573799" lon="-122.870444809" visible="true" />
-<node id="-91" lat="38.437563748" lon="-122.870891752" visible="true" />
-<node id="-92" lat="38.437618053" lon="-122.870900648" visible="true" />
-<node id="-93" lat="38.437640746" lon="-122.87067689700001" visible="true" />
-<node id="-94" lat="38.437586442000004" lon="-122.870668002" visible="true" />
-<node id="-96" lat="38.436639508" lon="-122.86879436000001" visible="true" />
-<node id="-97" lat="38.436652200000005" lon="-122.86879541600001" visible="true" />
-<node id="-98" lat="38.436649632000005" lon="-122.868844815" visible="true" />
-<node id="-99" lat="38.436802282" lon="-122.86885764" visible="true" />
-<node id="-100" lat="38.436804399" lon="-122.86881661400001" visible="true" />
-<node id="-101" lat="38.436745877" lon="-122.86881171200001" visible="true" />
-<node id="-102" lat="38.436748523000006" lon="-122.868761121" visible="true" />
-<node id="-103" lat="38.436768007000005" lon="-122.868762754" visible="true" />
-<node id="-104" lat="38.436771217" lon="-122.86870108500001" visible="true" />
-<node id="-105" lat="38.436750772" lon="-122.868699382" visible="true" />
-<node id="-106" lat="38.436753078" lon="-122.86865451800001" visible="true" />
-<node id="-107" lat="38.436664986000004" lon="-122.868647104" visible="true" />
-<node id="-108" lat="38.436659555000006" lon="-122.868751574" visible="true" />
-<node id="-109" lat="38.436641809" lon="-122.868750077" visible="true" />
-<node id="-111" lat="38.436510670000004" lon="-122.86833814200001" visible="true" />
-<node id="-112" lat="38.436525279" lon="-122.86833997800001" visible="true" />
-<node id="-113" lat="38.436522291" lon="-122.86837840300001" visible="true" />
-<node id="-114" lat="38.43655304" lon="-122.86838226900001" visible="true" />
-<node id="-115" lat="38.436549061" lon="-122.8684336" visible="true" />
-<node id="-116" lat="38.436775143000006" lon="-122.868461921" visible="true" />
-<node id="-117" lat="38.436780387" lon="-122.86839448500001" visible="true" />
-<node id="-118" lat="38.436843074" lon="-122.86840234600001" visible="true" />
-<node id="-119" lat="38.436854984" lon="-122.86824875800001" visible="true" />
-<node id="-120" lat="38.43678482" lon="-122.868239993" visible="true" />
-<node id="-121" lat="38.436781095" lon="-122.86828801" visible="true" />
-<node id="-122" lat="38.436734252" lon="-122.86828214500001" visible="true" />
-<node id="-123" lat="38.436737470000004" lon="-122.86824055100001" visible="true" />
-<node id="-124" lat="38.436612004000004" lon="-122.86822483" visible="true" />
-<node id="-125" lat="38.436613674" lon="-122.86820352400001" visible="true" />
-<node id="-126" lat="38.436638937000005" lon="-122.86820668200001" visible="true" />
-<node id="-127" lat="38.436645143" lon="-122.868126895" visible="true" />
-<node id="-128" lat="38.436561353" lon="-122.86811636300001" visible="true" />
-<node id="-129" lat="38.436553495000005" lon="-122.86821812500001" visible="true" />
-<node id="-130" lat="38.436537652000005" lon="-122.86821610000001" visible="true" />
-<node id="-131" lat="38.436531723" lon="-122.86829248800001" visible="true" />
-<node id="-132" lat="38.436514394" lon="-122.86829032800001" visible="true" />
-<node id="-134" lat="38.436452441" lon="-122.86896088900001" visible="true" />
-<node id="-135" lat="38.436608398000004" lon="-122.86897838" visible="true" />
-<node id="-136" lat="38.436612475000004" lon="-122.868920067" visible="true" />
-<node id="-137" lat="38.436677112000005" lon="-122.868927341" visible="true" />
-<node id="-138" lat="38.436681449000005" lon="-122.8688649" visible="true" />
-<node id="-139" lat="38.436460833000005" lon="-122.868840105" visible="true" />
-<node id="-141" lat="38.436438334" lon="-122.86911142500001" visible="true" />
-<node id="-142" lat="38.436556153000005" lon="-122.869127667" visible="true" />
-<node id="-143" lat="38.436560222000004" lon="-122.869079564" visible="true" />
-<node id="-144" lat="38.436638449" lon="-122.869090321" visible="true" />
-<node id="-145" lat="38.436645677" lon="-122.869005541" visible="true" />
-<node id="-146" lat="38.436449654" lon="-122.868978573" visible="true" />
-<node id="-148" lat="38.436441588" lon="-122.86922338900001" visible="true" />
-<node id="-149" lat="38.436608029000006" lon="-122.86924045500001" visible="true" />
-<node id="-150" lat="38.436613662" lon="-122.86915175700001" visible="true" />
-<node id="-151" lat="38.436447222000005" lon="-122.869134633" visible="true" />
-<node id="-153" lat="38.436420707" lon="-122.869455916" visible="true" />
-<node id="-154" lat="38.436643098000005" lon="-122.869479044" visible="true" />
-<node id="-155" lat="38.43665274" lon="-122.86932903700001" visible="true" />
-<node id="-156" lat="38.436430349000005" lon="-122.869305909" visible="true" />
-<node id="-158" lat="38.436389858000005" lon="-122.869681338" visible="true" />
-<node id="-159" lat="38.436515473" lon="-122.869707597" visible="true" />
-<node id="-160" lat="38.436522519" lon="-122.86965321900001" visible="true" />
-<node id="-161" lat="38.436541368" lon="-122.86965714200001" visible="true" />
-<node id="-162" lat="38.436554514" lon="-122.869555473" visible="true" />
-<node id="-163" lat="38.436530478" lon="-122.86955046800001" visible="true" />
-<node id="-164" lat="38.436538908" lon="-122.86948537100001" visible="true" />
-<node id="-165" lat="38.436418456000006" lon="-122.869460165" visible="true" />
-<node id="-167" lat="38.436171261000005" lon="-122.86893186900001" visible="true" />
-<node id="-168" lat="38.436240288" lon="-122.86894268700001" visible="true" />
-<node id="-169" lat="38.436245272" lon="-122.86889151300001" visible="true" />
-<node id="-170" lat="38.436176223000004" lon="-122.86888066600001" visible="true" />
-<node id="-172" lat="38.436074003" lon="-122.86879225800001" visible="true" />
-<node id="-173" lat="38.436170579000006" lon="-122.86880963700001" visible="true" />
-<node id="-174" lat="38.436164221000006" lon="-122.86886696100001" visible="true" />
-<node id="-175" lat="38.436242284" lon="-122.86888100300001" visible="true" />
-<node id="-176" lat="38.436257255" lon="-122.86874653800001" visible="true" />
-<node id="-177" lat="38.436156498" lon="-122.86872843900001" visible="true" />
-<node id="-178" lat="38.436162192000005" lon="-122.868677304" visible="true" />
-<node id="-179" lat="38.436088263" lon="-122.86866401" visible="true" />
-<node id="-181" lat="38.436096303" lon="-122.86925928100001" visible="true" />
-<node id="-182" lat="38.436210059000004" lon="-122.86927431000001" visible="true" />
-<node id="-183" lat="38.436220921" lon="-122.86914157000001" visible="true" />
-<node id="-184" lat="38.436107165" lon="-122.869126483" visible="true" />
-<node id="-186" lat="38.436355227" lon="-122.87059094600001" visible="true" />
-<node id="-187" lat="38.436373700000004" lon="-122.87059306200001" visible="true" />
-<node id="-188" lat="38.436371193" lon="-122.87062820700001" visible="true" />
-<node id="-189" lat="38.436701529000004" lon="-122.87066603800001" visible="true" />
-<node id="-190" lat="38.436696716" lon="-122.87073385500001" visible="true" />
-<node id="-191" lat="38.436855367" lon="-122.87075205200001" visible="true" />
-<node id="-192" lat="38.436853704" lon="-122.87077536500001" visible="true" />
-<node id="-193" lat="38.436982062000006" lon="-122.87079005000001" visible="true" />
-<node id="-194" lat="38.437008998" lon="-122.87041011800001" visible="true" />
-<node id="-195" lat="38.436793301" lon="-122.87038537800001" visible="true" />
-<node id="-196" lat="38.436790789" lon="-122.870421135" visible="true" />
-<node id="-197" lat="38.43645819" lon="-122.870383015" visible="true" />
-<node id="-198" lat="38.436462747" lon="-122.87031877300001" visible="true" />
-<node id="-199" lat="38.436375224" lon="-122.87030871600001" visible="true" />
-<node id="-201" lat="38.436022079000004" lon="-122.870804831" visible="true" />
-<node id="-202" lat="38.436059382" lon="-122.87081052200001" visible="true" />
-<node id="-203" lat="38.436039408" lon="-122.87102263400001" visible="true" />
-<node id="-204" lat="38.436147705" lon="-122.871039112" visible="true" />
-<node id="-205" lat="38.436181187" lon="-122.87068344000001" visible="true" />
-<node id="-206" lat="38.436161827" lon="-122.87068049800001" visible="true" />
-<node id="-207" lat="38.436181402" lon="-122.87047274400001" visible="true" />
-<node id="-208" lat="38.436055161000006" lon="-122.87045354700001" visible="true" />
-<node id="-210" lat="38.433207803" lon="-122.864319191" visible="true" />
-<node id="-211" lat="38.433211656000005" lon="-122.864437268" visible="true" />
-<node id="-212" lat="38.433361579" lon="-122.86442936300001" visible="true" />
-<node id="-213" lat="38.433358864000006" lon="-122.86434580500001" visible="true" />
-<node id="-214" lat="38.433249277" lon="-122.864351607" visible="true" />
-<node id="-215" lat="38.43324814" lon="-122.86431706" visible="true" />
-<node id="-217" lat="38.43547462" lon="-122.86824991300001" visible="true" />
-<node id="-218" lat="38.435567689" lon="-122.868261778" visible="true" />
-<node id="-219" lat="38.435578187000004" lon="-122.86812854" visible="true" />
-<node id="-220" lat="38.435485117" lon="-122.86811667500001" visible="true" />
-<node id="-222" lat="38.438917975" lon="-122.85988294500001" visible="true" />
-<node id="-223" lat="38.439196083000006" lon="-122.85990081000001" visible="true" />
-<node id="-224" lat="38.439211793000005" lon="-122.85950542200001" visible="true" />
-<node id="-225" lat="38.439040478" lon="-122.85949443000001" visible="true" />
-<node id="-226" lat="38.439038591" lon="-122.859542007" visible="true" />
-<node id="-227" lat="38.438931799" lon="-122.85953516500001" visible="true" />
-<node id="-229" lat="38.437877122" lon="-122.86772536400001" visible="true" />
-<node id="-230" lat="38.437889434000006" lon="-122.86765199300001" visible="true" />
-<node id="-231" lat="38.437802972" lon="-122.867623393" visible="true" />
-<node id="-232" lat="38.437809943000005" lon="-122.867589327" visible="true" />
-<node id="-233" lat="38.43770275" lon="-122.867553869" visible="true" />
-<node id="-234" lat="38.437680936" lon="-122.86766046900001" visible="true" />
-<node id="-236" lat="38.437973173" lon="-122.86773221300001" visible="true" />
-<node id="-237" lat="38.437978849000004" lon="-122.867665036" visible="true" />
-<node id="-238" lat="38.437901103" lon="-122.867659196" visible="true" />
-<node id="-239" lat="38.437897972" lon="-122.86772656500001" visible="true" />
-<node id="-241" lat="38.437750714" lon="-122.86797748100001" visible="true" />
-<node id="-242" lat="38.437843596" lon="-122.86798681200001" visible="true" />
-<node id="-243" lat="38.437854993" lon="-122.867803976" visible="true" />
-<node id="-244" lat="38.437762111000005" lon="-122.86779464400001" visible="true" />
-<node id="-246" lat="38.437800024000005" lon="-122.868075371" visible="true" />
-<node id="-247" lat="38.437845427" lon="-122.868081305" visible="true" />
-<node id="-248" lat="38.437849236000005" lon="-122.86803424600001" visible="true" />
-<node id="-249" lat="38.437803811" lon="-122.86802831300001" visible="true" />
-<node id="-251" lat="38.43781697" lon="-122.868353982" visible="true" />
-<node id="-252" lat="38.437869079" lon="-122.86835962" visible="true" />
-<node id="-253" lat="38.43786498" lon="-122.86842090200001" visible="true" />
-<node id="-254" lat="38.437928865" lon="-122.86842781700001" visible="true" />
-<node id="-255" lat="38.437935929000005" lon="-122.86832223100001" visible="true" />
-<node id="-256" lat="38.437925639" lon="-122.868321116" visible="true" />
-<node id="-257" lat="38.43793139" lon="-122.868234951" visible="true" />
-<node id="-258" lat="38.437825708000005" lon="-122.86822351200001" visible="true" />
-<node id="-260" lat="38.437329069" lon="-122.867821331" visible="true" />
-<node id="-261" lat="38.437494176" lon="-122.867842217" visible="true" />
-<node id="-262" lat="38.437501136" lon="-122.86775342000001" visible="true" />
-<node id="-263" lat="38.437336006" lon="-122.86773250300001" visible="true" />
-<node id="-265" lat="38.437643973" lon="-122.868222818" visible="true" />
-<node id="-266" lat="38.437736415" lon="-122.86824497600001" visible="true" />
-<node id="-267" lat="38.437743141000006" lon="-122.868199583" visible="true" />
-<node id="-268" lat="38.437771307000006" lon="-122.868206326" visible="true" />
-<node id="-269" lat="38.437793072000005" lon="-122.86805960500001" visible="true" />
-<node id="-270" lat="38.437713009" lon="-122.86804041900001" visible="true" />
-<node id="-271" lat="38.437703272" lon="-122.86810605500001" visible="true" />
-<node id="-272" lat="38.437662727" lon="-122.86809634000001" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-2" /><tag k="building" v="office" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3120" /></way>
-<way id="-10" visible="true"><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-14" /><nd ref="-15" /><nd ref="-16" /><nd ref="-17" /><nd ref="-18" /><nd ref="-19" /><nd ref="-20" /><nd ref="-21" /><nd ref="-22" /><nd ref="-11" /><tag k="building" v="house" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3165" /></way>
-<way id="-23" visible="true"><nd ref="-24" /><nd ref="-25" /><nd ref="-26" /><nd ref="-27" /><nd ref="-24" /><tag k="building" v="yes" /></way>
-<way id="-28" visible="true"><nd ref="-29" /><nd ref="-30" /><nd ref="-31" /><nd ref="-32" /><nd ref="-29" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3051" /></way>
-<way id="-33" visible="true"><nd ref="-34" /><nd ref="-35" /><nd ref="-36" /><nd ref="-37" /><nd ref="-34" /><tag k="building" v="residential" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3360" /></way>
-<way id="-38" visible="true"><nd ref="-39" /><nd ref="-40" /><nd ref="-41" /><nd ref="-42" /><nd ref="-43" /><nd ref="-44" /><nd ref="-45" /><nd ref="-46" /><nd ref="-39" /><tag k="building" v="house" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3011" /></way>
-<way id="-47" visible="true"><nd ref="-48" /><nd ref="-49" /><nd ref="-50" /><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-54" /><nd ref="-55" /><nd ref="-56" /><nd ref="-57" /><nd ref="-58" /><nd ref="-48" /><tag k="building" v="yes" /></way>
-<way id="-59" visible="true"><nd ref="-60" /><nd ref="-61" /><nd ref="-62" /><nd ref="-63" /><nd ref="-64" /><nd ref="-65" /><nd ref="-60" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3071" /></way>
-<way id="-66" visible="true"><nd ref="-67" /><nd ref="-68" /><nd ref="-69" /><nd ref="-70" /><nd ref="-67" /><tag k="building" v="yes" /></way>
-<way id="-71" visible="true"><nd ref="-72" /><nd ref="-73" /><nd ref="-74" /><nd ref="-75" /><nd ref="-72" /><tag k="building" v="office" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3171" /></way>
-<way id="-76" visible="true"><nd ref="-77" /><nd ref="-78" /><nd ref="-79" /><nd ref="-80" /><nd ref="-81" /><nd ref="-82" /><nd ref="-77" /><tag k="building" v="warehouse" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3200" /></way>
-<way id="-83" visible="true"><nd ref="-84" /><nd ref="-85" /><nd ref="-86" /><nd ref="-87" /><nd ref="-88" /><nd ref="-89" /><nd ref="-84" /><tag k="building" v="yes" /></way>
+<node id="-2" lat="38.437323694" lon="-122.86843312" visible="true" />
+<node id="-3" lat="38.437364334" lon="-122.868439287" visible="true" />
+<node id="-4" lat="38.437362543" lon="-122.868458497" visible="true" />
+<node id="-5" lat="38.437443526" lon="-122.868470798" visible="true" />
+<node id="-6" lat="38.437455041" lon="-122.86834836400001" visible="true" />
+<node id="-7" lat="38.437421967000006" lon="-122.86834330600001" visible="true" />
+<node id="-8" lat="38.437423809" lon="-122.86832360400001" visible="true" />
+<node id="-9" lat="38.437463192" lon="-122.86832958000001" visible="true" />
+<node id="-10" lat="38.437471473" lon="-122.86824169900001" visible="true" />
+<node id="-11" lat="38.437399586000005" lon="-122.86823076" visible="true" />
+<node id="-12" lat="38.437389438000004" lon="-122.868338722" visible="true" />
+<node id="-13" lat="38.437333369" lon="-122.868330244" visible="true" />
+<node id="-15" lat="38.437329069" lon="-122.867821331" visible="true" />
+<node id="-16" lat="38.437494176" lon="-122.867842217" visible="true" />
+<node id="-17" lat="38.437501136" lon="-122.86775342000001" visible="true" />
+<node id="-18" lat="38.437336006" lon="-122.86773250300001" visible="true" />
+<node id="-20" lat="38.438917975" lon="-122.85988294500001" visible="true" />
+<node id="-21" lat="38.439196083000006" lon="-122.85990081000001" visible="true" />
+<node id="-22" lat="38.439211793000005" lon="-122.85950542200001" visible="true" />
+<node id="-23" lat="38.439040478" lon="-122.85949443000001" visible="true" />
+<node id="-24" lat="38.439038591" lon="-122.859542007" visible="true" />
+<node id="-25" lat="38.438931799" lon="-122.85953516500001" visible="true" />
+<node id="-27" lat="38.437877122" lon="-122.86772536400001" visible="true" />
+<node id="-28" lat="38.437889434000006" lon="-122.86765199300001" visible="true" />
+<node id="-29" lat="38.437802972" lon="-122.867623393" visible="true" />
+<node id="-30" lat="38.437809943000005" lon="-122.867589327" visible="true" />
+<node id="-31" lat="38.43770275" lon="-122.867553869" visible="true" />
+<node id="-32" lat="38.437680936" lon="-122.86766046900001" visible="true" />
+<node id="-34" lat="38.437973173" lon="-122.86773221300001" visible="true" />
+<node id="-35" lat="38.437978849000004" lon="-122.867665036" visible="true" />
+<node id="-36" lat="38.437901103" lon="-122.867659196" visible="true" />
+<node id="-37" lat="38.437897972" lon="-122.86772656500001" visible="true" />
+<node id="-39" lat="38.437750714" lon="-122.86797748100001" visible="true" />
+<node id="-40" lat="38.437843596" lon="-122.86798681200001" visible="true" />
+<node id="-41" lat="38.437854993" lon="-122.867803976" visible="true" />
+<node id="-42" lat="38.437762111000005" lon="-122.86779464400001" visible="true" />
+<node id="-44" lat="38.437800024000005" lon="-122.868075371" visible="true" />
+<node id="-45" lat="38.437845427" lon="-122.868081305" visible="true" />
+<node id="-46" lat="38.437849236000005" lon="-122.86803424600001" visible="true" />
+<node id="-47" lat="38.437803811" lon="-122.86802831300001" visible="true" />
+<node id="-49" lat="38.43781697" lon="-122.868353982" visible="true" />
+<node id="-50" lat="38.437869079" lon="-122.86835962" visible="true" />
+<node id="-51" lat="38.43786498" lon="-122.86842090200001" visible="true" />
+<node id="-52" lat="38.437928865" lon="-122.86842781700001" visible="true" />
+<node id="-53" lat="38.437935929000005" lon="-122.86832223100001" visible="true" />
+<node id="-54" lat="38.437925639" lon="-122.868321116" visible="true" />
+<node id="-55" lat="38.43793139" lon="-122.868234951" visible="true" />
+<node id="-56" lat="38.437825708000005" lon="-122.86822351200001" visible="true" />
+<node id="-58" lat="38.437643973" lon="-122.868222818" visible="true" />
+<node id="-59" lat="38.437736415" lon="-122.86824497600001" visible="true" />
+<node id="-60" lat="38.437743141000006" lon="-122.868199583" visible="true" />
+<node id="-61" lat="38.437771307000006" lon="-122.868206326" visible="true" />
+<node id="-62" lat="38.437793072000005" lon="-122.86805960500001" visible="true" />
+<node id="-63" lat="38.437713009" lon="-122.86804041900001" visible="true" />
+<node id="-64" lat="38.437703272" lon="-122.86810605500001" visible="true" />
+<node id="-65" lat="38.437662727" lon="-122.86809634000001" visible="true" />
+<node id="-67" lat="38.436104558000004" lon="-122.86812789300001" visible="true" />
+<node id="-68" lat="38.436170032" lon="-122.86813651400001" visible="true" />
+<node id="-69" lat="38.436163881000006" lon="-122.868212055" visible="true" />
+<node id="-70" lat="38.436152725" lon="-122.86821058100001" visible="true" />
+<node id="-71" lat="38.43614239" lon="-122.86833736300001" visible="true" />
+<node id="-72" lat="38.436223706" lon="-122.86834809700001" visible="true" />
+<node id="-73" lat="38.43626556" lon="-122.86831154000001" visible="true" />
+<node id="-74" lat="38.43628222" lon="-122.868107299" visible="true" />
+<node id="-75" lat="38.436330891000004" lon="-122.86811368100001" visible="true" />
+<node id="-76" lat="38.436336209000004" lon="-122.86804854500001" visible="true" />
+<node id="-77" lat="38.43611343" lon="-122.86801918900001" visible="true" />
+<node id="-79" lat="38.435771195" lon="-122.868221773" visible="true" />
+<node id="-80" lat="38.435788506" lon="-122.868223438" visible="true" />
+<node id="-81" lat="38.435785835000004" lon="-122.86826815200001" visible="true" />
+<node id="-82" lat="38.435849772000005" lon="-122.868274282" visible="true" />
+<node id="-83" lat="38.435861054" lon="-122.868085339" visible="true" />
+<node id="-84" lat="38.435779808" lon="-122.86807751500001" visible="true" />
+<node id="-86" lat="38.435637636" lon="-122.86825067100001" visible="true" />
+<node id="-87" lat="38.435731819000004" lon="-122.868254433" visible="true" />
+<node id="-88" lat="38.435734769" lon="-122.86813591200001" visible="true" />
+<node id="-89" lat="38.435640563" lon="-122.86813215000001" visible="true" />
+<node id="-91" lat="38.437974912" lon="-122.868509289" visible="true" />
+<node id="-92" lat="38.438037447" lon="-122.86851304500001" visible="true" />
+<node id="-93" lat="38.438040572000006" lon="-122.86842917400001" visible="true" />
+<node id="-94" lat="38.437978036000004" lon="-122.86842541700001" visible="true" />
+<node id="-96" lat="38.437236861" lon="-122.86970342800001" visible="true" />
+<node id="-97" lat="38.43732413" lon="-122.86971368300001" visible="true" />
+<node id="-98" lat="38.437337071" lon="-122.869535784" visible="true" />
+<node id="-99" lat="38.437249802000004" lon="-122.86952552800001" visible="true" />
+<node id="-101" lat="38.437504544" lon="-122.87022124900001" visible="true" />
+<node id="-102" lat="38.437755196000005" lon="-122.87025639100001" visible="true" />
+<node id="-103" lat="38.437767753" lon="-122.87011145000001" visible="true" />
+<node id="-104" lat="38.437682373" lon="-122.870099472" visible="true" />
+<node id="-105" lat="38.437687961" lon="-122.87003512400001" visible="true" />
+<node id="-106" lat="38.437522687000005" lon="-122.87001196000001" visible="true" />
+<node id="-108" lat="38.437561295" lon="-122.870570549" visible="true" />
+<node id="-109" lat="38.437623714000004" lon="-122.87058061900001" visible="true" />
+<node id="-110" lat="38.437625869" lon="-122.870558825" visible="true" />
+<node id="-111" lat="38.437636885" lon="-122.870560588" visible="true" />
+<node id="-112" lat="38.437647211000005" lon="-122.870456614" visible="true" />
+<node id="-113" lat="38.437573799" lon="-122.870444809" visible="true" />
+<node id="-115" lat="38.437563748" lon="-122.870891752" visible="true" />
+<node id="-116" lat="38.437618053" lon="-122.870900648" visible="true" />
+<node id="-117" lat="38.437640746" lon="-122.87067689700001" visible="true" />
+<node id="-118" lat="38.437586442000004" lon="-122.870668002" visible="true" />
+<node id="-120" lat="38.437358717" lon="-122.87096396800001" visible="true" />
+<node id="-121" lat="38.437485277" lon="-122.870971213" visible="true" />
+<node id="-122" lat="38.437488486" lon="-122.87087951800001" visible="true" />
+<node id="-123" lat="38.437361925000005" lon="-122.870872301" visible="true" />
+<node id="-125" lat="38.436639508" lon="-122.86879436000001" visible="true" />
+<node id="-126" lat="38.436652200000005" lon="-122.86879541600001" visible="true" />
+<node id="-127" lat="38.436649632000005" lon="-122.868844815" visible="true" />
+<node id="-128" lat="38.436802282" lon="-122.86885764" visible="true" />
+<node id="-129" lat="38.436804399" lon="-122.86881661400001" visible="true" />
+<node id="-130" lat="38.436745877" lon="-122.86881171200001" visible="true" />
+<node id="-131" lat="38.436748523000006" lon="-122.868761121" visible="true" />
+<node id="-132" lat="38.436768007000005" lon="-122.868762754" visible="true" />
+<node id="-133" lat="38.436771217" lon="-122.86870108500001" visible="true" />
+<node id="-134" lat="38.436750772" lon="-122.868699382" visible="true" />
+<node id="-135" lat="38.436753078" lon="-122.86865451800001" visible="true" />
+<node id="-136" lat="38.436664986000004" lon="-122.868647104" visible="true" />
+<node id="-137" lat="38.436659555000006" lon="-122.868751574" visible="true" />
+<node id="-138" lat="38.436641809" lon="-122.868750077" visible="true" />
+<node id="-140" lat="38.436510670000004" lon="-122.86833814200001" visible="true" />
+<node id="-141" lat="38.436525279" lon="-122.86833997800001" visible="true" />
+<node id="-142" lat="38.436522291" lon="-122.86837840300001" visible="true" />
+<node id="-143" lat="38.43655304" lon="-122.86838226900001" visible="true" />
+<node id="-144" lat="38.436549061" lon="-122.8684336" visible="true" />
+<node id="-145" lat="38.436775143000006" lon="-122.868461921" visible="true" />
+<node id="-146" lat="38.436780387" lon="-122.86839448500001" visible="true" />
+<node id="-147" lat="38.436843074" lon="-122.86840234600001" visible="true" />
+<node id="-148" lat="38.436854984" lon="-122.86824875800001" visible="true" />
+<node id="-149" lat="38.43678482" lon="-122.868239993" visible="true" />
+<node id="-150" lat="38.436781095" lon="-122.86828801" visible="true" />
+<node id="-151" lat="38.436734252" lon="-122.86828214500001" visible="true" />
+<node id="-152" lat="38.436737470000004" lon="-122.86824055100001" visible="true" />
+<node id="-153" lat="38.436612004000004" lon="-122.86822483" visible="true" />
+<node id="-154" lat="38.436613674" lon="-122.86820352400001" visible="true" />
+<node id="-155" lat="38.436638937000005" lon="-122.86820668200001" visible="true" />
+<node id="-156" lat="38.436645143" lon="-122.868126895" visible="true" />
+<node id="-157" lat="38.436561353" lon="-122.86811636300001" visible="true" />
+<node id="-158" lat="38.436553495000005" lon="-122.86821812500001" visible="true" />
+<node id="-159" lat="38.436537652000005" lon="-122.86821610000001" visible="true" />
+<node id="-160" lat="38.436531723" lon="-122.86829248800001" visible="true" />
+<node id="-161" lat="38.436514394" lon="-122.86829032800001" visible="true" />
+<node id="-163" lat="38.436452441" lon="-122.86896088900001" visible="true" />
+<node id="-164" lat="38.436608398000004" lon="-122.86897838" visible="true" />
+<node id="-165" lat="38.436612475000004" lon="-122.868920067" visible="true" />
+<node id="-166" lat="38.436677112000005" lon="-122.868927341" visible="true" />
+<node id="-167" lat="38.436681449000005" lon="-122.8688649" visible="true" />
+<node id="-168" lat="38.436460833000005" lon="-122.868840105" visible="true" />
+<node id="-170" lat="38.436438334" lon="-122.86911142500001" visible="true" />
+<node id="-171" lat="38.436556153000005" lon="-122.869127667" visible="true" />
+<node id="-172" lat="38.436560222000004" lon="-122.869079564" visible="true" />
+<node id="-173" lat="38.436638449" lon="-122.869090321" visible="true" />
+<node id="-174" lat="38.436645677" lon="-122.869005541" visible="true" />
+<node id="-175" lat="38.436449654" lon="-122.868978573" visible="true" />
+<node id="-177" lat="38.436441588" lon="-122.86922338900001" visible="true" />
+<node id="-178" lat="38.436608029000006" lon="-122.86924045500001" visible="true" />
+<node id="-179" lat="38.436613662" lon="-122.86915175700001" visible="true" />
+<node id="-180" lat="38.436447222000005" lon="-122.869134633" visible="true" />
+<node id="-182" lat="38.436420707" lon="-122.869455916" visible="true" />
+<node id="-183" lat="38.436643098000005" lon="-122.869479044" visible="true" />
+<node id="-184" lat="38.43665274" lon="-122.86932903700001" visible="true" />
+<node id="-185" lat="38.436430349000005" lon="-122.869305909" visible="true" />
+<node id="-187" lat="38.436389858000005" lon="-122.869681338" visible="true" />
+<node id="-188" lat="38.436515473" lon="-122.869707597" visible="true" />
+<node id="-189" lat="38.436522519" lon="-122.86965321900001" visible="true" />
+<node id="-190" lat="38.436541368" lon="-122.86965714200001" visible="true" />
+<node id="-191" lat="38.436554514" lon="-122.869555473" visible="true" />
+<node id="-192" lat="38.436530478" lon="-122.86955046800001" visible="true" />
+<node id="-193" lat="38.436538908" lon="-122.86948537100001" visible="true" />
+<node id="-194" lat="38.436418456000006" lon="-122.869460165" visible="true" />
+<node id="-196" lat="38.436171261000005" lon="-122.86893186900001" visible="true" />
+<node id="-197" lat="38.436240288" lon="-122.86894268700001" visible="true" />
+<node id="-198" lat="38.436245272" lon="-122.86889151300001" visible="true" />
+<node id="-199" lat="38.436176223000004" lon="-122.86888066600001" visible="true" />
+<node id="-201" lat="38.436074003" lon="-122.86879225800001" visible="true" />
+<node id="-202" lat="38.436170579000006" lon="-122.86880963700001" visible="true" />
+<node id="-203" lat="38.436164221000006" lon="-122.86886696100001" visible="true" />
+<node id="-204" lat="38.436242284" lon="-122.86888100300001" visible="true" />
+<node id="-205" lat="38.436257255" lon="-122.86874653800001" visible="true" />
+<node id="-206" lat="38.436156498" lon="-122.86872843900001" visible="true" />
+<node id="-207" lat="38.436162192000005" lon="-122.868677304" visible="true" />
+<node id="-208" lat="38.436088263" lon="-122.86866401" visible="true" />
+<node id="-210" lat="38.436096303" lon="-122.86925928100001" visible="true" />
+<node id="-211" lat="38.436210059000004" lon="-122.86927431000001" visible="true" />
+<node id="-212" lat="38.436220921" lon="-122.86914157000001" visible="true" />
+<node id="-213" lat="38.436107165" lon="-122.869126483" visible="true" />
+<node id="-215" lat="38.436505526000005" lon="-122.870107809" visible="true" />
+<node id="-216" lat="38.436750996" lon="-122.87013846600001" visible="true" />
+<node id="-217" lat="38.436751706" lon="-122.870129309" visible="true" />
+<node id="-218" lat="38.436781334" lon="-122.870133017" visible="true" />
+<node id="-219" lat="38.436792414" lon="-122.86998965900001" visible="true" />
+<node id="-220" lat="38.436761848" lon="-122.869985854" visible="true" />
+<node id="-221" lat="38.43676035" lon="-122.87000533000001" visible="true" />
+<node id="-222" lat="38.436515772" lon="-122.86997485900001" visible="true" />
+<node id="-224" lat="38.436355227" lon="-122.87059094600001" visible="true" />
+<node id="-225" lat="38.436373700000004" lon="-122.87059306200001" visible="true" />
+<node id="-226" lat="38.436371193" lon="-122.87062820700001" visible="true" />
+<node id="-227" lat="38.436701529000004" lon="-122.87066603800001" visible="true" />
+<node id="-228" lat="38.436696716" lon="-122.87073385500001" visible="true" />
+<node id="-229" lat="38.436855367" lon="-122.87075205200001" visible="true" />
+<node id="-230" lat="38.436853704" lon="-122.87077536500001" visible="true" />
+<node id="-231" lat="38.436982062000006" lon="-122.87079005000001" visible="true" />
+<node id="-232" lat="38.437008998" lon="-122.87041011800001" visible="true" />
+<node id="-233" lat="38.436793301" lon="-122.87038537800001" visible="true" />
+<node id="-234" lat="38.436790789" lon="-122.870421135" visible="true" />
+<node id="-235" lat="38.43645819" lon="-122.870383015" visible="true" />
+<node id="-236" lat="38.436462747" lon="-122.87031877300001" visible="true" />
+<node id="-237" lat="38.436375224" lon="-122.87030871600001" visible="true" />
+<node id="-239" lat="38.436022079000004" lon="-122.870804831" visible="true" />
+<node id="-240" lat="38.436059382" lon="-122.87081052200001" visible="true" />
+<node id="-241" lat="38.436039408" lon="-122.87102263400001" visible="true" />
+<node id="-242" lat="38.436147705" lon="-122.871039112" visible="true" />
+<node id="-243" lat="38.436181187" lon="-122.87068344000001" visible="true" />
+<node id="-244" lat="38.436161827" lon="-122.87068049800001" visible="true" />
+<node id="-245" lat="38.436181402" lon="-122.87047274400001" visible="true" />
+<node id="-246" lat="38.436055161000006" lon="-122.87045354700001" visible="true" />
+<node id="-248" lat="38.435469644" lon="-122.87111202000001" visible="true" />
+<node id="-249" lat="38.435887689000005" lon="-122.87116235600001" visible="true" />
+<node id="-250" lat="38.435947927" lon="-122.87035343900001" visible="true" />
+<node id="-251" lat="38.435529905" lon="-122.870303109" visible="true" />
+<node id="-253" lat="38.433207803" lon="-122.864319191" visible="true" />
+<node id="-254" lat="38.433211656000005" lon="-122.864437268" visible="true" />
+<node id="-255" lat="38.433361579" lon="-122.86442936300001" visible="true" />
+<node id="-256" lat="38.433358864000006" lon="-122.86434580500001" visible="true" />
+<node id="-257" lat="38.433249277" lon="-122.864351607" visible="true" />
+<node id="-258" lat="38.43324814" lon="-122.86431706" visible="true" />
+<node id="-260" lat="38.43547462" lon="-122.86824991300001" visible="true" />
+<node id="-261" lat="38.435567689" lon="-122.868261778" visible="true" />
+<node id="-262" lat="38.435578187000004" lon="-122.86812854" visible="true" />
+<node id="-263" lat="38.435485117" lon="-122.86811667500001" visible="true" />
+<node id="-265" lat="38.435340914" lon="-122.868164237" visible="true" />
+<node id="-266" lat="38.435370161" lon="-122.868167036" visible="true" />
+<node id="-267" lat="38.435365892" lon="-122.86823887400001" visible="true" />
+<node id="-268" lat="38.435442976000004" lon="-122.868246298" visible="true" />
+<node id="-269" lat="38.43545429" lon="-122.868056338" visible="true" />
+<node id="-270" lat="38.435358157" lon="-122.86804708300001" visible="true" />
+<node id="-271" lat="38.435355302000005" lon="-122.868095052" visible="true" />
+<node id="-272" lat="38.435345080000005" lon="-122.86809408500001" visible="true" />
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-2" /><tag k="building" v="house" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3165" /></way>
+<way id="-14" visible="true"><nd ref="-15" /><nd ref="-16" /><nd ref="-17" /><nd ref="-18" /><nd ref="-15" /><tag k="building" v="house" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8939" /></way>
+<way id="-19" visible="true"><nd ref="-20" /><nd ref="-21" /><nd ref="-22" /><nd ref="-23" /><nd ref="-24" /><nd ref="-25" /><nd ref="-20" /><tag k="building" v="yes" /></way>
+<way id="-26" visible="true"><nd ref="-27" /><nd ref="-28" /><nd ref="-29" /><nd ref="-30" /><nd ref="-31" /><nd ref="-32" /><nd ref="-27" /><tag k="building" v="house" /><tag k="addr:street" v="Brush Street" /><tag k="addr:housenumber" v="3120" /></way>
+<way id="-33" visible="true"><nd ref="-34" /><nd ref="-35" /><nd ref="-36" /><nd ref="-37" /><nd ref="-34" /><tag k="building" v="yes" /></way>
+<way id="-38" visible="true"><nd ref="-39" /><nd ref="-40" /><nd ref="-41" /><nd ref="-42" /><nd ref="-39" /><tag k="building" v="house" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8940" /></way>
+<way id="-43" visible="true"><nd ref="-44" /><nd ref="-45" /><nd ref="-46" /><nd ref="-47" /><nd ref="-44" /><tag k="building" v="yes" /></way>
+<way id="-48" visible="true"><nd ref="-49" /><nd ref="-50" /><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-54" /><nd ref="-55" /><nd ref="-56" /><nd ref="-49" /><tag k="building" v="house" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3185" /></way>
+<way id="-57" visible="true"><nd ref="-58" /><nd ref="-59" /><nd ref="-60" /><nd ref="-61" /><nd ref="-62" /><nd ref="-63" /><nd ref="-64" /><nd ref="-65" /><nd ref="-58" /><tag k="building" v="house" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8998" /></way>
+<way id="-66" visible="true"><nd ref="-67" /><nd ref="-68" /><nd ref="-69" /><nd ref="-70" /><nd ref="-71" /><nd ref="-72" /><nd ref="-73" /><nd ref="-74" /><nd ref="-75" /><nd ref="-76" /><nd ref="-77" /><nd ref="-67" /><tag k="building" v="yes" /></way>
+<way id="-78" visible="true"><nd ref="-79" /><nd ref="-80" /><nd ref="-81" /><nd ref="-82" /><nd ref="-83" /><nd ref="-84" /><nd ref="-79" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3071" /></way>
+<way id="-85" visible="true"><nd ref="-86" /><nd ref="-87" /><nd ref="-88" /><nd ref="-89" /><nd ref="-86" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3051" /></way>
 <way id="-90" visible="true"><nd ref="-91" /><nd ref="-92" /><nd ref="-93" /><nd ref="-94" /><nd ref="-91" /><tag k="building" v="yes" /></way>
-<way id="-95" visible="true"><nd ref="-96" /><nd ref="-97" /><nd ref="-98" /><nd ref="-99" /><nd ref="-100" /><nd ref="-101" /><nd ref="-102" /><nd ref="-103" /><nd ref="-104" /><nd ref="-105" /><nd ref="-106" /><nd ref="-107" /><nd ref="-108" /><nd ref="-109" /><nd ref="-96" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9010" /></way>
-<way id="-110" visible="true"><nd ref="-111" /><nd ref="-112" /><nd ref="-113" /><nd ref="-114" /><nd ref="-115" /><nd ref="-116" /><nd ref="-117" /><nd ref="-118" /><nd ref="-119" /><nd ref="-120" /><nd ref="-121" /><nd ref="-122" /><nd ref="-123" /><nd ref="-124" /><nd ref="-125" /><nd ref="-126" /><nd ref="-127" /><nd ref="-128" /><nd ref="-129" /><nd ref="-130" /><nd ref="-131" /><nd ref="-132" /><nd ref="-111" /><tag k="building" v="yes" /></way>
-<way id="-133" visible="true"><nd ref="-134" /><nd ref="-135" /><nd ref="-136" /><nd ref="-137" /><nd ref="-138" /><nd ref="-139" /><nd ref="-134" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9020" /></way>
-<way id="-140" visible="true"><nd ref="-141" /><nd ref="-142" /><nd ref="-143" /><nd ref="-144" /><nd ref="-145" /><nd ref="-146" /><nd ref="-141" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9030" /></way>
-<way id="-147" visible="true"><nd ref="-148" /><nd ref="-149" /><nd ref="-150" /><nd ref="-151" /><nd ref="-148" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9040" /></way>
-<way id="-152" visible="true"><nd ref="-153" /><nd ref="-154" /><nd ref="-155" /><nd ref="-156" /><nd ref="-153" /><tag k="building" v="retail" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9050" /></way>
-<way id="-157" visible="true"><nd ref="-158" /><nd ref="-159" /><nd ref="-160" /><nd ref="-161" /><nd ref="-162" /><nd ref="-163" /><nd ref="-164" /><nd ref="-165" /><nd ref="-158" /><tag k="building" v="yes" /></way>
-<way id="-166" visible="true"><nd ref="-167" /><nd ref="-168" /><nd ref="-169" /><nd ref="-170" /><nd ref="-167" /><tag k="building" v="yes" /></way>
-<way id="-171" visible="true"><nd ref="-172" /><nd ref="-173" /><nd ref="-174" /><nd ref="-175" /><nd ref="-176" /><nd ref="-177" /><nd ref="-178" /><nd ref="-179" /><nd ref="-172" /><tag k="building" v="yes" /></way>
-<way id="-180" visible="true"><nd ref="-181" /><nd ref="-182" /><nd ref="-183" /><nd ref="-184" /><nd ref="-181" /><tag k="building" v="yes" /></way>
-<way id="-185" visible="true"><nd ref="-186" /><nd ref="-187" /><nd ref="-188" /><nd ref="-189" /><nd ref="-190" /><nd ref="-191" /><nd ref="-192" /><nd ref="-193" /><nd ref="-194" /><nd ref="-195" /><nd ref="-196" /><nd ref="-197" /><nd ref="-198" /><nd ref="-199" /><nd ref="-186" /><tag k="building" v="industrial" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9100" /></way>
+<way id="-95" visible="true"><nd ref="-96" /><nd ref="-97" /><nd ref="-98" /><nd ref="-99" /><nd ref="-96" /><tag k="building" v="office" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3171" /></way>
+<way id="-100" visible="true"><nd ref="-101" /><nd ref="-102" /><nd ref="-103" /><nd ref="-104" /><nd ref="-105" /><nd ref="-106" /><nd ref="-101" /><tag k="building" v="warehouse" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3200" /></way>
+<way id="-107" visible="true"><nd ref="-108" /><nd ref="-109" /><nd ref="-110" /><nd ref="-111" /><nd ref="-112" /><nd ref="-113" /><nd ref="-108" /><tag k="building" v="yes" /></way>
+<way id="-114" visible="true"><nd ref="-115" /><nd ref="-116" /><nd ref="-117" /><nd ref="-118" /><nd ref="-115" /><tag k="building" v="yes" /></way>
+<way id="-119" visible="true"><nd ref="-120" /><nd ref="-121" /><nd ref="-122" /><nd ref="-123" /><nd ref="-120" /><tag k="building" v="residential" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3360" /></way>
+<way id="-124" visible="true"><nd ref="-125" /><nd ref="-126" /><nd ref="-127" /><nd ref="-128" /><nd ref="-129" /><nd ref="-130" /><nd ref="-131" /><nd ref="-132" /><nd ref="-133" /><nd ref="-134" /><nd ref="-135" /><nd ref="-136" /><nd ref="-137" /><nd ref="-138" /><nd ref="-125" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9010" /></way>
+<way id="-139" visible="true"><nd ref="-140" /><nd ref="-141" /><nd ref="-142" /><nd ref="-143" /><nd ref="-144" /><nd ref="-145" /><nd ref="-146" /><nd ref="-147" /><nd ref="-148" /><nd ref="-149" /><nd ref="-150" /><nd ref="-151" /><nd ref="-152" /><nd ref="-153" /><nd ref="-154" /><nd ref="-155" /><nd ref="-156" /><nd ref="-157" /><nd ref="-158" /><nd ref="-159" /><nd ref="-160" /><nd ref="-161" /><nd ref="-140" /><tag k="building" v="yes" /></way>
+<way id="-162" visible="true"><nd ref="-163" /><nd ref="-164" /><nd ref="-165" /><nd ref="-166" /><nd ref="-167" /><nd ref="-168" /><nd ref="-163" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9020" /></way>
+<way id="-169" visible="true"><nd ref="-170" /><nd ref="-171" /><nd ref="-172" /><nd ref="-173" /><nd ref="-174" /><nd ref="-175" /><nd ref="-170" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9030" /></way>
+<way id="-176" visible="true"><nd ref="-177" /><nd ref="-178" /><nd ref="-179" /><nd ref="-180" /><nd ref="-177" /><tag k="building" v="retail" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9040" /></way>
+<way id="-181" visible="true"><nd ref="-182" /><nd ref="-183" /><nd ref="-184" /><nd ref="-185" /><nd ref="-182" /><tag k="building" v="retail" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9050" /></way>
+<way id="-186" visible="true"><nd ref="-187" /><nd ref="-188" /><nd ref="-189" /><nd ref="-190" /><nd ref="-191" /><nd ref="-192" /><nd ref="-193" /><nd ref="-194" /><nd ref="-187" /><tag k="building" v="yes" /></way>
+<way id="-195" visible="true"><nd ref="-196" /><nd ref="-197" /><nd ref="-198" /><nd ref="-199" /><nd ref="-196" /><tag k="building" v="yes" /></way>
 <way id="-200" visible="true"><nd ref="-201" /><nd ref="-202" /><nd ref="-203" /><nd ref="-204" /><nd ref="-205" /><nd ref="-206" /><nd ref="-207" /><nd ref="-208" /><nd ref="-201" /><tag k="building" v="yes" /></way>
-<way id="-209" visible="true"><nd ref="-210" /><nd ref="-211" /><nd ref="-212" /><nd ref="-213" /><nd ref="-214" /><nd ref="-215" /><nd ref="-210" /><tag k="building" v="yes" /></way>
-<way id="-216" visible="true"><nd ref="-217" /><nd ref="-218" /><nd ref="-219" /><nd ref="-220" /><nd ref="-217" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3031" /></way>
-<way id="-221" visible="true"><nd ref="-222" /><nd ref="-223" /><nd ref="-224" /><nd ref="-225" /><nd ref="-226" /><nd ref="-227" /><nd ref="-222" /><tag k="building" v="yes" /></way>
-<way id="-228" visible="true"><nd ref="-229" /><nd ref="-230" /><nd ref="-231" /><nd ref="-232" /><nd ref="-233" /><nd ref="-234" /><nd ref="-229" /><tag k="building" v="house" /><tag k="addr:street" v="Brush Street" /><tag k="addr:housenumber" v="3120" /></way>
-<way id="-235" visible="true"><nd ref="-236" /><nd ref="-237" /><nd ref="-238" /><nd ref="-239" /><nd ref="-236" /><tag k="building" v="yes" /></way>
-<way id="-240" visible="true"><nd ref="-241" /><nd ref="-242" /><nd ref="-243" /><nd ref="-244" /><nd ref="-241" /><tag k="building" v="house" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8940" /></way>
-<way id="-245" visible="true"><nd ref="-246" /><nd ref="-247" /><nd ref="-248" /><nd ref="-249" /><nd ref="-246" /><tag k="building" v="yes" /></way>
-<way id="-250" visible="true"><nd ref="-251" /><nd ref="-252" /><nd ref="-253" /><nd ref="-254" /><nd ref="-255" /><nd ref="-256" /><nd ref="-257" /><nd ref="-258" /><nd ref="-251" /><tag k="building" v="house" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3185" /></way>
-<way id="-259" visible="true"><nd ref="-260" /><nd ref="-261" /><nd ref="-262" /><nd ref="-263" /><nd ref="-260" /><tag k="building" v="house" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8939" /></way>
-<way id="-264" visible="true"><nd ref="-265" /><nd ref="-266" /><nd ref="-267" /><nd ref="-268" /><nd ref="-269" /><nd ref="-270" /><nd ref="-271" /><nd ref="-272" /><nd ref="-265" /><tag k="building" v="house" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Irving Street" /><tag k="addr:housenumber" v="8998" /></way>
+<way id="-209" visible="true"><nd ref="-210" /><nd ref="-211" /><nd ref="-212" /><nd ref="-213" /><nd ref="-210" /><tag k="building" v="yes" /></way>
+<way id="-214" visible="true"><nd ref="-215" /><nd ref="-216" /><nd ref="-217" /><nd ref="-218" /><nd ref="-219" /><nd ref="-220" /><nd ref="-221" /><nd ref="-222" /><nd ref="-215" /><tag k="building" v="office" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Graton" /><tag k="addr:street" v="Ross Road" /><tag k="addr:housenumber" v="3120" /></way>
+<way id="-223" visible="true"><nd ref="-224" /><nd ref="-225" /><nd ref="-226" /><nd ref="-227" /><nd ref="-228" /><nd ref="-229" /><nd ref="-230" /><nd ref="-231" /><nd ref="-232" /><nd ref="-233" /><nd ref="-234" /><nd ref="-235" /><nd ref="-236" /><nd ref="-237" /><nd ref="-224" /><tag k="building" v="industrial" /><tag k="addr:street" v="Graton Road" /><tag k="addr:housenumber" v="9100" /></way>
+<way id="-238" visible="true"><nd ref="-239" /><nd ref="-240" /><nd ref="-241" /><nd ref="-242" /><nd ref="-243" /><nd ref="-244" /><nd ref="-245" /><nd ref="-246" /><nd ref="-239" /><tag k="building" v="yes" /></way>
+<way id="-247" visible="true"><nd ref="-248" /><nd ref="-249" /><nd ref="-250" /><nd ref="-251" /><nd ref="-248" /><tag k="building" v="yes" /></way>
+<way id="-252" visible="true"><nd ref="-253" /><nd ref="-254" /><nd ref="-255" /><nd ref="-256" /><nd ref="-257" /><nd ref="-258" /><nd ref="-253" /><tag k="building" v="yes" /></way>
+<way id="-259" visible="true"><nd ref="-260" /><nd ref="-261" /><nd ref="-262" /><nd ref="-263" /><nd ref="-260" /><tag k="building" v="house" /><tag k="addr:street" v="South Edison Street" /><tag k="addr:housenumber" v="3031" /></way>
+<way id="-264" visible="true"><nd ref="-265" /><nd ref="-266" /><nd ref="-267" /><nd ref="-268" /><nd ref="-269" /><nd ref="-270" /><nd ref="-271" /><nd ref="-272" /><nd ref="-265" /><tag k="building" v="house" /><tag k="addr:street" v="Edison Street" /><tag k="addr:housenumber" v="3011" /></way>
 </osm>

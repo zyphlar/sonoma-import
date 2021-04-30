@@ -12,6 +12,6 @@
 <node id="-12" lat="38.421292507000004" lon="-122.72707457800001" visible="true" />
 <node id="-13" lat="38.421316132" lon="-122.72692769400001" visible="true" />
 <node id="-14" lat="38.421254082000004" lon="-122.72691158800001" visible="true" />
-<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-2" /><tag k="building" v="yes" /><tag k="addr:street" v="West Avenue" /><tag k="addr:housenumber" v="1550" /></way>
+<way id="-1" visible="true"><nd ref="-2" /><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-7" /><nd ref="-8" /><nd ref="-9" /><nd ref="-2" /><tag k="building" v="yes" /></way>
 <way id="-10" visible="true"><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-14" /><nd ref="-11" /><tag k="building" v="yes" /></way>
 </osm>
