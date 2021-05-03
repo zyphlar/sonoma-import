@@ -602,16 +602,20 @@ UPDATE sonoma_county_building_outlines SET
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
+
+-- TODO: here is where the first real 226 is added
+
+
 -- get a count of outbuildings so we know how many addresses are intentionally unassigned
-SELECT 
-	COUNT(*)
-FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
-	ST_Intersects(b.loc_geom,p.loc_geom) AND 
-	ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
-WHERE 
-	p.building_count IN (2,3)
-	AND NOT p.repeating 
-	AND NOT b.main; -- is NOT main building
+-- SELECT 
+-- 	COUNT(*)
+-- FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+-- 	ST_Intersects(b.loc_geom,p.loc_geom) AND 
+-- 	ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
+-- WHERE 
+-- 	p.building_count IN (2,3)
+-- 	AND NOT p.repeating 
+-- 	AND NOT b.main; -- is NOT main building
 
 -- result: 44090
 
@@ -621,6 +625,7 @@ WHERE
 -- result: 155217
 
 -- try to assign multiple addresses from multiple parcels to single buildings
+-- however i think this just detected a single case of duplicated GIDs in the database
 WITH addresses AS (
 	SELECT 
 		b.gid,
@@ -634,22 +639,21 @@ WITH addresses AS (
 		p.building_count = 1 AND 
 		p.repeating AND
 		b."addr:housenumber" IS NULL
-	GROUP BY b.gid
+	GROUP BY p.gid
 )
 UPDATE sonoma_county_building_outlines AS b SET 
 	"addr:housenumber" = housenumber,
 	"addr:street" = street,
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
-FROM addresses AS a
-WHERE a.gid = b.gid;
+	"usecode" = CAST( p.usecode as INTEGER ) -- the original data is VARYING
+FROM addresses AS p
+WHERE p.gid = b.gid;
 
 --select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
 
--- try to identify addresses for buildings across multiple parcels
--- todo: this may not have done anything
+-- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
 WITH addresses AS (
-	SELECT 
+	SELECT
 		b.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
@@ -657,21 +661,24 @@ WITH addresses AS (
 	FROM sonoma_county_building_outlines AS b
 	JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
-		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) < 0.9*ST_Area(b.loc_geom)
+		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.5*ST_Area(b.loc_geom)
 	WHERE 
 		b."addr:housenumber" IS NULL AND
 		NOT p.repeating AND
 		p."addr:housenumber" IS NOT NULL AND
 		b.shape__are > 1000 -- assuming sqft
-	GROUP BY b.gid
+	GROUP BY p.gid
 )
-UPDATE sonoma_county_building_outlines AS b SET 
+UPDATE sonoma_county_building_outlines AS b SET
 	"addr:housenumber" = addrno,
 	"addr:street" = street
-FROM addresses AS a
+FROM addresses AS p
 WHERE 
-	count = 1 AND -- only simple cases!
-	a.gid = b.gid;
+	count = 1 AND -- only simple cases, no duplicate address tags!
+	p.gid = b.gid;
+
+-- TODO: here is where the second 226 is erroneously added
+-- the 0.9 slice of area is pretty liberal, we probably want closer to half?
 
 --select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
