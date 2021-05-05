@@ -626,6 +626,7 @@ FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 -- try to assign multiple addresses from multiple parcels to single buildings
 -- however i think this just detected a single case of duplicated GIDs in the database
+-- probably the 0.9 needs to be changed as multiple parcels can't really occupy >90% of a bldg area
 WITH addresses AS (
 	SELECT 
 		b.gid,
@@ -639,14 +640,14 @@ WITH addresses AS (
 		p.building_count = 1 AND 
 		p.repeating AND
 		b."addr:housenumber" IS NULL
-	GROUP BY p.gid
+	GROUP BY b.gid
 )
 UPDATE sonoma_county_building_outlines AS b SET 
-	"addr:housenumber" = housenumber,
-	"addr:street" = street,
-	"usecode" = CAST( p.usecode as INTEGER ) -- the original data is VARYING
-FROM addresses AS p
-WHERE p.gid = b.gid;
+	"addr:housenumber" = a.housenumber,
+	"addr:street" = a.street,
+	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
+FROM addresses AS a
+WHERE a.gid = b.gid;
 
 --select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
@@ -654,10 +655,10 @@ WHERE p.gid = b.gid;
 -- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
 WITH addresses AS (
 	SELECT
-		b.gid,
+		p.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
-		COUNT(*)
+		COUNT(*) AS count
 	FROM sonoma_county_building_outlines AS b
 	JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
@@ -672,10 +673,10 @@ WITH addresses AS (
 UPDATE sonoma_county_building_outlines AS b SET
 	"addr:housenumber" = addrno,
 	"addr:street" = street
-FROM addresses AS p
+FROM addresses AS a
 WHERE 
-	count = 1 AND -- only simple cases, no duplicate address tags!
-	p.gid = b.gid;
+	a.count = 1 AND -- only simple cases, no duplicate address tags!
+	a.gid = b.gid;
 
 -- TODO: here is where the second 226 is erroneously added
 -- the 0.9 slice of area is pretty liberal, we probably want closer to half?
