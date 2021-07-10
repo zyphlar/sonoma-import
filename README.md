@@ -132,6 +132,18 @@ Please ensure you are logged in under a dedicated import account with a user nam
 - TODO:
   - Ensure `source=Sonoma County` is on each changeset
   - Open OSM files in JOSM and run the validator on them
+    - Why no city name?
+    - Duplicate addresses:
+    - 226 5th Street, Petaluma (southerly should be 6th)
+    - 309, 709, 711, 900, 942 5th Street
+    - 425 B Street
+    - 117 East Court
+    - 323 Edith St
+    - 501 Mountain View Ave
+    - 335 Palmer St
+    - 710 Petaluma Blvd S
+    - 221, 337 Wilson St
+  - Remove "0" housenumbers
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 

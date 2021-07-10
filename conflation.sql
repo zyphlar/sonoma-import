@@ -191,18 +191,30 @@ update parcels__public_ SET "addr:housenumber" = NULL,
     "addr:city" = NULL,
     "addr:state" = NULL;
 
--- parse city and state
+-- parse city* and state
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+)\* ([A-Za-z]+)$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
--- with spaces
+-- city* with spaces
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+)$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+)' AND "addr:city" IS NULL;
--- with spaces and zip
+-- city and state (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+) ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z]+) ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z]+) ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- city with spaces (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+)$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+)$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) ([A-Za-z]+)' AND "addr:city" IS NULL;
+-- city* with spaces and zip
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\1')),
     "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+$', '\2')
     where situsfmt2 SIMILAR TO '([A-Za-z ]+)\* ([A-Za-z]+) [0-9]+' AND "addr:city" IS NULL;
+-- city with spaces and zip (no *)
+update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+) [0-9]+$', '\1')),
+    "addr:state" = REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) ([A-Za-z]+) [0-9]+$', '\2')
+    where situsfmt2 SIMILAR TO '([A-Za-z ]+) ([A-Za-z]+) [0-9]+' AND "addr:city" IS NULL;
 -- with no asterisk, and "Ca" suffix
 update parcels__public_ SET "addr:city" = initcap(REGEXP_REPLACE(situsfmt2,'^([A-Za-z ]+) CA$', '\1')),
     "addr:state" = 'CA'
@@ -218,7 +230,7 @@ update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unincorp Cou
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Unknown';
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Bodega Bay';
 update parcels__public_ SET "addr:city" = NULL where "addr:city" = 'Area Duncans Mills';
-update parcels__public_ SET "addr:state" = 'California' where "addr:state" = 'CA';
+-- update parcels__public_ SET "addr:state" = 'California' where "addr:state" = 'CA';
 
 
 -- basic 123 Main with no common suffixes or numbers
@@ -236,8 +248,12 @@ update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt
 
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', '\1')),
+    "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', 'Highway \2 \3')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HIGHWAY ([0-9]+)';
+update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) VER-NI RD$', '\1')),
+    "addr:street" = 'Ver-ni Road' where situsfmt1 SIMILAR TO '([0-9]+) VER-NI RD';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ARROWHEAD MTN TRL$', '\1')),
     "addr:street" = 'Arrowhead Mountain Trail' where situsfmt1 SIMILAR TO '([0-9]+) ARROWHEAD MTN TRL';
 update parcels__public_ SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) S FITCH MTN RD$', '\1')),
@@ -586,16 +602,20 @@ UPDATE sonoma_county_building_outlines SET
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
+
+-- TODO: here is where the first real 226 is added
+
+
 -- get a count of outbuildings so we know how many addresses are intentionally unassigned
-SELECT 
-	COUNT(*)
-FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
-	ST_Intersects(b.loc_geom,p.loc_geom) AND 
-	ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
-WHERE 
-	p.building_count IN (2,3)
-	AND NOT p.repeating 
-	AND NOT b.main; -- is NOT main building
+-- SELECT 
+-- 	COUNT(*)
+-- FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+-- 	ST_Intersects(b.loc_geom,p.loc_geom) AND 
+-- 	ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
+-- WHERE 
+-- 	p.building_count IN (2,3)
+-- 	AND NOT p.repeating 
+-- 	AND NOT b.main; -- is NOT main building
 
 -- result: 44090
 
@@ -605,6 +625,7 @@ WHERE
 -- result: 155217
 
 -- try to assign multiple addresses from multiple parcels to single buildings
+-- however i think this just detected a single case of duplicated GIDs in the database
 WITH addresses AS (
 	SELECT 
 		b.gid,
@@ -618,22 +639,21 @@ WITH addresses AS (
 		p.building_count = 1 AND 
 		p.repeating AND
 		b."addr:housenumber" IS NULL
-	GROUP BY b.gid
+	GROUP BY p.gid
 )
 UPDATE sonoma_county_building_outlines AS b SET 
 	"addr:housenumber" = housenumber,
 	"addr:street" = street,
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
-FROM addresses AS a
-WHERE a.gid = b.gid;
+	"usecode" = CAST( p.usecode as INTEGER ) -- the original data is VARYING
+FROM addresses AS p
+WHERE p.gid = b.gid;
 
 --select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
 
--- try to identify addresses for buildings across multiple parcels
--- todo: this may not have done anything
+-- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
 WITH addresses AS (
-	SELECT 
+	SELECT
 		b.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
@@ -641,21 +661,24 @@ WITH addresses AS (
 	FROM sonoma_county_building_outlines AS b
 	JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
-		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) < 0.9*ST_Area(b.loc_geom)
+		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.5*ST_Area(b.loc_geom)
 	WHERE 
 		b."addr:housenumber" IS NULL AND
 		NOT p.repeating AND
 		p."addr:housenumber" IS NOT NULL AND
 		b.shape__are > 1000 -- assuming sqft
-	GROUP BY b.gid
+	GROUP BY p.gid
 )
-UPDATE sonoma_county_building_outlines AS b SET 
+UPDATE sonoma_county_building_outlines AS b SET
 	"addr:housenumber" = addrno,
 	"addr:street" = street
-FROM addresses AS a
+FROM addresses AS p
 WHERE 
-	count = 1 AND -- only simple cases!
-	a.gid = b.gid;
+	count = 1 AND -- only simple cases, no duplicate address tags!
+	p.gid = b.gid;
+
+-- TODO: here is where the second 226 is erroneously added
+-- the 0.9 slice of area is pretty liberal, we probably want closer to half?
 
 --select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
