@@ -39,14 +39,14 @@
 <node id="-41" lat="38.627175677000004" lon="-122.873015257" visible="true" />
 <node id="-42" lat="38.627171995000005" lon="-122.87283975300001" visible="true" />
 <node id="-43" lat="38.6269684" lon="-122.87284669600001" visible="true" />
-<node id="-45" lat="38.563309627" lon="-122.82565301100001" visible="true" />
-<node id="-46" lat="38.563314792" lon="-122.82539726" visible="true" />
-<node id="-47" lat="38.563097272" lon="-122.825386233" visible="true" />
-<node id="-48" lat="38.563090452000004" lon="-122.82563983700001" visible="true" />
-<node id="-50" lat="38.562703997" lon="-122.824548331" visible="true" />
-<node id="-51" lat="38.562592953" lon="-122.824575902" visible="true" />
-<node id="-52" lat="38.562657828" lon="-122.82500625300001" visible="true" />
-<node id="-53" lat="38.562766458000006" lon="-122.824980171" visible="true" />
+<node id="-45" lat="38.562703997" lon="-122.824548331" visible="true" />
+<node id="-46" lat="38.562592953" lon="-122.824575902" visible="true" />
+<node id="-47" lat="38.562657828" lon="-122.82500625300001" visible="true" />
+<node id="-48" lat="38.562766458000006" lon="-122.824980171" visible="true" />
+<node id="-50" lat="38.562886373000005" lon="-122.82521381800001" visible="true" />
+<node id="-51" lat="38.562780099" lon="-122.825239898" visible="true" />
+<node id="-52" lat="38.562792441" lon="-122.82534782" visible="true" />
+<node id="-53" lat="38.562899916" lon="-122.825320238" visible="true" />
 <node id="-55" lat="38.630294516" lon="-122.86214791200001" visible="true" />
 <node id="-56" lat="38.630294651" lon="-122.86213907300001" visible="true" />
 <node id="-57" lat="38.630294510000006" lon="-122.86213023200001" visible="true" />
@@ -219,10 +219,10 @@
 <node id="-226" lat="38.562256668" lon="-122.82077889700001" visible="true" />
 <node id="-227" lat="38.562203354000005" lon="-122.82077828300001" visible="true" />
 <node id="-228" lat="38.562203241" lon="-122.820794253" visible="true" />
-<node id="-230" lat="38.562886373000005" lon="-122.82521381800001" visible="true" />
-<node id="-231" lat="38.562780099" lon="-122.825239898" visible="true" />
-<node id="-232" lat="38.562792441" lon="-122.82534782" visible="true" />
-<node id="-233" lat="38.562899916" lon="-122.825320238" visible="true" />
+<node id="-230" lat="38.563309627" lon="-122.82565301100001" visible="true" />
+<node id="-231" lat="38.563314792" lon="-122.82539726" visible="true" />
+<node id="-232" lat="38.563097272" lon="-122.825386233" visible="true" />
+<node id="-233" lat="38.563090452000004" lon="-122.82563983700001" visible="true" />
 <node id="-235" lat="38.561502957" lon="-122.82672713500001" visible="true" />
 <node id="-236" lat="38.561644305" lon="-122.826333364" visible="true" />
 <node id="-237" lat="38.561641253000005" lon="-122.82629293400001" visible="true" />
@@ -255,14 +255,14 @@
 <node id="-268" lat="38.565363211000005" lon="-122.830681533" visible="true" />
 <node id="-269" lat="38.565290718" lon="-122.83059663200001" visible="true" />
 <node id="-270" lat="38.565202596" lon="-122.83071869700001" visible="true" />
-<node id="-272" lat="38.565327871" lon="-122.83137251100001" visible="true" />
-<node id="-273" lat="38.565542284" lon="-122.831042733" visible="true" />
-<node id="-274" lat="38.565432969" lon="-122.830927431" visible="true" />
-<node id="-275" lat="38.565218556000005" lon="-122.83125720900001" visible="true" />
-<node id="-277" lat="38.565357154000004" lon="-122.831029016" visible="true" />
-<node id="-278" lat="38.565425245" lon="-122.83092430500001" visible="true" />
-<node id="-279" lat="38.565396483" lon="-122.830893962" visible="true" />
-<node id="-280" lat="38.565328392000005" lon="-122.83099867300001" visible="true" />
+<node id="-272" lat="38.565357154000004" lon="-122.831029016" visible="true" />
+<node id="-273" lat="38.565425245" lon="-122.83092430500001" visible="true" />
+<node id="-274" lat="38.565396483" lon="-122.830893962" visible="true" />
+<node id="-275" lat="38.565328392000005" lon="-122.83099867300001" visible="true" />
+<node id="-277" lat="38.565327871" lon="-122.83137251100001" visible="true" />
+<node id="-278" lat="38.565542284" lon="-122.831042733" visible="true" />
+<node id="-279" lat="38.565432969" lon="-122.830927431" visible="true" />
+<node id="-280" lat="38.565218556000005" lon="-122.83125720900001" visible="true" />
 <node id="-282" lat="38.56514029" lon="-122.83113143800001" visible="true" />
 <node id="-283" lat="38.565245407" lon="-122.83097664300001" visible="true" />
 <node id="-284" lat="38.565199566000004" lon="-122.83092312000001" visible="true" />
@@ -294,12 +294,12 @@
 <way id="-2" visible="true"><nd ref="-3" /><nd ref="-4" /><nd ref="-5" /><nd ref="-6" /><nd ref="-3" /></way>
 <way id="-7" visible="true"><nd ref="-8" /><nd ref="-9" /><nd ref="-10" /><nd ref="-11" /><nd ref="-12" /><nd ref="-13" /><nd ref="-14" /><nd ref="-15" /><nd ref="-16" /><nd ref="-17" /><nd ref="-18" /><nd ref="-19" /><nd ref="-20" /><nd ref="-21" /><nd ref="-22" /><nd ref="-23" /><nd ref="-24" /><nd ref="-25" /><nd ref="-26" /><nd ref="-27" /><nd ref="-28" /><nd ref="-29" /><nd ref="-30" /><nd ref="-31" /><nd ref="-32" /><nd ref="-33" /><nd ref="-34" /><nd ref="-35" /><nd ref="-36" /><nd ref="-37" /><nd ref="-38" /><nd ref="-39" /><nd ref="-8" /></way>
 <way id="-40" visible="true"><nd ref="-3" /><nd ref="-41" /><nd ref="-42" /><nd ref="-43" /><nd ref="-3" /></way>
-<way id="-44" visible="true"><nd ref="-45" /><nd ref="-46" /><nd ref="-47" /><nd ref="-48" /><nd ref="-45" /><tag k="building" v="retail" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Windsor" /><tag k="addr:street" v="Old Redwood Highway" /><tag k="addr:housenumber" v="10350" /></way>
-<way id="-49" visible="true"><nd ref="-50" /><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-50" /><tag k="building" v="warehouse" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Windsor" /><tag k="addr:street" v="Old Redwood Highway" /><tag k="addr:housenumber" v="10342" /></way>
+<way id="-44" visible="true"><nd ref="-45" /><nd ref="-46" /><nd ref="-47" /><nd ref="-48" /><nd ref="-45" /><tag k="building" v="warehouse" /><tag k="addr:state" v="CA" /><tag k="addr:city" v="Windsor" /><tag k="addr:street" v="Old Redwood Highway" /><tag k="addr:housenumber" v="10342" /></way>
+<way id="-49" visible="true"><nd ref="-50" /><nd ref="-51" /><nd ref="-52" /><nd ref="-53" /><nd ref="-50" /><tag k="building" v="yes" /></way>
 <way id="-54" visible="true"><nd ref="-55" /><nd ref="-56" /><nd ref="-57" /><nd ref="-58" /><nd ref="-59" /><nd ref="-60" /><nd ref="-61" /><nd ref="-62" /><nd ref="-63" /><nd ref="-64" /><nd ref="-65" /><nd ref="-66" /><nd ref="-67" /><nd ref="-68" /><nd ref="-69" /><nd ref="-70" /><nd ref="-71" /><nd ref="-72" /><nd ref="-73" /><nd ref="-74" /><nd ref="-75" /><nd ref="-76" /><nd ref="-77" /><nd ref="-78" /><nd ref="-79" /><nd ref="-80" /><nd ref="-81" /><nd ref="-82" /><nd ref="-83" /><nd ref="-84" /><nd ref="-85" /><nd ref="-86" /><nd ref="-87" /><nd ref="-88" /><nd ref="-89" /><nd ref="-90" /><nd ref="-91" /><nd ref="-92" /><nd ref="-93" /><nd ref="-94" /><nd ref="-95" /><nd ref="-96" /><nd ref="-97" /><nd ref="-98" /><nd ref="-99" /><nd ref="-100" /><nd ref="-101" /><nd ref="-102" /><nd ref="-103" /><nd ref="-104" /><nd ref="-105" /><nd ref="-106" /><nd ref="-107" /><nd ref="-108" /><nd ref="-109" /><nd ref="-110" /><nd ref="-111" /><nd ref="-112" /><nd ref="-113" /><nd ref="-114" /><nd ref="-115" /><nd ref="-116" /><nd ref="-117" /><nd ref="-118" /><nd ref="-119" /><nd ref="-120" /><nd ref="-121" /><nd ref="-122" /><nd ref="-123" /><nd ref="-124" /><nd ref="-125" /><nd ref="-126" /><nd ref="-127" /><nd ref="-128" /><nd ref="-129" /><nd ref="-130" /><nd ref="-131" /><nd ref="-132" /><nd ref="-133" /><nd ref="-134" /><nd ref="-135" /><nd ref="-136" /><nd ref="-137" /><nd ref="-138" /><nd ref="-139" /><nd ref="-140" /><nd ref="-141" /><nd ref="-142" /><nd ref="-143" /><nd ref="-144" /><nd ref="-145" /><nd ref="-146" /><nd ref="-147" /><nd ref="-148" /><nd ref="-149" /><nd ref="-150" /><nd ref="-151" /><nd ref="-152" /><nd ref="-153" /><nd ref="-154" /><nd ref="-155" /><nd ref="-156" /><nd ref="-157" /><nd ref="-158" /><nd ref="-159" /><nd ref="-160" /><nd ref="-161" /><nd ref="-162" /><nd ref="-163" /><nd ref="-164" /><nd ref="-165" /><nd ref="-166" /><nd ref="-167" /><nd ref="-168" /><nd ref="-169" /><nd ref="-170" /><nd ref="-171" /><nd ref="-172" /><nd ref="-173" /><nd ref="-174" /><nd ref="-175" /><nd ref="-176" /><nd ref="-177" /><nd ref="-178" /><nd ref="-179" /><nd ref="-180" /><nd ref="-181" /><nd ref="-182" /><nd ref="-183" /><nd ref="-184" /><nd ref="-185" /><nd ref="-186" /><nd ref="-187" /><nd ref="-188" /><nd ref="-189" /><nd ref="-190" /><nd ref="-191" /><nd ref="-192" /><nd ref="-193" /><nd ref="-194" /><nd ref="-195" /><nd ref="-196" /><nd ref="-197" /><nd ref="-198" /><nd ref="-199" /><nd ref="-200" /><nd ref="-201" /><nd ref="-202" /><nd ref="-203" /><nd ref="-204" /><nd ref="-205" /><nd ref="-206" /><nd ref="-207" /><nd ref="-208" /><nd ref="-209" /><nd ref="-210" /><nd ref="-55" /><tag k="building" v="government" /><tag k="addr:street" v="Sunnyvale Drive" /><tag k="addr:housenumber" v="1400" /></way>
 <way id="-211" visible="true"><nd ref="-212" /><nd ref="-213" /><nd ref="-214" /><nd ref="-215" /><nd ref="-216" /><nd ref="-217" /><nd ref="-218" /><nd ref="-219" /><nd ref="-212" /><tag k="building" v="yes" /></way>
 <way id="-220" visible="true"><nd ref="-221" /><nd ref="-222" /><nd ref="-223" /><nd ref="-224" /><nd ref="-225" /><nd ref="-226" /><nd ref="-227" /><nd ref="-228" /><nd ref="-221" /><tag k="building" v="yes" /></way>
-<way id="-229" visible="true"><nd ref="-230" /><nd ref="-231" /><nd ref="-232" /><nd ref="-233" /><nd ref="-230" /><tag k="building" v="yes" /></way>
+<way id="-229" visible="true"><nd ref="-230" /><nd ref="-231" /><nd ref="-232" /><nd ref="-233" /><nd ref="-230" /><tag k="building" v="retail" /><tag k="addr:state" v="CA" /><tag k="addr:city" v="Windsor" /><tag k="addr:street" v="Old Redwood Highway" /><tag k="addr:housenumber" v="10350" /></way>
 <way id="-234" visible="true"><nd ref="-235" /><nd ref="-236" /><nd ref="-237" /><nd ref="-238" /><nd ref="-239" /><nd ref="-240" /><nd ref="-241" /><nd ref="-242" /><nd ref="-243" /><nd ref="-244" /><nd ref="-235" /><tag k="building" v="yes" /></way>
 <way id="-245" visible="true"><nd ref="-246" /><nd ref="-247" /><nd ref="-248" /><nd ref="-249" /><nd ref="-250" /><nd ref="-251" /><nd ref="-252" /><nd ref="-253" /><nd ref="-246" /><tag k="building" v="yes" /></way>
 <way id="-254" visible="true"><nd ref="-255" /><nd ref="-256" /><nd ref="-257" /><nd ref="-258" /><nd ref="-259" /><nd ref="-260" /><nd ref="-255" /><tag k="building" v="yes" /></way>
@@ -310,5 +310,5 @@
 <way id="-281" visible="true"><nd ref="-282" /><nd ref="-283" /><nd ref="-284" /><nd ref="-285" /><nd ref="-282" /><tag k="building" v="yes" /></way>
 <way id="-286" visible="true"><nd ref="-287" /><nd ref="-288" /><nd ref="-289" /><nd ref="-290" /><nd ref="-287" /><tag k="building" v="yes" /></way>
 <way id="-291" visible="true"><nd ref="-292" /><nd ref="-293" /><nd ref="-294" /><nd ref="-295" /><nd ref="-296" /><nd ref="-297" /><nd ref="-298" /><nd ref="-299" /><nd ref="-300" /><nd ref="-301" /><nd ref="-302" /><nd ref="-303" /><nd ref="-304" /><nd ref="-305" /><nd ref="-306" /><nd ref="-307" /><nd ref="-308" /><nd ref="-309" /><nd ref="-310" /><nd ref="-311" /><nd ref="-292" /><tag k="building" v="yes" /></way>
-<relation id="-1" visible="true"><member ref="-2" role="outer" type="way" /><member ref="-7" role="outer" type="way" /><member ref="-40" role="outer" type="way" /><tag k="type" v="multipolygon" /><tag k="building" v="retail" /><tag k="addr:state" v="California" /><tag k="addr:city" v="Healdsburg" /><tag k="addr:street" v="Healdsburg Avenue" /><tag k="addr:housenumber" v="1351" /></relation>
+<relation id="-1" visible="true"><member ref="-2" role="outer" type="way" /><member ref="-7" role="outer" type="way" /><member ref="-40" role="outer" type="way" /><tag k="type" v="multipolygon" /><tag k="building" v="retail" /><tag k="addr:state" v="CA" /><tag k="addr:city" v="Healdsburg" /><tag k="addr:street" v="Healdsburg Avenue" /><tag k="addr:housenumber" v="1351" /></relation>
 </osm>

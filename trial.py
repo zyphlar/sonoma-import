@@ -1,9 +1,9 @@
 def filterLayer(layer):
     if layer is None:
-        print("filterLayer: empty")
+        #print("filterLayer: empty")
         return None
 
-    print(layer.GetName())
+    #print(layer.GetName())
 
     #if layer.GetName() in ["buildingfootprint", "Site_Address_Points", "mergedbuildings", "namedparcels"]:
     if layer.GetName() in ["sonoma_county_building_outlines_filtered"]: # simplified_conflated_buildings   # _filtered
@@ -11,7 +11,7 @@ def filterLayer(layer):
 
 def filterTags(attrs):
     if attrs is None:
-        print("filterTags: empty")
+        #print("filterTags: empty")
         return None
 
     tags = { "building": "yes" }
