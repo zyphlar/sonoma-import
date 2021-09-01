@@ -3,7 +3,7 @@
 -- - parse city and state as well for mailing
 
 -- add fields for OSM tags and data processing 
-ALTER TABLE sonoma_county_building_outlines
+ALTER TABLE buildings
 	ADD COLUMN IF NOT EXISTS "addr:housenumber" text,
 	ADD COLUMN IF NOT EXISTS "addr:street" text,
 	ADD COLUMN IF NOT EXISTS "addr:unit" text,
@@ -15,11 +15,11 @@ ALTER TABLE sonoma_county_building_outlines
 	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
 	ADD COLUMN IF NOT EXISTS main boolean; -- is it the main building on the parcel?
 
-update sonoma_county_building_outlines set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, usecode = NULL, cid = NULL, conflated = FALSE, main = FALSE;
+update buildings set "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL, usecode = NULL, cid = NULL, conflated = FALSE, main = FALSE;
 
 -- create local geometry fields and validate geometries
-UPDATE sonoma_county_building_outlines SET loc_geom = ST_MakeValid(geom);
-CREATE INDEX ON sonoma_county_building_outlines USING GIST (loc_geom);
+UPDATE buildings SET loc_geom = ST_MakeValid(geom);
+CREATE INDEX ON buildings USING GIST (loc_geom);
 
 -- added fields for the parcels table
 ALTER TABLE parcels__public_
@@ -527,7 +527,7 @@ UPDATE parcels__public_ SET building_count = NULL WHERE building_count IS NOT NU
 WITH bcounts AS (
 	SELECT 
 		p.gid, COUNT(*)
-	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+	FROM buildings AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	GROUP BY p.gid
@@ -536,7 +536,7 @@ UPDATE parcels__public_ SET building_count = count
 FROM bcounts WHERE bcounts.gid = parcels__public_.gid;
 
 -- add addresses to buildings with simple 1:1 matches to parcels
-UPDATE sonoma_county_building_outlines SET "addr:housenumber" = NULL, "addr:street" = NULL;
+UPDATE buildings SET "addr:housenumber" = NULL, "addr:street" = NULL;
 WITH a AS (
 	SELECT 
 		b.gid,
@@ -546,49 +546,49 @@ WITH a AS (
 		p."addr:city",
 		p."addr:state",
 		p.usecode
-	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+	FROM buildings AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE p.building_count = 1 AND NOT p.repeating
 )
-UPDATE sonoma_county_building_outlines SET 
+UPDATE buildings SET 
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
 	"addr:unit" = a."addr:unit",
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
-FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
+FROM a WHERE buildings.gid = a.gid;
 
---SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
+--SELECT COUNT(*) FROM buildings WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
 
 -- attempt to identify garages and sheds so they don't get addresses
-UPDATE sonoma_county_building_outlines SET main = NULL;
+UPDATE buildings SET main = NULL;
 -- sort the buildings on each parcel by size, but only where it's likely a garage/shed situation
 WITH sizes AS (
 	SELECT 
 		p.gid AS pid, 
 		b.gid AS bid,
 		row_number() OVER ( PARTITION BY p.gid ORDER BY ST_Area(b.loc_geom) DESC) AS size_order
-	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+	FROM buildings AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE 
 		NOT p.repeating AND -- single parcels
 		p.building_count IN (2,3) -- 2 or 3 buildings on parcel
 	ORDER BY p.gid ASC
-) UPDATE sonoma_county_building_outlines SET main = CASE 
+) UPDATE buildings SET main = CASE 
 	WHEN size_order = 1 THEN TRUE
 	WHEN size_order > 1 THEN FALSE
 	ELSE NULL
 END
-FROM sizes WHERE sizes.bid = sonoma_county_building_outlines.gid;
+FROM sizes WHERE sizes.bid = buildings.gid;
 
 -- now assign addresses to main buildings on parcels with outbuildings
 WITH a AS (
 	SELECT 
 		b.gid, p."addr:housenumber", p."addr:street", p.usecode
-	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+	FROM buildings AS b JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE 
@@ -596,11 +596,11 @@ WITH a AS (
 		AND NOT p.repeating 
 		AND b.main -- is main building
 )
-UPDATE sonoma_county_building_outlines SET 
+UPDATE buildings SET 
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
-FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
+FROM a WHERE buildings.gid = a.gid;
 
 
 -- TODO: here is where the first real 226 is added
@@ -609,7 +609,7 @@ FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 -- get a count of outbuildings so we know how many addresses are intentionally unassigned
 -- SELECT 
 -- 	COUNT(*)
--- FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON
+-- FROM buildings AS b JOIN parcels__public_ AS p ON
 -- 	ST_Intersects(b.loc_geom,p.loc_geom) AND 
 -- 	ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 -- WHERE 
@@ -619,9 +619,9 @@ FROM a WHERE sonoma_county_building_outlines.gid = a.gid;
 
 -- result: 44090
 
---SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
+--SELECT COUNT(*) FROM buildings WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
 -- result: 123793
---SELECT COUNT(*) FROM sonoma_county_building_outlines WHERE "addr:housenumber" IS NULL AND "addr:street" IS NULL;
+--SELECT COUNT(*) FROM buildings WHERE "addr:housenumber" IS NULL AND "addr:street" IS NULL;
 -- result: 155217
 
 -- try to assign multiple addresses from multiple parcels to single buildings
@@ -633,7 +633,7 @@ WITH addresses AS (
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		array_to_string( ARRAY_AGG(DISTINCT p.usecode), ';') AS usecode
-	FROM sonoma_county_building_outlines AS b JOIN parcels__public_ AS p ON 
+	FROM buildings AS b JOIN parcels__public_ AS p ON 
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE 
@@ -642,14 +642,14 @@ WITH addresses AS (
 		b."addr:housenumber" IS NULL
 	GROUP BY p.gid
 )
-UPDATE sonoma_county_building_outlines AS b SET 
+UPDATE buildings AS b SET 
 	"addr:housenumber" = a.housenumber,
 	"addr:street" = a.street,
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM addresses AS a
 WHERE a.gid = b.gid;
 
---select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
+--select * from buildings where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
 
 -- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
@@ -659,7 +659,7 @@ WITH addresses AS (
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		COUNT(*) AS count
-	FROM sonoma_county_building_outlines AS b
+	FROM buildings AS b
 	JOIN parcels__public_ AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.5*ST_Area(b.loc_geom)
@@ -670,7 +670,7 @@ WITH addresses AS (
 		b.shape__are > 1000 -- assuming sqft
 	GROUP BY p.gid
 )
-UPDATE sonoma_county_building_outlines AS b SET
+UPDATE buildings AS b SET
 	"addr:housenumber" = addrno,
 	"addr:street" = street
 FROM addresses AS a
@@ -680,7 +680,7 @@ WHERE
 -- TODO: here is where the second 226 is erroneously added
 -- the 0.9 slice of area is pretty liberal, we probably want closer to half?
 
---select * from sonoma_county_building_outlines where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
+--select * from buildings where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
 
 
@@ -691,14 +691,14 @@ WHERE
 --
 
 -- IF USING Overpass -> QGIS -> Postgres Dump:
--- UPDATE sonoma_county_building_outlines AS b SET conflated = FALSE;
--- UPDATE sonoma_county_building_outlines AS b SET conflated = TRUE
+-- UPDATE buildings AS b SET conflated = FALSE;
+-- UPDATE buildings AS b SET conflated = TRUE
 -- FROM osmquery_buildings_pgdump AS osm
 --     WHERE ST_Intersects(b.geom,osm.wkb_geometry)
 --     AND osm.building IS NOT NULL and osm.building != 'no';
 
 -- IF USING a direct OSM2PGSQL import i.e. norcal-latest.osm.pbf:
-UPDATE sonoma_county_building_outlines AS b SET conflated = TRUE
+UPDATE buildings AS b SET conflated = TRUE
 FROM son_polygon AS osm
 	WHERE ST_Intersects(b.geom,osm.way) --TODO: loc_geom
 	AND osm.building IS NOT NULL and osm.building != 'no';
@@ -718,7 +718,7 @@ FROM son_polygon AS osm
 --         "addr:street",
 --         "addr:unit",
 --         (st_dump(loc_geom)).*
---         FROM sonoma_county_building_outlines
+--         FROM buildings
 --         WHERE conflated
 -- ) 
 -- SELECT 
@@ -751,7 +751,7 @@ FROM son_polygon AS osm
 --         "addr:street",
 --         "addr:unit",
 --         (st_dump(loc_geom)).*
---         FROM sonoma_county_building_outlines
+--         FROM buildings
 --         WHERE NOT conflated --note: NOT
 -- ) 
 -- SELECT 
@@ -785,21 +785,21 @@ create index if not exists "geom_4326_idx" on VTATaz using GIST(geom_4326);
 with hull as (
 	select ST_ConvexHull(ST_Collect(geom)) as geom from (
 		select geom
-		from "sonoma_county_building_outlines"
+		from "buildings"
 	) as geom)
 	delete from VTATaz
 	using hull
 	where not ST_Intersects(geom_4326, hull.geom);
 
 -- Assign cluster to each data point
-update sonoma_county_building_outlines as t
+update buildings as t
 	set cid = taggedThing.key
 	from (
-		select (row_number() over (partition by sonoma_county_building_outlines.gid order by ST_Distance(sonoma_county_building_outlines.loc_geom, geom_4326))) as rn,
-		VTATaz.key, sonoma_county_building_outlines.gid
-		from sonoma_county_building_outlines
+		select (row_number() over (partition by buildings.gid order by ST_Distance(buildings.loc_geom, geom_4326))) as rn,
+		VTATaz.key, buildings.gid
+		from buildings
 		join VTATaz
-		on ST_Intersects(sonoma_county_building_outlines.loc_geom, geom_4326)
+		on ST_Intersects(buildings.loc_geom, geom_4326)
 	) as taggedThing
 	where t.gid = taggedThing.gid and rn = 1;
 
@@ -807,7 +807,7 @@ update sonoma_county_building_outlines as t
 
 -- Delete all address data inside the Santa Rosa city limits, because the city's address data is better and already inserted as POIs
 
-update sonoma_county_building_outlines set
+update buildings set
 	"addr:housenumber" = NULL,
 	"addr:unit" = NULL,
 	"addr:street" = NULL,
@@ -815,18 +815,18 @@ update sonoma_county_building_outlines set
 	"addr:state" = NULL
 	from santa_rosa_boundary
 		where santa_rosa_boundary.admin_level = '8'
-		and ST_Intersects(wkb_geometry, sonoma_county_building_outlines.loc_geom);
+		and ST_Intersects(wkb_geometry, buildings.loc_geom);
 
 
--- select * from sonoma_county_building_outlines join santa_rosa_boundary
+-- select * from buildings join santa_rosa_boundary
 -- 		on santa_rosa_boundary.admin_level = '8'
--- 		and ST_Intersects(wkb_geometry, sonoma_county_building_outlines.loc_geom)
+-- 		and ST_Intersects(wkb_geometry, buildings.loc_geom)
 -- 		limit 1000;
 
 
 -- Drop TAZs that don't have any SC data in them
 -- delete from VTATaz
 -- 	where key not in (
--- 		select distinct cid from sonoma_county_building_outlines
+-- 		select distinct cid from buildings
 -- 	);
 

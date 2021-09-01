@@ -69,6 +69,8 @@ Debian (shp2pgsql is included in postgis)
     - `git clone --recursive https://github.com/pnorman/ogr2osm`
   - Do NOT install the osgeo package from pip, it's empty and will cause ogr import errors.
 
+- Restart postgres and then inside the `openstreetmap` database you created, run: `CREATE EXTENSION postgis; create extension hstore;`
+
 ## Running
 
 - We are assuming that the county data uses a WGS84 aka EPSG:4326 geographical projection, which was true as of last check and is also what OSM uses.
@@ -76,13 +78,14 @@ Debian (shp2pgsql is included in postgis)
 
 ```
 cd original_data
-shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W
-shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W
+
+shp2pgsql -s 4326 -I Parcels_Public_Shapefile.shp | psql -d openstreetmap -U openstreetmap -W
+shp2pgsql -s 4326 -I Buildings.shp | psql -d openstreetmap -U openstreetmap -W
 osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432
 ogr2ogr -f "PostgreSQL" PG:"host=localhost dbname=openstreetmap user=openstreetmap port=5432 password=openstreetmap" "santa-rosa-boundary.geojson"
 ```
 
-shp2pgsql should create tables like `parcels__public_` and `sonoma_county_building_outlines`.
+shp2pgsql should create tables like `parcels_public_shapefile` and `buildings`.
 osm2pgsql should create tables like `son_polygon`.
 ogr2ogr should create a table `santa_rosa_boundary`.
 
@@ -149,7 +152,7 @@ Please ensure you are logged in under a dedicated import account with a user nam
 
 ```
 shp2pgsql -s 4326 -I Parcels__Public_.shp | psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432
-shp2pgsql -s 4326 -I Sonoma_County_Building_Outlines.shp | psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432
+shp2pgsql -s 4326 -I Buildings.shp | psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432
 psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -f osmquery-pgdump.sql
 
 #unused
@@ -175,7 +178,7 @@ out;
 If using an Overpass -> QGIS -> Postgres dump, save it as `osmquery_buildings_pgdump.sql` for later.
 
 ```
-sonoma_county_building_outlines
+buildings
 "conflated" = FALSE
 
 osmosis --read-pgsql host="127.0.0.1" database="openstreetmap" user="openstreetmap" password="openstreetmap" outPipe.0=pg --dd inPipe.0=pg outPipe.0=dd --write-xml inPipe.0=dd file=output.osm

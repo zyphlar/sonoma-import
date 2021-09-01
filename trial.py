@@ -6,7 +6,7 @@ def filterLayer(layer):
     #print(layer.GetName())
 
     #if layer.GetName() in ["buildingfootprint", "Site_Address_Points", "mergedbuildings", "namedparcels"]:
-    if layer.GetName() in ["sonoma_county_building_outlines_filtered"]: # simplified_conflated_buildings   # _filtered
+    if layer.GetName() in ["buildings_filtered"]: # simplified_conflated_buildings   # _filtered
         return layer
 
 def filterTags(attrs):
@@ -31,7 +31,7 @@ def filterTags(attrs):
     if "usecode" in attrs and attrs["usecode"] != "":
         #tags["x_son_imp:usecode"] = int(attrs["usecode"]) #TODO: remove
 
-        # SELECT count(*), usecode FROM public.sonoma_county_building_outlines group by usecode order by count desc;
+        # SELECT count(*), usecode FROM public.buildings group by usecode order by count desc;
         # SELECT usecode, usecdesc, usectype FROM public.parcels__public_ group by usecode, usecdesc, usectype order by usecode asc;
 
         # big categories to catch all
