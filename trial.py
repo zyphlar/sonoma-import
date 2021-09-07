@@ -32,7 +32,7 @@ def filterTags(attrs):
         #tags["x_son_imp:usecode"] = int(attrs["usecode"]) #TODO: remove
 
         # SELECT count(*), usecode FROM public.buildings group by usecode order by count desc;
-        # SELECT usecode, usecdesc, usectype FROM public.parcels__public_ group by usecode, usecdesc, usectype order by usecode asc;
+        # SELECT usecode, usecdesc, usectype FROM public.parcels_public_shapefile group by usecode, usecdesc, usectype order by usecode asc;
 
         # big categories to catch all
         if int(attrs["usecode"]) >= 1 and int(attrs["usecode"]) <= 23:

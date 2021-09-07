@@ -6,7 +6,7 @@
 export DBNAME=openstreetmap
 export OGR2OSM=../ogr2osm/ogr2osm.py
 export PGUSER=openstreetmap
-export PGPASSWORD=openstreetmap
+export PGPASSWORD=M3xYTMg2Rar4
 export PGHOST=localhost
 export PGPORT=5432
 
