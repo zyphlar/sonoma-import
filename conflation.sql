@@ -245,19 +245,25 @@ update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(
 -- 	group by "addr:street"
 --     order by count desc;
 
-
+-- 123 hwy 123
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)';
+-- 123 highway 123 N
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})$', 'Highway \2 \3')) where situsfmt1 SIMILAR TO '([0-9]+) HWY ([0-9]+)\s+([A-Z]{1})';
+-- 123 highway 123
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', '\1')),
     "addr:street" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) HIGHWAY ([0-9]+)$', 'Highway \2')) where situsfmt1 SIMILAR TO '([0-9]+) HIGHWAY ([0-9]+)';
+-- 123 ver-ni rd
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) VER-NI RD$', '\1')),
     "addr:street" = 'Ver-ni Road' where situsfmt1 SIMILAR TO '([0-9]+) VER-NI RD';
+-- 123 arrowhead mtn trl
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ARROWHEAD MTN TRL$', '\1')),
     "addr:street" = 'Arrowhead Mountain Trail' where situsfmt1 SIMILAR TO '([0-9]+) ARROWHEAD MTN TRL';
+-- 123 s fitch mtn rd
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) S FITCH MTN RD$', '\1')),
     "addr:street" = 'South Fitch Mountain Road' where situsfmt1 SIMILAR TO '([0-9]+) S FITCH MTN RD';
+-- 123 s mcdowell ext blvd
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) S MCDOWELL EXT BLVD$', '\1')),
     "addr:street" = 'South McDowell Boulevard Extension' where situsfmt1 SIMILAR TO '([0-9]+) S MCDOWELL EXT BLVD';
 
@@ -354,22 +360,18 @@ update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(
 
 -- 935 W SPAIN UNIT B ST
 
--- now 1706 B W COLLEGE AVE
+-- 1706 B W COLLEGE AVE
 
--- now 2347 MARIA LUZ E CT
-update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\1')), -- 123
-    "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\2')) -- Town & Country
-             || ' ' -- space
-             || initcap(expand_road(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\3'))) -- Drive
-    where "addr:housenumber" IS NULL and situsfmt1 SIMILAR TO '([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})';
+-- 34 A&B RANDALL LN?
 
+-- 2347 MARIA LUZ E CT
 
 -- 622 ELY S BLVD
 
 -- 292 ELY BLVD S BLVD
 
 -- now 1460 TOWN & COUNTRY DR
---TODO: this does not seem to have any effect, needs rework
+
 update parcels_public_shapefile SET "addr:housenumber" = initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\1')), -- 123
     "addr:street" =  initcap(REGEXP_REPLACE(situsfmt1, '^([0-9]+) ([0-9A-Z &]{4,99}) ([A-Z]{2,99})$', '\2')) -- Town & Country
              || ' ' -- space

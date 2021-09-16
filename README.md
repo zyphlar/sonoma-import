@@ -135,6 +135,11 @@ Please ensure you are logged in under a dedicated import account with a user nam
 - TODO:
   - Ensure `source=Sonoma County` is on each changeset
   - Open OSM files in JOSM and run the validator on them
+    - Healdsburg (1044)
+      - 97 Kennedy Lane parcel address parsing for units
+      - 15 Healdsburg Ave dupe
+      - 129 Powell Ave dupe
+      - 512 Tucker St dupe
     - Why no city name?
     - Duplicate addresses:
     - 226 5th Street, Petaluma (southerly should be 6th)
