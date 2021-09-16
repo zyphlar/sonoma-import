@@ -27,9 +27,9 @@ psql -v "ON_ERROR_STOP=true" --echo-queries --file="conflation.sql" "${DBNAME}" 
 
 
 # Split into tasks
-mkdir "out"
-mkdir "out/intersecting"
-mkdir "out/clean"
+mkdir -p "out"
+mkdir -p "out/intersecting"
+mkdir -p "out/clean"
 
 for intersects in false true; do
     if ${intersects}; then
@@ -39,6 +39,8 @@ for intersects in false true; do
         outdir="clean"
         intersectsQuery="not conflated"
     fi
+
+    rm "out/grouped_${outdir}_buildings_zones.geojson";
 
     # The purpose of the out/*/buildings*.osm files is to publicly host, split, ready for tasking
     # https://codeforsanjose.github.io/OSM-SouthBay/SJ_Buildings/out/clean/buildings_1323.osm
