@@ -537,8 +537,9 @@ WITH bcounts AS (
 UPDATE parcels_public_shapefile SET building_count = count
 FROM bcounts WHERE bcounts.gid = parcels_public_shapefile.gid;
 
+-- clear out data
+UPDATE buildings SET "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
 -- add addresses to buildings with simple 1:1 matches to parcels
-UPDATE buildings SET "addr:housenumber" = NULL, "addr:street" = NULL;
 WITH a AS (
 	SELECT 
 		b.gid,
@@ -589,7 +590,7 @@ FROM sizes WHERE sizes.bid = buildings.gid;
 -- now assign addresses to main buildings on parcels with outbuildings
 WITH a AS (
 	SELECT 
-		b.gid, p."addr:housenumber", p."addr:street", p.usecode
+		b.gid, p."addr:housenumber", p."addr:street", p."addr:unit", p."addr:city", p."addr:state", p.usecode
 	FROM buildings AS b JOIN parcels_public_shapefile AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
@@ -601,6 +602,9 @@ WITH a AS (
 UPDATE buildings SET 
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
+	"addr:unit" = a."addr:unit",
+	"addr:city" = a."addr:city",
+	"addr:state" = a."addr:state",
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM a WHERE buildings.gid = a.gid;
 
@@ -634,6 +638,9 @@ WITH addresses AS (
 		p.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:city"), ';') AS city,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:state"), ';') AS state,
 		array_to_string( ARRAY_AGG(DISTINCT p.usecode), ';') AS usecode
 	FROM buildings AS b JOIN parcels_public_shapefile AS p ON 
 		ST_Intersects(b.loc_geom,p.loc_geom) AND
@@ -644,9 +651,12 @@ WITH addresses AS (
 		b."addr:housenumber" IS NULL
 	GROUP BY p.gid
 )
-UPDATE buildings AS b SET 
+UPDATE buildings AS b SET
 	"addr:housenumber" = a.housenumber,
 	"addr:street" = a.street,
+	"addr:unit" = a.unit,
+	"addr:city" = a.city,
+	"addr:state" = a.state,
 	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM addresses AS a
 WHERE a.gid = b.gid;
@@ -658,8 +668,12 @@ WHERE a.gid = b.gid;
 WITH addresses AS (
 	SELECT
 		p.gid,
-		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS addrno,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:city"), ';') AS city,
+		array_to_string( ARRAY_AGG(DISTINCT p."addr:state"), ';') AS state,
+		array_to_string( ARRAY_AGG(DISTINCT p.usecode), ';') AS usecode,
 		COUNT(*) AS count
 	FROM buildings AS b
 	JOIN parcels_public_shapefile AS p ON
@@ -673,10 +687,14 @@ WITH addresses AS (
 	GROUP BY p.gid
 )
 UPDATE buildings AS b SET
-	"addr:housenumber" = addrno,
-	"addr:street" = street
+	"addr:housenumber" = a.housenumber,
+	"addr:street" = a.street,
+	"addr:unit" = a.unit,
+	"addr:city" = a.city,
+	"addr:state" = a.state,
+	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
 FROM addresses AS a
-WHERE 
+WHERE
 	a.count = 1 AND -- only simple cases, no duplicate address tags!
 	a.gid = b.gid;
 -- TODO: here is where the second 226 is erroneously added
