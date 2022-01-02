@@ -11,6 +11,8 @@ ALTER TABLE buildings
 	ADD COLUMN IF NOT EXISTS "addr:state" text,
 	ADD COLUMN IF NOT EXISTS usecode integer,
 	ADD COLUMN IF NOT EXISTS cid integer,
+	ADD COLUMN IF NOT EXISTS parcel_gid integer,
+	ADD COLUMN IF NOT EXISTS parcel_gid_step text,
 	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326), -- local is the same in this case, except made valid
 	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
 	ADD COLUMN IF NOT EXISTS main boolean; -- is it the main building on the parcel?
@@ -509,9 +511,9 @@ update parcels_public_shapefile SET "addr:street" = 'Stewarts Point-Skaggs Sprin
 
 --
 -- Match buildings to parcels
---	
-	
-	
+--
+
+
 -- identify repeating parcels (indicates multiple addresses associated with buildings)
 WITH geom_counts AS (
 	SELECT array_agg(gid) AS ids, COUNT(*)
@@ -521,13 +523,13 @@ WITH geom_counts AS (
 	SELECT * FROM geom_counts WHERE count > 1
 )
 UPDATE parcels_public_shapefile SET repeating = TRUE
-FROM geom_counts2 
+FROM geom_counts2
 WHERE ids @> ARRAY[gid];
 
 -- identify parcels with multiple buildings
 UPDATE parcels_public_shapefile SET building_count = NULL WHERE building_count IS NOT NULL;
 WITH bcounts AS (
-	SELECT 
+	SELECT
 		p.gid, COUNT(*)
 	FROM buildings AS b JOIN parcels_public_shapefile AS p ON
 		ST_Intersects(b.loc_geom,p.loc_geom) AND 
@@ -541,8 +543,9 @@ FROM bcounts WHERE bcounts.gid = parcels_public_shapefile.gid;
 UPDATE buildings SET "addr:housenumber" = NULL, "addr:street" = NULL, "addr:unit" = NULL, "addr:city" = NULL, "addr:state" = NULL;
 -- add addresses to buildings with simple 1:1 matches to parcels
 WITH a AS (
-	SELECT 
+	SELECT
 		b.gid,
+		p.gid as p_gid,
 		p."addr:housenumber",
 		p."addr:street",
 		p."addr:unit",
@@ -554,13 +557,15 @@ WITH a AS (
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
 	WHERE p.building_count = 1 AND NOT p.repeating
 )
-UPDATE buildings SET 
+UPDATE buildings SET
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
 	"addr:unit" = a."addr:unit",
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
+	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
+	"parcel_gid" = a.p_gid,
+	"parcel_gid_step" = 'step1'
 FROM a WHERE buildings.gid = a.gid;
 
 --SELECT COUNT(*) FROM buildings WHERE "addr:housenumber" IS NOT NULL OR "addr:street" IS NOT NULL;
@@ -589,23 +594,32 @@ FROM sizes WHERE sizes.bid = buildings.gid;
 
 -- now assign addresses to main buildings on parcels with outbuildings
 WITH a AS (
-	SELECT 
-		b.gid, p."addr:housenumber", p."addr:street", p."addr:unit", p."addr:city", p."addr:state", p.usecode
+	SELECT
+		b.gid,
+		p.gid as p_gid,
+		p."addr:housenumber",
+		p."addr:street",
+		p."addr:unit",
+		p."addr:city",
+		p."addr:state",
+		p.usecode
 	FROM buildings AS b JOIN parcels_public_shapefile AS p ON
-		ST_Intersects(b.loc_geom,p.loc_geom) AND 
+		ST_Intersects(b.loc_geom,p.loc_geom) AND
 		ST_Area(ST_Intersection(b.loc_geom,p.loc_geom)) > 0.9*ST_Area(b.loc_geom)
-	WHERE 
+	WHERE
 		p.building_count IN (2,3)
-		AND NOT p.repeating 
+		AND NOT p.repeating
 		AND b.main -- is main building
 )
-UPDATE buildings SET 
+UPDATE buildings SET
 	"addr:housenumber" = a."addr:housenumber",
 	"addr:street" = a."addr:street",
 	"addr:unit" = a."addr:unit",
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
+	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
+	"parcel_gid" = a.p_gid,
+	"parcel_gid_step" = 'step2'
 FROM a WHERE buildings.gid = a.gid;
 
 
@@ -635,7 +649,8 @@ FROM a WHERE buildings.gid = a.gid;
 -- probably the 0.9 needs to be changed as multiple parcels can't really occupy >90% of a bldg area
 WITH addresses AS (
 	SELECT 
-		p.gid,
+		b.gid,
+		p.gid as p_gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
@@ -649,7 +664,7 @@ WITH addresses AS (
 		p.building_count = 1 AND 
 		p.repeating AND
 		b."addr:housenumber" IS NULL
-	GROUP BY p.gid
+	GROUP BY b.gid
 )
 UPDATE buildings AS b SET
 	"addr:housenumber" = a.housenumber,
@@ -657,7 +672,9 @@ UPDATE buildings AS b SET
 	"addr:unit" = a.unit,
 	"addr:city" = a.city,
 	"addr:state" = a.state,
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
+	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
+	"parcel_gid" = a.p_gid,
+	"parcel_gid_step" = 'step3'
 FROM addresses AS a
 WHERE a.gid = b.gid;
 
@@ -667,7 +684,8 @@ WHERE a.gid = b.gid;
 -- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
 WITH addresses AS (
 	SELECT
-		p.gid,
+		b.gid,
+		p.gid as p_gid,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
@@ -684,7 +702,7 @@ WITH addresses AS (
 		NOT p.repeating AND
 		p."addr:housenumber" IS NOT NULL AND
 		b.shape__are > 1000 -- assuming sqft
-	GROUP BY p.gid
+	GROUP BY b.gid
 )
 UPDATE buildings AS b SET
 	"addr:housenumber" = a.housenumber,
@@ -692,7 +710,9 @@ UPDATE buildings AS b SET
 	"addr:unit" = a.unit,
 	"addr:city" = a.city,
 	"addr:state" = a.state,
-	"usecode" = CAST( a.usecode as INTEGER ) -- the original data is VARYING
+	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
+	"parcel_gid" = a.p_gid,
+	"parcel_gid_step" = 'step4'
 FROM addresses AS a
 WHERE
 	a.count = 1 AND -- only simple cases, no duplicate address tags!
