@@ -11,7 +11,7 @@ ALTER TABLE buildings
 	ADD COLUMN IF NOT EXISTS "addr:state" text,
 	ADD COLUMN IF NOT EXISTS usecode integer,
 	ADD COLUMN IF NOT EXISTS cid integer,
-	ADD COLUMN IF NOT EXISTS parcel_gid integer,
+	ADD COLUMN IF NOT EXISTS parcel_gids text,
 	ADD COLUMN IF NOT EXISTS parcel_gid_step text,
 	ADD COLUMN IF NOT EXISTS loc_geom geometry(multipolygon,4326), -- local is the same in this case, except made valid
 	ADD COLUMN IF NOT EXISTS conflated boolean DEFAULT FALSE,
@@ -564,7 +564,7 @@ UPDATE buildings SET
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
 	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
-	"parcel_gid" = a.p_gid,
+	"parcel_gids" = CAST( a.p_gid as TEXT ),
 	"parcel_gid_step" = 'step1'
 FROM a WHERE buildings.gid = a.gid;
 
@@ -618,7 +618,7 @@ UPDATE buildings SET
 	"addr:city" = a."addr:city",
 	"addr:state" = a."addr:state",
 	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
-	"parcel_gid" = a.p_gid,
+	"parcel_gids" = CAST( a.p_gid as TEXT ),
 	"parcel_gid_step" = 'step2'
 FROM a WHERE buildings.gid = a.gid;
 
@@ -647,10 +647,11 @@ FROM a WHERE buildings.gid = a.gid;
 -- try to assign multiple addresses from multiple parcels to single buildings
 -- however i think this just detected a single case of duplicated GIDs in the database
 -- probably the 0.9 needs to be changed as multiple parcels can't really occupy >90% of a bldg area
+/*
 WITH addresses AS (
 	SELECT 
 		b.gid,
-		p.gid as p_gid,
+		array_to_string( ARRAY_AGG(DISTINCT p.gid), ';') AS p_gids,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
@@ -673,11 +674,11 @@ UPDATE buildings AS b SET
 	"addr:city" = a.city,
 	"addr:state" = a.state,
 	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
-	"parcel_gid" = a.p_gid,
+	"parcel_gids" = a.p_gids,
 	"parcel_gid_step" = 'step3'
 FROM addresses AS a
 WHERE a.gid = b.gid;
-
+*/
 --select * from buildings where "addr:housenumber" LIKE '%;%' OR "addr:street" LIKE '%;%';
 -- result: 0, may not be working TODO
 
@@ -685,7 +686,7 @@ WHERE a.gid = b.gid;
 WITH addresses AS (
 	SELECT
 		b.gid,
-		p.gid as p_gid,
+		array_to_string( ARRAY_AGG(DISTINCT p.gid), ';') AS p_gids,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:housenumber"), ';') AS housenumber,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:street"), ';') AS street,
 		array_to_string( ARRAY_AGG(DISTINCT p."addr:unit"), ';') AS unit,
@@ -711,7 +712,7 @@ UPDATE buildings AS b SET
 	"addr:city" = a.city,
 	"addr:state" = a.state,
 	"usecode" = CAST( a.usecode as INTEGER ), -- the original data is VARYING
-	"parcel_gid" = a.p_gid,
+	"parcel_gids" = a.p_gids,
 	"parcel_gid_step" = 'step4'
 FROM addresses AS a
 WHERE
