@@ -683,7 +683,7 @@ WHERE a.gid = b.gid;
 -- result: 0, may not be working TODO
 
 -- try to identify addresses for buildings across multiple parcels: must be >50% on that parcel
-WITH addresses AS (
+/*WITH addresses AS (
 	SELECT
 		b.gid,
 		array_to_string( ARRAY_AGG(DISTINCT p.gid), ';') AS p_gids,
@@ -717,7 +717,7 @@ UPDATE buildings AS b SET
 FROM addresses AS a
 WHERE
 	a.count = 1 AND -- only simple cases, no duplicate address tags!
-	a.gid = b.gid;
+	a.gid = b.gid;*/
 -- TODO: here is where the second 226 is erroneously added
 -- the 0.9 slice of area is pretty liberal, we probably want closer to half?
 
