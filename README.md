@@ -43,6 +43,11 @@ cd original_data
 wget https://opendata.arcgis.com/datasets/2202c1cd6708441f987ca5552f2d9659_0.zip
 unzip 2202c1cd6708441f987ca5552f2d9659_0.zip
 rm 2202c1cd6708441f987ca5552f2d9659_0.zip
+mv CDR_PARCEL_PUB_SHP_vw.dbf Parcels_Public_Shapefile.dbf
+mv CDR_PARCEL_PUB_SHP_vw.shp Parcels_Public_Shapefile.shp
+mv CDR_PARCEL_PUB_SHP_vw.shx Parcels_Public_Shapefile.shx
+mv CDR_PARCEL_PUB_SHP_vw.cpg Parcels_Public_Shapefile.cpg
+mv CDR_PARCEL_PUB_SHP_vw.prj Parcels_Public_Shapefile.prj
 
 wget https://opendata.arcgis.com/datasets/0f5982c3582d4de0b811e68d7f0bff8f_0.zip
 unzip 0f5982c3582d4de0b811e68d7f0bff8f_0.zip
@@ -79,6 +84,9 @@ Debian (shp2pgsql is included in postgis)
 ```
 cd original_data
 
+psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -c "drop table if exists Parcels_Public_Shapefile"
+psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -c "drop table if exists Buildings"
+psql -d openstreetmap -U openstreetmap -W -h localhost -p 5432 -c "drop table if exists son_polygon; drop table if exists son_line; drop table if exists son_nodes; drop table if exists son_point; drop table if exists son_rels; drop table if exists son_roads; drop table if exists son_ways"
 shp2pgsql -s 4326 -I Parcels_Public_Shapefile.shp | psql -d openstreetmap -U openstreetmap -W
 shp2pgsql -s 4326 -I Buildings.shp | psql -d openstreetmap -U openstreetmap -W
 osm2pgsql -d openstreetmap -c --prefix son --slim --extra-attributes --hstore --latlong norcal-latest.osm.pbf -U openstreetmap -W -H localhost -P 5432
@@ -89,11 +97,11 @@ shp2pgsql should create tables like `parcels_public_shapefile` and `buildings`.
 osm2pgsql should create tables like `son_polygon`.
 ogr2ogr should create a table `santa_rosa_boundary`.
 
-Now all the data is in Postgres. For processing and conflation, read through and execute `conflation.sql` as per your comfort level.
+Now all the data is in Postgres. For processing and conflation, read through `conflation.sql` before we begin.
 
 ## Exporting and uploading
 
-Run `./trial.sh` which should handle conflation and tasking, with output in the `raw/main/out` folder.
+Run `./trial.sh` which should will run `conflation.sql` and split the results up for tasking, with output in the `raw/main/out` folder.
 
 ## Import and validation
 
@@ -104,26 +112,26 @@ Please ensure you are logged in under a dedicated import account with a user nam
 - Open JOSM and enable remote control.
 - Click "Start Editor" to load the overall task area in JOSM. (You can use iD to validate a task, but *do not* use it to complete a task. Ask a project coordinator if you need help with JOSM.)
 - Click the Tasking Manager link under "Specific Task Information" to load the import task’s data, which contains imported buildings from Sonoma County.
-- Enable your aerial imagery of choice in JOSM, and offset it ("Imagery"→"New offset") to match the Sonoma County data.
+- Enable your aerial imagery of choice in JOSM, and offset it ("Imagery"→"New offset") to match the Sonoma County data. Bing and Esri seem to have the best imagery locally.
 - Spot-check the added building ways’ geometries:
   - If the actual building has been demolished, delete the way, or replace the building=* tag with a demolished:building=* tag to prevent it from being recreated based on outdated imagery.
-  - If the actual building has a new addition, and neither the CAGIS data nor OSM include that addition, extend the way to include the new addition.
-  - Do not draw your own buildings from scratch as part of this project. If a building within your task area is visible in aerial imagery but isn’t in either the CAGIS data or OSM, you don’t have to add the building right now, because we plan to conflate with a newer CAGIS dataset in a later phase of the import.
-  - If many buildings are missing, such as in a newly built subdivision, add a note so we can revisit it later.
+  - If the actual building has a new addition, and neither the Sonoma County data nor OSM include that addition, extend the way to include the new addition.
+  - Please avoid drawing your own buildings, roads, or other features from scratch as part of this project. If a building within your task area is visible in aerial imagery but isn’t in either the Sonoma County data or OSM, make a reminder for yourself to add it later under your own username or at least under a separate changeset.
+  - If many buildings are missing, such as in a newly built subdivision, or completely incorrect, end the task and add a note so we can revisit it.
 - Spot-check the added ways’ addresses:
-  - If the street name in the address doesn’t match the name of a nearby roadway, note the street name in the task comments (not the changeset comments) for further review.
-- Run the JOSM validator. Ignore any warnings about landuse areas. Focus on the following warnings and errors that may be related to the buildings you have added:
+  - If the street name in the address doesn't match the name of a nearby roadway, note the street name in the task comments (not the changeset comments) for further review.
+- Run the JOSM validator. Ignore any warnings that don't involve buildings or addresses. Focus on the following warnings and errors that may be related to the buildings you have added:
   - Crossing buildings
   - Self-intersecting ways
   - Building inside building
   - Duplicate housenumber
   - Housenumber without street
-- TODO: Merge the imported buildings layer into the OSM Data layer by right-clicking on the layer.
-- TODO: Run the JOSM validator again.
-- TODO: Resolve duplicate buildings/addresses with utilsplugin2 and the Replace Geometry command, OR the conflate plugin.
+- Merge the imported buildings layer into the OSM Data layer by right-clicking on the layer.
+- Run the JOSM validator again.
+- There should be no significant duplicated/overlapping buildings with this import, but if there are, it's possible to use utilsplugin2 and the Replace Geometry command, OR the conflate plugin to resolve.
   - To use the utilsplugin, select the worse building, hold shift, and select the better building. Then press ctrl+shift+G or More Tools > Replace Geometry.
   - To use the conflate plugin, Configure it, select Reference (imported) geometry by going to Edit > Search and searching for all `building=* type:way new` data. Click Reference: Freeze. Then, select Subject (original) geometry by going to Edit > Search and searching for all `building=* type:way -new` geometry. Click Subject: Freeze. Finally, you probably want to use Simple, Disambiguiating, Standard < 2, Replace Geometry, Merge Tags.
-- TODO: Run the JOSM validator again until all the building-related changes seem fine. Don't bother yourself with issues unrelated to the building/address import.
+- Run the JOSM validator again until all the building-related changes seem fine. Don't bother yourself with issues unrelated to the building/address import. You can be sure if something is your problem or not by enabling the Authors window and selecting the building: if it says `<new object>` it's yours, otherwise it's preexisting.
 - Upload the data with the following information:
   - Comment: `Imported addresses and building footprints from Sonoma County #sonomaimport`
   - Source: `Sonoma County`
@@ -135,22 +143,6 @@ Please ensure you are logged in under a dedicated import account with a user nam
 - TODO:
   - Ensure `source=Sonoma County` is on each changeset
   - Open OSM files in JOSM and run the validator on them
-    - Healdsburg (1044)
-      - 97 Kennedy Lane parcel address parsing for units
-      - 15 Healdsburg Ave dupe
-      - 129 Powell Ave dupe
-      - 512 Tucker St dupe
-    - Why no city name?
-    - Duplicate addresses:
-    - 226 5th Street, Petaluma (southerly should be 6th)
-    - 309, 709, 711, 900, 942 5th Street
-    - 425 B Street
-    - 117 East Court
-    - 323 Edith St
-    - 501 Mountain View Ave
-    - 335 Palmer St
-    - 710 Petaluma Blvd S
-    - 221, 337 Wilson St
   - Remove "0" housenumbers
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
