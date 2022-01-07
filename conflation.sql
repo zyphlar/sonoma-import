@@ -501,8 +501,11 @@ update parcels_public_shapefile SET "addr:street" = REGEXP_REPLACE("addr:street"
 update parcels_public_shapefile SET "addr:street" = 'Stewarts Point-Skaggs Springs Road' where situsfmt1 LIKE '%STEWART%SKAGG%';
 
 -- FYI this dataset has "Blank Road" but that is an actual real road
--- TODO: consider "0" housenumbers
 
+-- "0" housenumbers are not allowed
+update parcels_public_shapefile SET "addr:housenumber" = NULL where "addr:housenumber" '0';
+
+-- TODO:
 -- 900 TRANSPORT WAY #A&B
 -- 21075 RIVER BLVD #1 & 2
 -- 34 A&B RANDALL LN
