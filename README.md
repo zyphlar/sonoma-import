@@ -105,9 +105,11 @@ Run `./trial.sh` which should will run `conflation.sql` and split the results up
 
 ## Import and validation
 
-TODO: OSM Tasking Manager - https://tasks.openstreetmap.us/
+First, go to https://tasks.openstreetmap.us/projects/289/ and click Contribute.
 
-Please ensure you are logged in under a dedicated import account with a user name ending in `_sonomaimport`. If you haven’t contributed to a building import project before, please choose a task in one of the more sparsely populated parts of the county.
+Please double check which user you are logged into JOSM with. Ensure you are logged in under a dedicated import account so that it's easy for OSM volunteers to separate your normal edits from mass edits: a name like "jsmith_import" is good and obvious. You can do this by going to Edit > Preferences > OSM Server > Test Access Token.
+
+If you haven’t contributed to a building import project before, please choose a task in one of the more sparsely populated parts of the county.
 
 - Open JOSM and enable remote control.
 - Click "Start Editor" to load the overall task area in JOSM. (You can use iD to validate a task, but *do not* use it to complete a task. Ask a project coordinator if you need help with JOSM.)
@@ -139,11 +141,6 @@ Please ensure you are logged in under a dedicated import account with a user nam
 
 
 ### Internal Notes
-
-- TODO:
-  - Ensure `source=Sonoma County` is on each changeset
-  - Open OSM files in JOSM and run the validator on them
-  - Remove "0" housenumbers
 
 - http://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
