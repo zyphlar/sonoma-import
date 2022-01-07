@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <osm version="0.6" generator="uvmogr2osm" upload="false">
-<node id="-2" lat="38.347462167" lon="-122.69589863600001" visible="true"/>
-<node id="-3" lat="38.347443154000004" lon="-122.695817648" visible="true"/>
-<node id="-4" lat="38.347332466000005" lon="-122.69585954600001" visible="true"/>
-<node id="-5" lat="38.347351894" lon="-122.69594230400001" visible="true"/>
+<node id="-2" lat="38.346252833" lon="-122.69736539600001" visible="true"/>
+<node id="-3" lat="38.346558233" lon="-122.697550617" visible="true"/>
+<node id="-4" lat="38.346629747" lon="-122.69736046800001" visible="true"/>
+<node id="-5" lat="38.346324371" lon="-122.69717527700001" visible="true"/>
 <node id="-7" lat="38.346067761" lon="-122.69747052100001" visible="true"/>
 <node id="-8" lat="38.346150159000004" lon="-122.69752048800001" visible="true"/>
 <node id="-9" lat="38.346179834000004" lon="-122.697441569" visible="true"/>
@@ -12,10 +12,10 @@
 <node id="-13" lat="38.347159248000004" lon="-122.69575233" visible="true"/>
 <node id="-14" lat="38.347046269" lon="-122.69576556800001" visible="true"/>
 <node id="-15" lat="38.347051948" lon="-122.69584512200001" visible="true"/>
-<node id="-17" lat="38.346252833" lon="-122.69736539600001" visible="true"/>
-<node id="-18" lat="38.346558233" lon="-122.697550617" visible="true"/>
-<node id="-19" lat="38.346629747" lon="-122.69736046800001" visible="true"/>
-<node id="-20" lat="38.346324371" lon="-122.69717527700001" visible="true"/>
+<node id="-17" lat="38.347462167" lon="-122.69589863600001" visible="true"/>
+<node id="-18" lat="38.347443154000004" lon="-122.695817648" visible="true"/>
+<node id="-19" lat="38.347332466000005" lon="-122.69585954600001" visible="true"/>
+<node id="-20" lat="38.347351894" lon="-122.69594230400001" visible="true"/>
 <way id="-1" visible="true"><nd ref="-2"/><nd ref="-3"/><nd ref="-4"/><nd ref="-5"/><nd ref="-2"/><tag k="building" v="yes"/></way>
 <way id="-6" visible="true"><nd ref="-7"/><nd ref="-8"/><nd ref="-9"/><nd ref="-10"/><nd ref="-7"/><tag k="building" v="yes"/></way>
 <way id="-11" visible="true"><nd ref="-12"/><nd ref="-13"/><nd ref="-14"/><nd ref="-15"/><nd ref="-12"/><tag k="building" v="yes"/></way>

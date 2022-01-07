@@ -503,7 +503,7 @@ update parcels_public_shapefile SET "addr:street" = 'Stewarts Point-Skaggs Sprin
 -- FYI this dataset has "Blank Road" but that is an actual real road
 
 -- "0" housenumbers are not allowed
-update parcels_public_shapefile SET "addr:housenumber" = NULL where "addr:housenumber" '0';
+update parcels_public_shapefile SET "addr:housenumber" = NULL where "addr:housenumber" = '0';
 
 -- TODO:
 -- 900 TRANSPORT WAY #A&B

@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <osm version="0.6" generator="uvmogr2osm" upload="false">
-<node id="-2" lat="38.361165033" lon="-122.69285898400001" visible="true"/>
-<node id="-3" lat="38.361454542000004" lon="-122.693069936" visible="true"/>
-<node id="-4" lat="38.361545854" lon="-122.692862672" visible="true"/>
-<node id="-5" lat="38.361736486000005" lon="-122.69243287200001" visible="true"/>
-<node id="-6" lat="38.361757180000005" lon="-122.69245443300001" visible="true"/>
-<node id="-7" lat="38.361846252" lon="-122.69233058600001" visible="true"/>
-<node id="-8" lat="38.361714837" lon="-122.69217362200001" visible="true"/>
-<node id="-9" lat="38.361741896000005" lon="-122.69213746800001" visible="true"/>
-<node id="-10" lat="38.361874708" lon="-122.69229026000001" visible="true"/>
-<node id="-11" lat="38.361985915000005" lon="-122.69213465600001" visible="true"/>
-<node id="-12" lat="38.361760968000006" lon="-122.691868529" visible="true"/>
-<node id="-13" lat="38.361547871" lon="-122.69216416" visible="true"/>
-<node id="-14" lat="38.36153146" lon="-122.69214569200001" visible="true"/>
-<node id="-15" lat="38.361489850000005" lon="-122.692204317" visible="true"/>
-<node id="-16" lat="38.361399469000006" lon="-122.69214209" visible="true"/>
-<node id="-17" lat="38.361276845" lon="-122.69241973300001" visible="true"/>
-<node id="-18" lat="38.361219209000005" lon="-122.692380435" visible="true"/>
-<node id="-19" lat="38.36118666" lon="-122.692450569" visible="true"/>
-<node id="-20" lat="38.361246028000004" lon="-122.692490988" visible="true"/>
-<node id="-21" lat="38.361101532" lon="-122.69281340900001" visible="true"/>
-<node id="-23" lat="38.362400451" lon="-122.69335061900001" visible="true"/>
-<node id="-24" lat="38.362214196000004" lon="-122.69320231300001" visible="true"/>
-<node id="-25" lat="38.362097580000004" lon="-122.693438563" visible="true"/>
-<node id="-26" lat="38.362282909" lon="-122.69358613000001" visible="true"/>
-<way id="-1" visible="true"><nd ref="-2"/><nd ref="-3"/><nd ref="-4"/><nd ref="-5"/><nd ref="-6"/><nd ref="-7"/><nd ref="-8"/><nd ref="-9"/><nd ref="-10"/><nd ref="-11"/><nd ref="-12"/><nd ref="-13"/><nd ref="-14"/><nd ref="-15"/><nd ref="-16"/><nd ref="-17"/><nd ref="-18"/><nd ref="-19"/><nd ref="-20"/><nd ref="-21"/><nd ref="-2"/><tag k="building" v="yes"/></way>
-<way id="-22" visible="true"><nd ref="-23"/><nd ref="-24"/><nd ref="-25"/><nd ref="-26"/><nd ref="-23"/><tag k="building" v="retail"/><tag k="addr:state" v="CA"/><tag k="addr:city" v="Rohnert Park"/><tag k="addr:street" v="Golf Course Drive"/><tag k="addr:housenumber" v="967"/></way>
+<node id="-2" lat="38.362400451" lon="-122.69335061900001" visible="true"/>
+<node id="-3" lat="38.362214196000004" lon="-122.69320231300001" visible="true"/>
+<node id="-4" lat="38.362097580000004" lon="-122.693438563" visible="true"/>
+<node id="-5" lat="38.362282909" lon="-122.69358613000001" visible="true"/>
+<node id="-7" lat="38.361165033" lon="-122.69285898400001" visible="true"/>
+<node id="-8" lat="38.361454542000004" lon="-122.693069936" visible="true"/>
+<node id="-9" lat="38.361545854" lon="-122.692862672" visible="true"/>
+<node id="-10" lat="38.361736486000005" lon="-122.69243287200001" visible="true"/>
+<node id="-11" lat="38.361757180000005" lon="-122.69245443300001" visible="true"/>
+<node id="-12" lat="38.361846252" lon="-122.69233058600001" visible="true"/>
+<node id="-13" lat="38.361714837" lon="-122.69217362200001" visible="true"/>
+<node id="-14" lat="38.361741896000005" lon="-122.69213746800001" visible="true"/>
+<node id="-15" lat="38.361874708" lon="-122.69229026000001" visible="true"/>
+<node id="-16" lat="38.361985915000005" lon="-122.69213465600001" visible="true"/>
+<node id="-17" lat="38.361760968000006" lon="-122.691868529" visible="true"/>
+<node id="-18" lat="38.361547871" lon="-122.69216416" visible="true"/>
+<node id="-19" lat="38.36153146" lon="-122.69214569200001" visible="true"/>
+<node id="-20" lat="38.361489850000005" lon="-122.692204317" visible="true"/>
+<node id="-21" lat="38.361399469000006" lon="-122.69214209" visible="true"/>
+<node id="-22" lat="38.361276845" lon="-122.69241973300001" visible="true"/>
+<node id="-23" lat="38.361219209000005" lon="-122.692380435" visible="true"/>
+<node id="-24" lat="38.36118666" lon="-122.692450569" visible="true"/>
+<node id="-25" lat="38.361246028000004" lon="-122.692490988" visible="true"/>
+<node id="-26" lat="38.361101532" lon="-122.69281340900001" visible="true"/>
+<way id="-1" visible="true"><nd ref="-2"/><nd ref="-3"/><nd ref="-4"/><nd ref="-5"/><nd ref="-2"/><tag k="building" v="retail"/><tag k="addr:state" v="CA"/><tag k="addr:city" v="Rohnert Park"/><tag k="addr:street" v="Golf Course Drive"/><tag k="addr:housenumber" v="967"/></way>
+<way id="-6" visible="true"><nd ref="-7"/><nd ref="-8"/><nd ref="-9"/><nd ref="-10"/><nd ref="-11"/><nd ref="-12"/><nd ref="-13"/><nd ref="-14"/><nd ref="-15"/><nd ref="-16"/><nd ref="-17"/><nd ref="-18"/><nd ref="-19"/><nd ref="-20"/><nd ref="-21"/><nd ref="-22"/><nd ref="-23"/><nd ref="-24"/><nd ref="-25"/><nd ref="-26"/><nd ref="-7"/><tag k="building" v="yes"/></way>
 </osm>
