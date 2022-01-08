@@ -4,9 +4,50 @@ Based on https://github.com/Nate-Wessel/hamilton-import
 
 Please see https://wiki.openstreetmap.org/wiki/Sonoma_County_Building_and_Address_Import for the official project page.
 
+Join [OSMUS Slack](https://slack.openstreetmap.us/) #sonoma-import channel for questions/comments.
+
 ## Project Status
 
-Sample OSM files are now available for review at https://github.com/zyphlar/sonoma-import/tree/main/out/clean
+Sample OSM files are available for review at https://github.com/zyphlar/sonoma-import/tree/latest_data/out/clean
+
+Import work has begun at https://tasks.openstreetmap.us/projects/289/
+
+## Import and validation
+
+First, go to https://tasks.openstreetmap.us/projects/289/ and click Contribute.
+
+Please double check which user you are logged into JOSM with. Ensure you are logged in under a dedicated import account so that it's easy for OSM volunteers to separate your normal edits from mass edits: a name like "jsmith_import" is good and obvious. You can do this by going to Edit > Preferences > OSM Server > Test Access Token.
+
+If you haven’t contributed to a building import project before, please choose a task in one of the more sparsely populated parts of the county.
+
+- Open JOSM and enable remote control.
+- Click "Start Editor" to load the overall task area in JOSM. (You can use iD to validate a task, but *do not* use it to complete a task. Ask a project coordinator if you need help with JOSM.)
+- Click the Tasking Manager link under "Specific Task Information" to load the import task’s data, which contains imported buildings from Sonoma County.
+- Enable your aerial imagery of choice in JOSM, and offset it ("Imagery"→"New offset") to match the Sonoma County data. Bing and Esri seem to have the best imagery locally.
+- Spot-check the added building ways’ geometries:
+  - If the actual building has been demolished, delete the way, or replace the building=* tag with a demolished:building=* tag to prevent it from being recreated based on outdated imagery.
+  - If the actual building has a new addition, and neither the Sonoma County data nor OSM include that addition, extend the way to include the new addition.
+  - Please avoid drawing your own buildings, roads, or other features from scratch as part of this project. If a building within your task area is visible in aerial imagery but isn’t in either the Sonoma County data or OSM, make a reminder for yourself to add it later under your own username or at least under a separate changeset.
+  - If many buildings are missing, such as in a newly built subdivision, or completely incorrect, end the task and add a note so we can revisit it.
+- Spot-check the added ways’ addresses:
+  - If the street name in the address doesn't match the name of a nearby roadway, note the street name in the task comments (not the changeset comments) for further review.
+- Run the JOSM validator. Ignore any warnings that don't involve buildings or addresses. Focus on the following warnings and errors that may be related to the buildings you have added:
+  - Crossing buildings
+  - Self-intersecting ways
+  - Building inside building
+  - Duplicate housenumber
+  - Housenumber without street
+- Merge the imported buildings layer into the OSM Data layer by right-clicking on the layer.
+- Run the JOSM validator again.
+- There should be no significant duplicated/overlapping buildings with this import, but if there are, it's possible to use utilsplugin2 and the Replace Geometry command, OR the conflate plugin to resolve.
+  - To use the utilsplugin, select the worse building, hold shift, and select the better building. Then press ctrl+shift+G or More Tools > Replace Geometry.
+  - To use the conflate plugin, Configure it, select Reference (imported) geometry by going to Edit > Search and searching for all `building=* type:way new` data. Click Reference: Freeze. Then, select Subject (original) geometry by going to Edit > Search and searching for all `building=* type:way -new` geometry. Click Subject: Freeze. Finally, you probably want to use Simple, Disambiguiating, Standard < 2, Replace Geometry, Merge Tags.
+- Run the JOSM validator again until all the building-related changes seem fine. Don't bother yourself with issues unrelated to the building/address import. You can be sure if something is your problem or not by enabling the Authors window and selecting the building: if it says `<new object>` it's yours, otherwise it's preexisting.
+- Upload the data with the following information:
+  - Comment: `Imported addresses and building footprints from Sonoma County #sonomaimport`
+  - Source: `Sonoma County`
+- Mark the task as complete.
+
 
 ### Screenshots
 
@@ -102,43 +143,6 @@ Now all the data is in Postgres. For processing and conflation, read through `co
 ## Exporting and uploading
 
 Run `./trial.sh` which should will run `conflation.sql` and split the results up for tasking, with output in the `raw/main/out` folder.
-
-## Import and validation
-
-First, go to https://tasks.openstreetmap.us/projects/289/ and click Contribute.
-
-Please double check which user you are logged into JOSM with. Ensure you are logged in under a dedicated import account so that it's easy for OSM volunteers to separate your normal edits from mass edits: a name like "jsmith_import" is good and obvious. You can do this by going to Edit > Preferences > OSM Server > Test Access Token.
-
-If you haven’t contributed to a building import project before, please choose a task in one of the more sparsely populated parts of the county.
-
-- Open JOSM and enable remote control.
-- Click "Start Editor" to load the overall task area in JOSM. (You can use iD to validate a task, but *do not* use it to complete a task. Ask a project coordinator if you need help with JOSM.)
-- Click the Tasking Manager link under "Specific Task Information" to load the import task’s data, which contains imported buildings from Sonoma County.
-- Enable your aerial imagery of choice in JOSM, and offset it ("Imagery"→"New offset") to match the Sonoma County data. Bing and Esri seem to have the best imagery locally.
-- Spot-check the added building ways’ geometries:
-  - If the actual building has been demolished, delete the way, or replace the building=* tag with a demolished:building=* tag to prevent it from being recreated based on outdated imagery.
-  - If the actual building has a new addition, and neither the Sonoma County data nor OSM include that addition, extend the way to include the new addition.
-  - Please avoid drawing your own buildings, roads, or other features from scratch as part of this project. If a building within your task area is visible in aerial imagery but isn’t in either the Sonoma County data or OSM, make a reminder for yourself to add it later under your own username or at least under a separate changeset.
-  - If many buildings are missing, such as in a newly built subdivision, or completely incorrect, end the task and add a note so we can revisit it.
-- Spot-check the added ways’ addresses:
-  - If the street name in the address doesn't match the name of a nearby roadway, note the street name in the task comments (not the changeset comments) for further review.
-- Run the JOSM validator. Ignore any warnings that don't involve buildings or addresses. Focus on the following warnings and errors that may be related to the buildings you have added:
-  - Crossing buildings
-  - Self-intersecting ways
-  - Building inside building
-  - Duplicate housenumber
-  - Housenumber without street
-- Merge the imported buildings layer into the OSM Data layer by right-clicking on the layer.
-- Run the JOSM validator again.
-- There should be no significant duplicated/overlapping buildings with this import, but if there are, it's possible to use utilsplugin2 and the Replace Geometry command, OR the conflate plugin to resolve.
-  - To use the utilsplugin, select the worse building, hold shift, and select the better building. Then press ctrl+shift+G or More Tools > Replace Geometry.
-  - To use the conflate plugin, Configure it, select Reference (imported) geometry by going to Edit > Search and searching for all `building=* type:way new` data. Click Reference: Freeze. Then, select Subject (original) geometry by going to Edit > Search and searching for all `building=* type:way -new` geometry. Click Subject: Freeze. Finally, you probably want to use Simple, Disambiguiating, Standard < 2, Replace Geometry, Merge Tags.
-- Run the JOSM validator again until all the building-related changes seem fine. Don't bother yourself with issues unrelated to the building/address import. You can be sure if something is your problem or not by enabling the Authors window and selecting the building: if it says `<new object>` it's yours, otherwise it's preexisting.
-- Upload the data with the following information:
-  - Comment: `Imported addresses and building footprints from Sonoma County #sonomaimport`
-  - Source: `Sonoma County`
-- Mark the task as complete.
-
 
 ### Internal Notes
 
