@@ -10,7 +10,11 @@ Join [OSMUS Slack](https://slack.openstreetmap.us/) #sonoma-import channel for q
 
 Sample OSM files are available for review at https://github.com/zyphlar/sonoma-import/tree/latest_data/out/clean
 
-Import work has begun at https://tasks.openstreetmap.us/projects/289/
+Import and validation work of the Clean buildings has finished ( https://tasks.openstreetmap.us/projects/289/ )
+
+Import of Intersecting buildings is pending review of how or if we want to conflate them.
+
+We could also try to import missing addresses (i.e. parcels with many buildings where we didn't assign an address) as POIs
 
 ## Import and validation
 
@@ -50,8 +54,6 @@ If you haven’t contributed to a building import project before, please choose 
 
 
 ### Screenshots
-
-Here is the project status as of April 27 2021.
 
 - 80,341 new buildings would be inserted with addresses (green) (non-conflated, with addresses)
   - This generally excludes the city of Santa Rosa as those addresses were previously imported as POIs with better accuracy and can be conflated at a later date
